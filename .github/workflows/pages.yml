@@ -1,13 +1,12 @@
 name: Deploy GitHub Pages
 
 on:
-  workflow_run:
-    workflows: ["pages build and deployment"]
-    types: [completed]
+  push:
     branches: [main]
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -31,6 +30,26 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - name: Wait for legacy Pages deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PYTHON'
+          import json, os, time, urllib.request
+          url = 'https://api.github.com/repos/' + os.environ['GH_REPO'] + '/actions/runs?head_sha=' + os.environ['GH_SHA']
+          for attempt in range(60):
+              request = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'})
+              with urllib.request.urlopen(request) as response:
+                  runs = json.load(response)['workflow_runs']
+              legacy = [run for run in runs if run['name'] == 'pages build and deployment']
+              if legacy and all(run['status'] == 'completed' for run in legacy):
+                  break
+              time.sleep(10)
+          else:
+              raise SystemExit('Legacy Pages deployment did not finish; refusing a competing publish')
+          PYTHON
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
