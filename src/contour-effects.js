@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import {FullScreenQuad} from 'three/addons/postprocessing/Pass.js';
-const vertex=`varying vec3 location;varying vec3 profile;varying vec3 surfaceNormal;attribute vec3 rimProfile;
-void main(){vec4 world=modelMatrix*vec4(position,1.);location=world.xyz*100.;profile=rimProfile;surfaceNormal=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*world;}`;
+const vertex=`varying vec3 location;varying vec3 profile;varying vec3 surfaceNormal;attribute vec3 rimProfile;attribute float surfaceRole;varying float materialRole;
+void main(){vec4 world=modelMatrix*vec4(position,1.);materialRole=surfaceRole;location=world.xyz*100.;profile=rimProfile;surfaceNormal=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*world;}`;
 const uniforms={role:{value:0},pass:{value:0}};
-const maskMaterial=new THREE.ShaderMaterial({uniforms,vertexShader:vertex,fragmentShader:`varying vec3 location;varying vec3 profile;varying vec3 surfaceNormal;uniform float role;uniform int pass;
-void main(){if(pass==0)gl_FragColor=vec4(location,role);else if(pass==1)gl_FragColor=vec4(profile,surfaceNormal.z);else gl_FragColor=vec4(location.z,1.,0.,1.);}`,side:THREE.DoubleSide,blending:THREE.NoBlending,toneMapped:false});
-maskMaterial.defaultAttributeValues.rimProfile=[1,0,0];
+const maskMaterial=new THREE.ShaderMaterial({uniforms,vertexShader:vertex,fragmentShader:`varying vec3 location;varying vec3 profile;varying vec3 surfaceNormal;uniform float role;uniform int pass;varying float materialRole;
+void main(){if(pass==2&&materialRole<1.5)discard;if(pass==0)gl_FragColor=vec4(location,materialRole);else if(pass==1)gl_FragColor=vec4(profile,surfaceNormal.z);else gl_FragColor=vec4(location.z,1.,0.,1.);}`,side:THREE.DoubleSide,blending:THREE.NoBlending,toneMapped:false});
+maskMaterial.defaultAttributeValues.rimProfile=[1,0,0];maskMaterial.defaultAttributeValues.surfaceRole=[0];
 function target(size=1,type=THREE.FloatType){return new THREE.WebGLRenderTarget(size,size,{type,minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthBuffer:true});}
 export function createContourEffects(renderer){
  const positions=target(),profiles=target(),rims=target(1024),base=target(1,THREE.FloatType),composited=target(1,THREE.UnsignedByteType);composited.texture.minFilter=composited.texture.magFilter=THREE.LinearFilter;
@@ -36,7 +36,7 @@ void main(){vec4 c=texture2D(base,v);if(c.a<.00001){gl_FragColor=c;return;}vec4 
  const stats={atlasBuilds:0,viewBuilds:0,effectBuilds:0,composites:0,lastCompositeMs:0};
  function renderMask(scene,model,camera,output,pass){
   const old={target:renderer.getRenderTarget(),auto:renderer.autoClear,color:renderer.getClearColor(new THREE.Color()),alpha:renderer.getClearAlpha(),background:scene.background,override:scene.overrideMaterial};const saved=[];
-  try{scene.background=null;scene.overrideMaterial=null;scene.traverse(mesh=>{if(!mesh.isMesh)return;const belongs=model===mesh||isChild(mesh,model);saved.push([mesh,mesh.material,mesh.visible,mesh.onBeforeRender]);const role=mesh.userData.role,isRim=role==='rim';mesh.visible=mesh.visible&&belongs&&(pass!==2||isRim);mesh.material=maskMaterial;mesh.onBeforeRender=()=>{maskMaterial.uniforms.pass.value=pass;maskMaterial.uniforms.role.value=mesh.userData.surface==='rim-cap'?3:isRim?2:['enamel','light','metal-plate','dark-metal'].includes(role)?1:0;maskMaterial.uniformsNeedUpdate=true;};});renderer.setRenderTarget(output);renderer.setClearColor(0,0);renderer.autoClear=true;renderer.render(scene,camera);}
+  try{scene.background=null;scene.overrideMaterial=null;scene.traverse(mesh=>{if(!mesh.isMesh)return;const belongs=model===mesh||isChild(mesh,model);saved.push([mesh,mesh.material,mesh.visible,mesh.onBeforeRender]);const role=mesh.userData.role,isRim=role==='rim'||mesh.userData.parts?.some(p=>p.role==='rim');mesh.visible=mesh.visible&&belongs&&(pass!==2||isRim);mesh.material=maskMaterial;mesh.onBeforeRender=()=>{maskMaterial.uniforms.pass.value=pass;maskMaterial.uniforms.role.value=mesh.userData.surface==='rim-cap'?3:isRim?2:['enamel','light','metal-plate','dark-metal'].includes(role)?1:0;maskMaterial.uniformsNeedUpdate=true;};});renderer.setRenderTarget(output);renderer.setClearColor(0,0);renderer.autoClear=true;renderer.render(scene,camera);}
   finally{for(const [mesh,mat,visible,callback]of saved){mesh.material=mat;mesh.visible=visible;mesh.onBeforeRender=callback;}scene.background=old.background;scene.overrideMaterial=old.override;renderer.setRenderTarget(old.target);renderer.autoClear=old.auto;renderer.setClearColor(old.color,old.alpha);}
  }
  function masks(scene,model,camera,width,height){

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {SRGBToLinear} from 'three/src/math/ColorManagement.js';
-import {shadowMultipliers} from './darkness-blend.js';
+import {shadowChannelMultiplier} from './darkness-blend.js';
 import {gradientField} from './gradient-field.js';
 import {gradientTexture,setGradientPixel} from './gradient-texture.js';
 const N=512,clamp=v=>Math.max(0,Math.min(1,v));
@@ -30,11 +30,12 @@ export function createDarkness(){
    const active=surfaceSources.filter(s=>s.kind==='dark'&&s.enabled);
    const key=JSON.stringify([surfaceSources,metalSources])+'|'+(surface?.uuid||'');let changed=key!==previous;previous=key;
    if(changed){
-    const surfaceField=gradientField(surfaceSources),metalField=gradientField(metalSources);surfaceFields=new Float32Array(N*N*5);metalFields=new Float32Array(N*N*5);
+    const surfaceField=gradientField(surfaceSources),metalField=gradientField(metalSources);surfaceFields??=new Float32Array(N*N*5);metalFields??=new Float32Array(N*N*5);
     let surfacePixels;
     if(surface){const c=document.createElement('canvas');c.width=c.height=N;const ctx=c.getContext('2d');ctx.drawImage(surface.image,0,0,N,N);surfacePixels=ctx.getImageData(0,0,N,N).data;}
+    const surfaceValue=[],metalValue=[];
     for(let y=0;y<N;y++)for(let x=0;x<N;x++){
-     const p=y*N+x,u=(x+.5)/N,v=(y+.5)/N,s=surfaceField(u,v),m=metalField(u,v),offset=((N-1-y)*N+x)*4;
+     const p=y*N+x,u=(x+.5)/N,v=(y+.5)/N,s=surfaceField(u,v,surfaceValue),m=metalField(u,v,metalValue),offset=((N-1-y)*N+x)*4;
      for(let c=0;c<3;c++){surfaceFields[p*5+c]=s[0]*(surfacePixels?SRGBToLinear(surfacePixels[offset+c]/255):1);metalFields[p*5+c]=m[0];}
      surfaceFields[p*5+3]=s[1];surfaceFields[p*5+4]=s[2];metalFields[p*5+3]=m[1];metalFields[p*5+4]=m[2];
      setGradientPixel(enamel,p*4,surfaceFields[p*5],surfaceFields[p*5+1],surfaceFields[p*5+2]);setGradientPixel(metal,p*4,m[0],m[0],m[0]);
@@ -46,13 +47,14 @@ export function createDarkness(){
     const base=(material.userData.screenBase||material.color).toArray(),peak=Math.max(...base,1e-6),id=scope+'|'+base.join(',')+'|'+screen;used.add(id);let entry=colours.get(id);
     if(!entry){entry={texture:gradientTexture(N),key:''};colours.set(id,entry);}
     if(entry.key!==key){
+     const chroma=base.map(c=>clamp(c/peak)),out=[0,0,0];
      for(let p=0;p<N*N;p++){
-      const t=fields[p*5+3],out=[],multipliers=shadowMultipliers(base,fields[p*5],1);
+      const t=fields[p*5+3];
       for(let c=0;c<3;c++){
-       const a=fields[p*5+c],full=surface?shadowMultipliers(base,a,1)[c]:multipliers[c];let value=clamp(a+t*(full-a));
-       if(screen){value*=base[c];value=1-(1-value)*(1-(base[c]/peak)*fields[p*5+4]*.25);}out.push(value);
+       const a=fields[p*5+c],full=shadowChannelMultiplier(chroma[c],surface?a:fields[p*5]);let value=clamp(a+t*(full-a));
+       if(screen){value*=base[c];value=1-(1-value)*(1-(base[c]/peak)*fields[p*5+4]*.25);}out[c]=value;
       }
-      setGradientPixel(entry.texture,p*4,...out);
+      setGradientPixel(entry.texture,p*4,out[0],out[1],out[2]);
      }
      entry.texture.needsUpdate=true;entry.key=key;changed=true;
     }

@@ -8,3 +8,9 @@ export function shadowMultipliers(base,attenuation,richness){
   return Math.max(0,Math.min(1,a+t*.22*(1-a)*chroma-t*.08*a*(1-a)*(1-chroma)));
  });
 }
+
+// Allocation-free equivalent for precomputed channel chroma (richness = 1).
+export function shadowChannelMultiplier(chroma,attenuation){
+ const a=Math.max(0,Math.min(1,attenuation));
+ return Math.max(0,Math.min(1,a+.22*(1-a)*chroma-.08*a*(1-a)*(1-chroma)));
+}

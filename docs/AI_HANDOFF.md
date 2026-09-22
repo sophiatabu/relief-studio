@@ -44,7 +44,7 @@
 
 ## Проверка перед изменениями и публикацией
 
-1. `npm test` — сейчас ожидается 73/73 теста.
+1. `npm test` — сейчас ожидается 80/80 тестов.
 2. `npm run build` — production bundle должен собраться без ошибки. Предупреждение о крупном Three.js chunk ожидаемо.
 3. В браузере проверить: импорт SVG с mask/clipPath, обычный и максимальный preview, Shift + drag, масштаб, сравнение 5 колонок, перестановку текущего рендера, закрытие/открытие «Цвета», undo/redo и PNG 304×304.
 4. Не добавлять в коммит `node_modules`, `.git`, серверные логи и временные QA-пробы.
@@ -59,3 +59,36 @@
 - `c2ce75a` — отключение выбора деталей при скрытой панели цветов.
 
 При изменении поведения обновляй этот handoff, чтобы следующий агент сначала понял существующие решения, а не переписал их вслепую.
+
+## Оптимизация цветовых мешей (2026-09-22)
+
+`src/render-pipeline.js` содержит `batchByColor`, `refreshBatchMaterials`, `setModelDepth`, `disposeRenderPipeline` и `createRenderScheduler`. Модель объединяется по цвету, роли и совместимым физическим свойствам материала; одинаковый цвет не объединяет металл с эмалью. `userData.parts` сохраняет диапазоны вершин и идентификаторы деталей. Контурный проход читает атрибут `surfaceRole`; выбор деталей использует диапазоны, а не только `mesh.userData.regionId`.
+
+Экструзия использует curveSegments=3, steps=1, bevelSegments=1. Точные SVG-полигоны и отдельные поверхности скоса/эмали сохраняются: эти параметры не ограничивают общее число вершин уже распрямлённого SVG. Толщина меняется через scale.z относительно baseDepth; перестроение BVH объединено до одного обновления на кадр. Скос и выпуклость по-прежнему меняют геометрию.
+
+Планировщик не работает в простое. Изменение сцены запускает конечную серию samples path tracer, после последнего composite серия завершается. Это не одиночный raster-render: физический рендер намеренно сохраняет прогрессивное уточнение и экспорт.
+
+Предыдущая рабочая модель сохраняется до успешной подготовки новой сцены, затем её материалы и геометрия освобождаются. Цветовые изменения повторно группируют готовые вершины без триангуляции. Ресурсы общих текстур остаются у владельцев darkness/environment. Для трассировщика всем мешам нужен RGBA-атрибут color с непрозрачным белым по умолчанию.
+
+Контроллеры для внешнего UI экспортируются как `studioControls` из main.js: setDepth(number), setAppearance(object), requestRender(), getMetrics(). Камера трассировщика синхронизируется при resize; иначе контурный проход расходится с изображением. Решения мембран кешируются ограниченным кешем из 32 поверхностей.
+
+## SVG review page (2026-09-22)
+
+`tools/svg-review/README.md` documents the local three-column review page on port 5190.
+All 93 SVGs were tested using the local optimized build: 81 completed rendering, 12 import failures.
+Audit data and renders: `../relief-svg-audit-2026-09-22/` (outside the application repository).
+User annotations autosave to that directory's `comments.json`; read it when asked to fix review feedback.
+Do not replace or clear user annotations when rerunning the audit.
+
+
+## Separate detail editor and render performance (2026-09-22)
+
+`src/detail-editor.js` edits CPU-side SVG paint elements in a modal 2D editor. The physical renderer pauses while it is open. Fill and stroke have stable independent IDs; multi-selection and select-same-color are available. Roles: rim, enamel, hidden, cutout. Hidden removes a paint and reveals lower layers; cutout removes overlapped lower paints without becoming geometry. No automatic white deletion is performed.
+
+`src/detail-document.js` compiles explicit assignments with SVG paint order. Original masks/clips are applied when editablePaints are prepared. Source SVG remains unchanged. Recipe projects persist sourceSVG and detailAssignments. Old recipes still load. Eight reviewed recipes are in public/reviewed-projects, accessible under Test SVGs or ?review=055 etc.
+
+The render scene no longer creates part-selection WebGL overlays or raycasters. Old part-selection module remains for compatibility tests but is not imported by main. Per-part data stays on CPU. Material updates reuse geometry/material objects when batch membership is unchanged; only regrouping or pigment-dependent vertex attribute changes require scene regeneration. Keep distinct lighting response groups even if pigments match.
+
+Gradient field calculation reuses output arrays and precomputes channel chroma. Preserve exact old half-float outputs; tests verify the scalar formula. Do not reduce samples, texture resolution, bounces or preview/export quality as a performance shortcut.
+
+Run npm test and npm run build. The audit outputs and user comments remain outside the repo in ../relief-svg-audit-2026-09-22 and ../relief-detail-audit-2026-09-22. Never overwrite comments when refreshing renders.

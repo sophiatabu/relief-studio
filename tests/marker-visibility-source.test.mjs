@@ -101,7 +101,7 @@ test('completed previews stop continuous GPU compositing',async()=>{
  const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
  assert.match(main,/finalCompositeSamples!==target/);
  assert.match(main,/function startAnimation\(\)\{if\(animationRunning\)return;/);
- assert.match(main,/if\(!model\|\|busy\|\|exporting\|\|document\.hidden\|\|renderFailed\)return;/);
+ assert.match(main,/if\(!model\|\|busy\|\|exporting\|\|detailEditing\|\|document\.hidden\|\|renderFailed\)return;/);
  assert.match(main,/finally\{if\(version===buildVersion\)\{busy=false;startAnimation\(\);\}\}/);
  assert.doesNotMatch(main,/if\(tracer\.samples<target\)tracer\.renderSample\(\);else contourEffects\.redraw/);
  assert.equal((html.match(/loading="lazy"/g)||[]).length,9);

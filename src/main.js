@@ -1,7 +1,10 @@
+import {createDetailEditor} from './detail-editor.js';
+import {compileDetailAssignments} from './detail-document.js';
+import { disposeRenderPipeline, setModelDepth, refreshBatchMaterials, createRenderScheduler } from './render-pipeline.js';
 import {setupPanelWorkspace} from './panel-workspace.js';
 import {installHelp} from './help-tooltips.js';
 import {createHistory} from './editor-history.js';
-import {createPartSelection,installWindowSelectionClear} from './part-selection.js';
+
 import {createExportDialog} from './export-dialog.js';
 import {resetButton,inlineReset,showReset} from './reset-button.js';
 import {createContourMarkers} from './contour-markers.js';
@@ -28,7 +31,7 @@ import {usePreciseGradientAtlas,modelForGLTF} from './gradient-texture.js';
 import {validateSVG} from './validate-svg.js';
 import {updateRimHighlight} from './rim-highlight.js';
 import {showSourcePreview} from './source-preview.js';
-async function checkedAsset(raw){const parsed=prepareAsset(raw);if(raw.sourceSVG){await validateSVG(raw.sourceSVG,parsed);parsed.sourceSVG=raw.sourceSVG;}return parsed;}
+async function checkedAsset(raw){const parsed=prepareAsset({...raw,detailAssignments:undefined});if(raw.sourceSVG){await validateSVG(raw.sourceSVG,parsed);parsed.sourceSVG=raw.sourceSVG;}return raw.detailAssignments?compileDetailAssignments(parsed,raw.detailAssignments):parsed;}
 const darkness=createDarkness();
 
 const $=id=>document.getElementById(id),defaults={...STUDIO.appearance,...LIGHT_DEFAULTS,fill:STUDIO.fill,exposure:STUDIO.exposure};
@@ -36,7 +39,7 @@ const publicAsset=name=>new URL(`${import.meta.env.BASE_URL}assets/${name}`,wind
 const freshSettings=()=>({...defaults,renderMode:'physical',showLights:true});
 const freshSources=()=>STUDIO.sources.map(source=>({...source}));
 let settings=freshSettings(),assetKey='custom',asset=null,model=null,overrides={},busy=false,geometryTimer=null,buildVersion=0,loadVersion=0,exporting=false,desiredSamples=128,view='front';const cache=new Map();
-let materialUpdateTimer=null,lightUpdateTimer=null;
+let materialUpdateTimer=null,lightUpdateTimer=null,detailEditing=false;
 let history=null,historyAsset=null,selection=null,activeSection="highlight",settingsVisible=true,pointerTransaction=false,keyTransaction=false;
 function checkpoint(){queueMicrotask(()=>history?.commit());}
 function beginPointerHistory(){if(!asset||exporting||pointerTransaction)return;pointerTransaction=true;history?.begin();}
@@ -165,9 +168,9 @@ $('addHighlight').onclick=()=>{if(sources.length>=8)return;const s={...highlight
 $('addDarkness').onclick=()=>{if(sources.length>=8)return;const s={...LIGHT_DEFAULTS,kind:'dark',blendMode:'multiply',richness:.35,id:'added-'+lightSerial,name:'Затемнение '+(++lightSerial),power:.3,softness:3,azimuth:-135,elevation:25,distance:1.8,enabled:true,color:'#36313f'};sources.push(s);selectedLight=s.id;renderLightPicker();refreshLight();};
 let finalCompositeSamples=-1;
 function resetTrace(){
- finalCompositeSamples=-1;renderFailed=false;healthChecked=false;$('error').hidden=true;tracer?.reset();$('samples').textContent='0 / '+(exporting?512:desiredSamples);$('progress').style.width='0%';$('status').textContent='Уточняем изображение…';
+ finalCompositeSamples=-1;renderFailed=false;healthChecked=false;$('error').hidden=true;tracer?.reset();$('samples').textContent='0 / '+(exporting?512:desiredSamples);$('progress').style.width='0%';$('status').textContent='Уточняем изображение…';requestRender();
 }
-controls.addEventListener('change',()=>{selection?.draw();if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();refreshResetVisibility();});
+controls.addEventListener('change',()=>{if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();refreshResetVisibility();});
 function displayValues(){
  for(const k of Object.keys(defaults)){
   if(sourceKeys.includes(k))continue;
@@ -187,32 +190,37 @@ async function rebuild(){
  if(version!==buildVersion)return;
  let nextModel=null;
  try{
-  const built=buildBadge(source,settings,overrides);nextModel=built.model;
   const previous=model;
+  const built=buildBadge(source,settings,overrides);nextModel=built.model;
   if(previous)scene.remove(previous);
   scene.add(nextModel);
   try{light();updatePresentation(nextModel);scene.updateMatrixWorld(true);if(physical())ensureTracer().setScene(scene,camera);}
   catch(e){scene.remove(nextModel);if(previous)scene.add(previous);throw e;}
-  model=nextModel;nextModel=null;if(typeof uploadProgress!=='undefined'&&!uploadProgress.hidden)setUploadProgress(90,'Подготавливаем рендер…');selection?.draw();if(historyAsset!==asset){historyAsset=asset;selection?.clear();syncSelectionRows();history?.reset();}else checkpoint();
+  model=nextModel;nextModel=null;if(typeof uploadProgress!=='undefined'&&!uploadProgress.hidden)setUploadProgress(90,'Подготавливаем рендер…');if(historyAsset!==asset){historyAsset=asset;selection?.clear();syncSelectionRows();history?.reset();}else checkpoint();
   document.body.classList.remove('empty-studio');$('uploadPrompt').hidden=true;$('exportButton').disabled=false;const compareButton=$('compareRender');if(compareButton)compareButton.disabled=false;updateLightMarkers();
   if(previous)disposeModel(previous);
   resetTrace();window.reliefMetrics={...built.metrics,key:source.key,studio:STUDIO.version,mode:'physical'};return true;
  }catch(e){if(nextModel)disposeModel(nextModel);error(e);return false;}
  finally{if(version===buildVersion){busy=false;startAnimation();}}
 }
+let depthUpdateFrame=null;
+function updateDepth(){
+ if(!setModelDepth(model,settings.height))return;
+ checkpoint();contourEffects.invalidateGeometry();
+ if(depthUpdateFrame!==null)return;
+ depthUpdateFrame=requestAnimationFrame(()=>{depthUpdateFrame=null;if(!model)return;if(tracer)tracer.setScene(scene,camera);resetTrace();});
+}
 function updateMaterials(){checkpoint();
  if(!model)return;
- const replacements=new Map();
- model.traverse(n=>{
-  if(!n.isMesh||!n.userData.regionId)return;
-  const r=asset.regions.find(r=>r.id===n.userData.regionId),override=overrides[r.id]||{};
-  const old=n.material;
-  if(!replacements.has(old))replacements.set(old,makeMaterial({...r,role:override.role||r.role,overrideColor:override.color,surface:n.userData.surface},settings));
-  n.material=replacements.get(old);
+ const pigments=model.children.map(m=>m.userData.colorKey).join('|');
+ const changedGeometry=refreshBatchMaterials(model,(part,old)=>{
+  const r=asset.regions.find(r=>r.id===part.regionId);
+  if(!r)return old.clone();
+  const override=overrides[r.id]||{};
+  return makeMaterial({...r,role:override.role||r.role,overrideColor:override.color,surface:part.surface},settings);
  });
- for(const old of replacements.keys())old.dispose();
  updatePresentation();
- if(physical())ensureTracer().setScene(scene,camera);
+ if(physical()){if(changedGeometry||pigments!==model.children.map(m=>m.userData.colorKey).join('|'))ensureTracer().setScene(scene,camera);else {ensureTracer().updateMaterials();if(!contour.enabled)ensureTracer().setScene(scene,camera);}}
  resetTrace();refreshResetVisibility();
 }
 function updateRimHighlights(){
@@ -228,7 +236,7 @@ function renderParts(){
  if(rim){const m=makeMaterial({...rim,overrideColor:overrides[rim.id]?.color},settings);$('rimColor').value='#'+m.color.getHexString();m.dispose();}
  showSourcePreview(asset);const root=$('parts');root.replaceChildren();
  for(const [i,r]of asset.regions.entries()){
-  const row=document.createElement('div');row.className='part-row';row.dataset.regionId=String(r.id);row.tabIndex=0;row.onpointerenter=()=>selection?.hover(r.id);row.onpointerleave=()=>selection?.hover(null);row.onclick=()=>selectPart(r.id,false);row.onkeydown=e=>{if(e.target===row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectPart(r.id,false);}};
+  const row=document.createElement('div');row.className='part-row';row.dataset.regionId=String(r.id);row.tabIndex=0;row.onclick=()=>selectPart(r.id,false);row.onkeydown=e=>{if(e.target===row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectPart(r.id,false);}};
   const sw=document.createElement('span');sw.className='swatch';sw.style.background=`rgb(${r.color.r*255},${r.color.g*255},${r.color.b*255})`;const label=document.createElement('span');label.textContent=(i+1)+'. '+roleNames[overrides[r.id]?.role||r.role];
   const color=document.createElement('input');color.type='color';color.setAttribute('aria-label','Цвет детали '+(i+1));const preview=makeMaterial({...r,role:overrides[r.id]?.role||r.role,overrideColor:overrides[r.id]?.color},settings);color.value='#'+preview.color.getHexString();preview.dispose();sw.style.background=color.value;color.oninput=()=>{overrides[r.id]={...overrides[r.id],color:color.value};sw.style.background=color.value;updateMaterials();};
   const sel=document.createElement('select');sel.setAttribute('aria-label','Материал детали '+(i+1));for(const[k,name]of Object.entries(roleNames)){const o=document.createElement('option');o.value=k;o.textContent=name;sel.append(o);}sel.value=overrides[r.id]?.role||r.role;sel.onchange=()=>{overrides[r.id]={...overrides[r.id],role:sel.value};renderParts();rebuild();};
@@ -259,7 +267,7 @@ document.querySelectorAll('[data-asset]').forEach(button=>{button.onclick=()=>{i
 $('rimColor').oninput=()=>{for(const r of asset.regions)if((overrides[r.id]?.role||r.role)==='rim')overrides[r.id]={...overrides[r.id],color:$('rimColor').value};updateMaterials();};$('rimColor').onchange=renderParts;
 for(const k of Object.keys(defaults).filter(k=>!sourceKeys.includes(k)))$(k).addEventListener('input',()=>{
  if(sourceKeys.includes(k)){selectedSource()[k]=Number($(k).value);mirrorPrimary();}else settings[k]=Number($(k).value);if(appearanceKeys.includes(k))saveAppearance();displayValues();
- if(['height','bevel','dome'].includes(k)){
+ if(k==='height'){updateDepth();}else if(['bevel','dome'].includes(k)){
   // Only another geometry change may replace the pending geometry rebuild.
   // Keep rendering the current model while the user moves the control.
   cancelGeometryUpdate();geometryTimer=setTimeout(rebuild,180);
@@ -273,7 +281,7 @@ const referenceBoard=referencePanel.querySelector('.reference-board'),currentRen
 const compareRender=document.createElement('button');compareRender.type='button';compareRender.id='compareRender';compareRender.textContent='Посмотреть';compareRender.disabled=true;compareRender.title='Поставить текущий рендер рядом с примерами';compareRender.setAttribute('aria-label','Посмотреть текущий рендер рядом с примерами');document.querySelector('.stage-options').append(compareRender);
 document.querySelector('header .head-actions').prepend($('showReferences'));$('showReferences').removeAttribute('aria-haspopup');
 function updateComparisonPreview(){if(referencePanel.hidden||!referencePanel.classList.contains('comparison-mode')||!model)return;const source=renderer.domElement,side=Math.min(source.width,source.height),sx=(source.width-side)/2,sy=(source.height-side)/2,padding=32,size=currentRenderCanvas.width;currentRenderContext.clearRect(0,0,size,size);currentRenderContext.drawImage(source,sx,sy,side,side,padding,padding,size-padding*2,size-padding*2);}
-function centerComparisonCamera(){const center=new THREE.Vector3(0,0,.04),offset=camera.position.clone().sub(controls.target);controls.target.copy(center);camera.position.copy(center).add(offset);camera.zoom=1;camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();selection?.draw();updateLightMarkers();resetTrace();refreshResetVisibility();}
+function centerComparisonCamera(){const center=new THREE.Vector3(0,0,.04),offset=camera.position.clone().sub(controls.target);controls.target.copy(center);camera.position.copy(center).add(offset);camera.zoom=1;camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();refreshResetVisibility();}
 function placeComparisonAt(x,y){const targets=Array.from(referenceBoard.children).filter(node=>node!==currentRenderFigure&&!node.hidden);let target=null,distance=Infinity;for(const node of targets){const r=node.getBoundingClientRect(),d=Math.hypot(x-(r.left+r.width/2),y-(r.top+r.height/2));if(d<distance){distance=d;target=node;}}if(!target)return;const r=target.getBoundingClientRect(),after=y>r.top+r.height/2||(Math.abs(y-(r.top+r.height/2))<r.height*.35&&x>r.left+r.width/2);referenceBoard.insertBefore(currentRenderFigure,after?target.nextSibling:target);}
 let comparisonDrag=null;currentRenderFigure.addEventListener('pointerdown',e=>{if(e.button!==0)return;comparisonDrag={id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};currentRenderFigure.setPointerCapture(e.pointerId);e.stopPropagation();});currentRenderFigure.addEventListener('pointermove',e=>{if(comparisonDrag?.id!==e.pointerId)return;e.stopPropagation();if(!comparisonDrag.moved&&Math.hypot(e.clientX-comparisonDrag.x,e.clientY-comparisonDrag.y)<=5)return;comparisonDrag.moved=true;currentRenderFigure.classList.add('dragging');placeComparisonAt(e.clientX,e.clientY);});function stopComparisonDrag(e){if(comparisonDrag?.id!==e.pointerId)return;e.stopPropagation();if(comparisonDrag.moved)placeComparisonAt(e.clientX,e.clientY);comparisonDrag=null;currentRenderFigure.classList.remove('dragging');if(currentRenderFigure.hasPointerCapture(e.pointerId))currentRenderFigure.releasePointerCapture(e.pointerId);}for(const event of ['pointerup','pointercancel','lostpointercapture'])currentRenderFigure.addEventListener(event,stopComparisonDrag);
 currentRenderFigure.addEventListener('dragstart',e=>{currentRenderFigure.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','current-render');});currentRenderFigure.addEventListener('dragend',()=>currentRenderFigure.classList.remove('dragging'));referenceBoard.addEventListener('dragover',e=>{if(!currentRenderFigure.classList.contains('dragging'))return;e.preventDefault();placeComparisonAt(e.clientX,e.clientY);});referenceBoard.addEventListener('drop',e=>{if(!currentRenderFigure.classList.contains('dragging'))return;e.preventDefault();placeComparisonAt(e.clientX,e.clientY);});
@@ -357,15 +365,17 @@ window.addEventListener('pointerdown',event=>activePointers.add(event.pointerId)
 window.addEventListener('pointerup',event=>activePointers.delete(event.pointerId),{capture:true});
 window.addEventListener('pointercancel',event=>activePointers.delete(event.pointerId),{capture:true});
 window.addEventListener('blur',()=>activePointers.clear());
-function startAnimation(){if(animationRunning)return;animationRunning=true;requestAnimationFrame(animate);}
+const renderScheduler=createRenderScheduler(animate);
+function requestRender(){renderScheduler.requestRender();}
+function startAnimation(){if(animationRunning)return;requestRender();}
 function animate(t){
  animationRunning=false;
- if(!model||busy||exporting||document.hidden||renderFailed)return;
+ if(!model||busy||exporting||detailEditing||document.hidden||renderFailed)return;
  if(!tracer)return;
  const tiles=exporting||activePointers.size?2:1;if(tiles!==lastTileCount){tracer.tiles.set(tiles,tiles);lastTileCount=tiles;}
  const target=exporting?512:desiredSamples;
  if(tracer.samples<target)tracer.renderSample();else if(finalCompositeSamples!==target){contourEffects.redraw(contour);finalCompositeSamples=target;}
- if(t-lastProgress>200){
+ if(t-lastProgress>200||tracer.samples>=target){
   lastProgress=t;const n=Math.floor(tracer.samples);$('samples').textContent=n+' / '+target;$('progress').style.width=Math.min(100,n/target*100)+'%';
   updateComparisonPreview();
   $('status').textContent=tracer.isCompiling?'Готовлю освещение…':exporting?'Рендер PNG 1024 × 1024…':n>=target?'Превью готово':'Уточняем изображение…';
@@ -373,21 +383,21 @@ function animate(t){
   if(n>=target&&!renderFailed&&!exporting)$('exportButton').disabled=false;
 
  }
- startAnimation();
+ return tracer.samples<target||finalCompositeSamples!==target;
 }
 
 function syncSelectionRows(){for(const row of $('parts').children){const selected=selection?.selected!=null&&row.dataset.regionId===String(selection.selected);row.classList.toggle('selected',selected);row.setAttribute('aria-selected',String(selected));const detail=row.querySelector('.part-details');if(detail){detail.hidden=!selected;detail.open=selected;}}}
 function selectPart(id,scroll=true){if(id!=null&&typeof colourPanel!=='undefined'&&colourPanel.hidden){selection?.clear();syncSelectionRows();return;}selection?.select(id);syncSelectionRows();if(id!=null){showColours(true);if(scroll){const row=Array.from($('parts').children).find(r=>r.dataset.regionId===String(id));row?.scrollIntoView({block:'nearest'});}}}
-selection=createPartSelection($('viewport'),renderer.domElement,camera,()=>model,id=>selectPart(id));
-installWindowSelectionClear(window,()=>{selection.clear();syncSelectionRows();});
+// Render scene has no selection renderer, duplicated geometry, or raycasting.
+selection={selected:null,select(id){this.selected=id;},clear(){this.selected=null;}};
 let previewResizeTimer=null;
 function syncPreviewResolution(){
  clearTimeout(previewResizeTimer);previewResizeTimer=null;
  const rect=$('viewport').getBoundingClientRect(),{width,height}=previewBufferDimensions(rect.width,rect.height,desiredSamples,devicePixelRatio);
  const aspect=Math.max(.01,rect.width/Math.max(1,rect.height)),half=1.52;
- camera.left=-half*Math.max(1,aspect);camera.right=half*Math.max(1,aspect);camera.top=half*Math.max(1,1/aspect);camera.bottom=-half*Math.max(1,1/aspect);camera.updateProjectionMatrix();
- const current=renderer.getDrawingBufferSize(new THREE.Vector2());if(current.x===width&&current.y===height){selection.draw();updateLightMarkers();return;}
- renderer.setSize(width,height,false);selection.resize(width,height);contourEffects.invalidateGeometry();resetTrace();updateLightMarkers();
+ camera.left=-half*Math.max(1,aspect);camera.right=half*Math.max(1,aspect);camera.top=half*Math.max(1,1/aspect);camera.bottom=-half*Math.max(1,1/aspect);camera.updateProjectionMatrix();tracer?.updateCamera();
+ const current=renderer.getDrawingBufferSize(new THREE.Vector2());if(current.x===width&&current.y===height){updateLightMarkers();resetTrace();return;}
+ renderer.setSize(width,height,false);contourEffects.invalidateGeometry();resetTrace();updateLightMarkers();
 }
 new ResizeObserver(()=>{clearTimeout(previewResizeTimer);previewResizeTimer=setTimeout(syncPreviewResolution,180);}).observe($('viewport'));
 syncPreviewResolution();
@@ -411,7 +421,7 @@ const viewControls=document.querySelector('.segmented');viewControls.classList.a
 const frontView=document.querySelector('[data-view="front"]'),angleView=document.querySelector('[data-view="angle"]');frontView.textContent='Спереди';frontView.title='Показать значок прямо';angleView.textContent='Объём';angleView.title='Показать значок под углом';
 const zoomControls=document.createElement('div');zoomControls.className='zoom-controls';zoomControls.setAttribute('role','group');zoomControls.setAttribute('aria-label','Масштаб значка');
 const zoomOut=document.createElement('button'),zoomValue=document.createElement('button'),zoomIn=document.createElement('button');zoomOut.type=zoomValue.type=zoomIn.type='button';zoomOut.textContent='−';zoomIn.textContent='+';zoomOut.setAttribute('aria-label','Уменьшить значок');zoomIn.setAttribute('aria-label','Увеличить значок');zoomValue.setAttribute('aria-label','Сбросить масштаб');zoomValue.title='Сбросить масштаб до 100%';
-function setPreviewZoom(next){camera.zoom=Math.max(controls.minZoom,Math.min(controls.maxZoom,next));camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();selection?.draw();updateLightMarkers();resetTrace();refreshResetVisibility();}
+function setPreviewZoom(next){camera.zoom=Math.max(controls.minZoom,Math.min(controls.maxZoom,next));camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();refreshResetVisibility();}
 function syncPreviewZoom(){zoomValue.textContent=Math.round(camera.zoom*100)+'%';zoomOut.disabled=camera.zoom<=controls.minZoom+.001;zoomIn.disabled=camera.zoom>=controls.maxZoom-.001;}
 zoomOut.onclick=()=>setPreviewZoom(camera.zoom/1.2);zoomIn.onclick=()=>setPreviewZoom(camera.zoom*1.2);zoomValue.onclick=()=>setPreviewZoom(1);controls.addEventListener('change',syncPreviewZoom);syncPreviewZoom();zoomControls.append(zoomOut,zoomValue,zoomIn);$('viewport').append(zoomControls);
 const fileMenu=document.createElement('details');fileMenu.className='file-menu app-menu';fileMenu.innerHTML='<summary>Файл</summary><div class="file-menu-items app-menu-items"></div>';const fileItems=fileMenu.lastElementChild;
@@ -420,12 +430,12 @@ $('saveSettings').textContent='Сохранить текущий шаблон';$
 applyStudioTemplate.setAttribute('aria-label','Применить шаблон «По умолчанию»');$('saveSettings').setAttribute('aria-label','Сохранить текущий шаблон');$('loadRecipe').setAttribute('aria-label','Открыть шаблон из файла');$('exportModel').setAttribute('aria-label','Скачать 3D-модель');
 const appMenus=[fileMenu,templateMenu];for(const menu of appMenus){menu.addEventListener('toggle',()=>{if(menu.open)for(const other of appMenus)if(other!==menu)other.open=false;});menu.lastElementChild.addEventListener('click',()=>menu.open=false);}document.addEventListener('pointerdown',e=>{for(const menu of appMenus)if(!menu.contains(e.target))menu.open=false;});document.addEventListener('keydown',e=>{if(e.key==='Escape')for(const menu of appMenus)menu.open=false;});
 const undoButton=document.createElement('button'),redoButton=document.createElement('button');undoButton.textContent='↶';redoButton.textContent='↷';undoButton.title='Отменить · Ctrl / Cmd + Z';redoButton.title='Повторить · Ctrl / Cmd + Shift + Z';undoButton.setAttribute('aria-label','Отменить');redoButton.setAttribute('aria-label','Повторить');const historyButtons=document.createElement('div');historyButtons.className='history-buttons';historyButtons.append(undoButton,redoButton);document.querySelector('header .head-actions').before(historyButtons);
-const readState=()=>({settings:Object.fromEntries([...appearanceKeys,'fill','exposure'].map(k=>[k,settings[k]])),sources:structuredClone(sources),contour:structuredClone(contour),overrides:structuredClone(overrides)});
-async function applyState(next){const before=readState();cancelGeometryUpdate();++buildVersion;busy=false;Object.assign(settings,next.settings);sources=structuredClone(next.sources);contour=structuredClone(next.contour);overrides=structuredClone(next.overrides);if(!sources.some(s=>s.id===selectedLight))selectedLight=sources[0]?.id;saveAppearance();saveLighting();saveContour();displayValues();contourControls.update();renderLightPicker();renderParts();const geometry=['height','bevel','dome'].some(k=>before.settings[k]!==settings[k])||asset?.regions.some(r=>['role','lift'].some(k=>before.overrides[r.id]?.[k]!==overrides[r.id]?.[k]));if(geometry)await rebuild();else if(appearanceKeys.some(k=>before.settings[k]!==next.settings[k])||JSON.stringify(before.overrides)!==JSON.stringify(next.overrides)||before.contour.enabled!==contour.enabled){light();updateMaterials();}else if(JSON.stringify(before.sources)!==JSON.stringify(next.sources)||before.settings.fill!==next.settings.fill||before.settings.exposure!==next.settings.exposure){refreshLight();}else{contourEffects.invalidate();contourEffects.redraw(contour);}selection.draw();updateLightMarkers();}
+const readState=()=>({settings:Object.fromEntries([...appearanceKeys,'fill','exposure'].map(k=>[k,settings[k]])),sources:structuredClone(sources),contour:structuredClone(contour),overrides:structuredClone(overrides),detailAssignments:structuredClone(asset?.detailAssignments||null)});
+async function applyState(next){const before=readState();const detailChanged=JSON.stringify(before.detailAssignments)!==JSON.stringify(next.detailAssignments);if(detailChanged&&asset?.editablePaints){asset=next.detailAssignments?compileDetailAssignments(asset,next.detailAssignments):{...prepareAsset({...asset,detailAssignments:undefined}),sourceSVG:asset.sourceSVG};historyAsset=asset;}cancelGeometryUpdate();++buildVersion;busy=false;Object.assign(settings,next.settings);sources=structuredClone(next.sources);contour=structuredClone(next.contour);overrides=structuredClone(next.overrides);if(!sources.some(s=>s.id===selectedLight))selectedLight=sources[0]?.id;saveAppearance();saveLighting();saveContour();displayValues();contourControls.update();renderLightPicker();renderParts();const geometry=detailChanged||['bevel','dome'].some(k=>before.settings[k]!==settings[k])||asset?.regions.some(r=>['role','lift'].some(k=>before.overrides[r.id]?.[k]!==overrides[r.id]?.[k]));if(geometry)await rebuild();else if(before.settings.height!==settings.height){updateDepth();updateMaterials();}else if(appearanceKeys.some(k=>before.settings[k]!==next.settings[k])||JSON.stringify(before.overrides)!==JSON.stringify(next.overrides)||before.contour.enabled!==contour.enabled){light();updateMaterials();}else if(JSON.stringify(before.sources)!==JSON.stringify(next.sources)||before.settings.fill!==next.settings.fill||before.settings.exposure!==next.settings.exposure){refreshLight();}else{contourEffects.invalidate();contourEffects.redraw(contour);}updateLightMarkers();}
 history=createHistory(readState,applyState,state=>{undoButton.disabled=!state.undo;redoButton.disabled=!state.redo;});history.reset();undoButton.onclick=()=>history.undo();redoButton.onclick=()=>history.redo();
 window.addEventListener('pointerdown',e=>{if(e.target.closest('.history-buttons,dialog'))return;beginPointerHistory();},true);
 window.addEventListener('pointerup',endPointerHistory);window.addEventListener('pointercancel',endPointerHistory);window.addEventListener('blur',endPointerHistory);
-window.addEventListener('keydown',e=>{const editing=e.target.matches('input:not([type=range]):not([type=checkbox]),textarea,[contenteditable=true]');if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!editing&&!exporting){e.preventDefault();e.shiftKey?history.redo():history.undo();return;}if(asset&&!editing&&!keyTransaction&&!exporting){keyTransaction=true;history.begin();}},true);
+window.addEventListener('keydown',e=>{if(detailEditing)return;const editing=e.target.matches('input:not([type=range]):not([type=checkbox]),textarea,[contenteditable=true]');if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&!editing&&!exporting){e.preventDefault();e.shiftKey?history.redo():history.undo();return;}if(asset&&!editing&&!keyTransaction&&!exporting){keyTransaction=true;history.begin();}},true);
 window.addEventListener('keyup',()=>{if(keyTransaction){keyTransaction=false;history.end();}});window.addEventListener('blur',()=>{if(keyTransaction){keyTransaction=false;history.end();}});
 for(const event of ['input','change','click'])document.addEventListener(event,()=>queueMicrotask(()=>history.commit()));
 $('quality').value=String(desiredSamples);updateModeUI();renderLightPicker();light();startAnimation();
@@ -436,3 +446,57 @@ const offlineLink=document.createElement('a');offlineLink.id='downloadOffline';o
 installHelp();
 setupPanelWorkspace();
 for(const [element,name]of [[fileMenu.querySelector('summary'),'file'],[templateMenu.querySelector('summary'),'template'],[$('chooseTestSVG'),'test'],[$('sourcePreview').querySelector('summary'),'file'],[$('showSettings'),'settings'],[$('showColours'),'colours'],[$('showReferences'),'examples'],[$('compareRender'),'view'],[$('importButton'),'upload'],[$('exportButton'),'download'],[applyStudioTemplate,'apply'],[$('saveSettings'),'save'],[$('loadRecipe'),'open'],[$('exportModel'),'cube'],[offlineLink,'offline']])addIcon(element,name);
+
+// Direct hooks for an external Tweakpane/lil-gui controller.
+export const studioControls = Object.freeze({
+ requestRender(){tracer?.updateCamera();resetTrace();},
+ setDepth(value){const depth=Number(value);if(!Number.isFinite(depth)||depth<=0)throw new RangeError('Depth must be positive');settings.height=depth;saveAppearance();displayValues();updateDepth();},
+ setAppearance(values){
+  const previous={...settings};
+  for(const [key,value]of Object.entries(values)){
+   if(!appearanceKeys.includes(key)||!Number.isFinite(value)||(key==='height'&&value<=0))throw new TypeError('Invalid appearance setting: '+key);
+  }
+  Object.assign(settings,values);saveAppearance();displayValues();
+  if(previous.bevel!==settings.bevel||previous.dome!==settings.dome)return rebuild();
+  if(previous.height!==settings.height)updateDepth();
+  updateMaterials();
+ },
+ getMetrics(){return model?{...window.reliefMetrics,drawCalls:model.children.filter(m=>m.isMesh).length}:null;},
+});
+
+const detailEditor=createDetailEditor({
+ read:()=>{
+  if(!asset)return null;
+  const assignments=structuredClone(asset.detailAssignments||{});
+  for(const region of asset.regions){const edit=overrides[region.id];if(!edit)continue;for(const id of region.sourcePaintIds||[region.id]){const p=asset.editablePaints?.find(p=>p.id===id);if(p)assignments[id]={role:edit.role||assignments[id]?.role||p.role,color:edit.color||assignments[id]?.color||p.color};}}
+  return {...asset,detailAssignments:assignments};
+ },
+ pause(){detailEditing=true;controls.enabled=false;},
+ resume(){detailEditing=false;controls.enabled=true;requestRender();},
+ async apply(assignments){
+  if(!asset)return;
+  const previous=asset,previousOverrides=overrides;
+  const next=compileDetailAssignments(asset,assignments);
+  const retained={};for(const region of previous.regions){const lift=previousOverrides[region.id]?.lift;if(lift!==undefined)for(const id of region.sourcePaintIds||[region.id])retained[id]={lift};}
+  asset=next;historyAsset=next;overrides=retained;
+  if(!await rebuild()){asset=previous;historyAsset=previous;overrides=previousOverrides;throw Error('Сборка не удалась. Предыдущая модель сохранена.');}
+  renderParts();
+ }
+});
+const editDetailsButton=document.createElement('button');editDetailsButton.textContent='Редактор деталей';editDetailsButton.id='editDetails';editDetailsButton.onclick=()=>{if(busy||exporting)return;try{detailEditor.open();}catch(e){error(e);}};
+document.querySelector('header .project-bar').append(editDetailsButton);
+const saveProject=document.createElement('button');saveProject.textContent='Сохранить проект';saveProject.onclick=()=>{if(!asset)return;download(new Blob([JSON.stringify({format:'relief-recipe-v1',assetKey:'custom',asset:asset.sourceSVG?{key:asset.key,name:asset.name,sourceSVG:asset.sourceSVG,detailAssignments:asset.detailAssignments}:asset,settings,lights:sources,contour,overrides},null,2)],{type:'application/json'}),'relief-project.json');};fileItems.append(saveProject);
+
+// Reviewed projects keep explicit editing decisions separate from untouched SVGs.
+const reviewedNames={'022':'Рука','024':'Сова','025':'Осьминог','027':'Бицепс','055':'2023','067':'Гоночная машина','079':'Мишень','086':'Палатка'};
+async function loadReviewedProject(id){
+ if(!reviewedNames[id])return;
+ const response=await fetch(new URL(`${import.meta.env.BASE_URL}reviewed-projects/achievement-${id}.json`,location.href));
+ if(!response.ok)throw Error('Не удалось загрузить исправленный проект.');
+ const text=await response.text();
+ await $('fileInput').onchange({target:{files:[new File([text],`achievement-${id}.json`,{type:'application/json'})]}});
+}
+const reviewedList=document.createElement('fieldset'),reviewedLegend=document.createElement('legend');reviewedLegend.textContent='Исправленные по замечаниям';reviewedList.append(reviewedLegend);
+for(const [id,name]of Object.entries(reviewedNames)){const button=document.createElement('button');button.textContent=name;button.onclick=()=>{testSVGDialog.close();loadReviewedProject(id).catch(error);};reviewedList.append(button);}
+testSVGDialog.append(reviewedList);
+const reviewedId=new URLSearchParams(location.search).get('review');if(reviewedNames[reviewedId])loadReviewedProject(reviewedId).catch(error);

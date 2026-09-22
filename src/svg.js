@@ -130,13 +130,13 @@ export function readSVG(text,name,flatten){
   }else mask=polygonBoolean(new SVGLoader().parse(svg).paths.flatMap(p=>filledPath(p,flatten)));
   loops=polygonBoolean(loops,mask,C.ClipType.ctIntersection);
  }return rootClip?polygonBoolean(loops,rootClip,C.ClipType.ctIntersection):loops;}
- for(const path of parsed.paths){
+ for(const [pathIndex,path] of parsed.paths.entries()){
   const {style,node}=path.userData;if(node.closest('defs,mask,clipPath'))continue;let hidden=style.visibility==='hidden'||style.visibility==='collapse'||style.opacity===0;
   if(node===canvasBackdrop)continue;
   for(let n=node;n?.nodeType===1;n=n.parentElement)if(n.getAttribute('display')==='none'||n.style?.display==='none'||n.getAttribute('opacity')==='0')hidden=true;
   if(hidden)continue;
   const filled=!!(style.fill&&style.fill!=='none'&&style.fillOpacity!==0);
-  const add=(loops,role,color,metadata={})=>{loops=constraints(loops,node);if(loops.length)paints.push({loops,role,color,...metadata});};
+  const add=(loops,role,color,metadata={})=>{loops=constraints(loops,node);if(loops.length)paints.push({loops,role,color,sourceId:`element-${pathIndex}-${role}`,label:(node.id||node.localName+' '+(pathIndex+1))+ (role==='rim'?' · обводка':' · заливка'),...metadata});};
   if(style.fill&&style.fill!=='none'&&style.fillOpacity!==0)add(filledPath(path,flatten),'fill',path.color.clone());
   if(style.stroke&&style.stroke!=='none'&&style.strokeOpacity!==0&&style.strokeWidth>0){
    if(node.getAttribute('stroke-dasharray')||node.style?.strokeDasharray)throw Error('Пунктирная обводка не поддерживается. Преобразуйте её в отдельные векторные фигуры перед экспортом SVG.');
@@ -172,11 +172,12 @@ export function readSVG(text,name,flatten){
   const c=p.color.clone().convertLinearToSRGB();
   // Fill colour is pigment, not a material tag. Only actual strokes form metal.
   const role='enamel';
- regions.push({id:'svg-'+i,role,color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)});
+ regions.push({id:'svg-'+i,sourcePaintIds:[p.sourceId],role,color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)});
  }
  const redundant=redundantRims(paints),renderPaints=paints.filter(p=>!redundant.has(p));
  const renderRims=renderPaints.filter(p=>p.role==='rim').flatMap(p=>polygonBoolean(p.loops,renderPaints.slice(renderPaints.indexOf(p)+1).filter(q=>q.role==='fill').flatMap(q=>q.loops),C.ClipType.ctDifference));
- const rims=visible.filter(p=>p.role==='rim');if(rims.length)regions.push({id:'svg-rim',role:'rim',renderLoops:norm(polygonBoolean(renderRims)),redundantOutlines:redundant.size,color:{r:.5,g:.5,b:.5},loops:norm(polygonBoolean(rims.flatMap(p=>p.loops)))});
- if(expandedRims.size){const loops=polygonBoolean([...expandedRims].flatMap(p=>p.loops)),source=[...expandedRims][0].color.clone().convertLinearToSRGB();regions.push({id:'svg-expanded-rim',role:'rim',renderLoops:norm(loops),color:{r:.5,g:.5,b:.5},validationColor:{r:source.r,g:source.g,b:source.b},loops:norm(loops)});}
- return{key:'custom',name,viewBox:[0,0,304,304],strokeWidth:strokeWidths.length?strokeWidths.sort((a,b)=>a-b)[Math.floor(strokeWidths.length/2)]*scale:undefined,sourceBounds:{minX:minX/S,minY:minY/S,maxX:maxX/S,maxY:maxY/S},regions};
+ const rims=visible.filter(p=>p.role==='rim');if(rims.length)regions.push({id:'svg-rim',sourcePaintIds:rims.map(p=>p.sourceId),role:'rim',renderLoops:norm(polygonBoolean(renderRims)),redundantOutlines:redundant.size,color:{r:.5,g:.5,b:.5},loops:norm(polygonBoolean(rims.flatMap(p=>p.loops)))});
+ if(expandedRims.size){const loops=polygonBoolean([...expandedRims].flatMap(p=>p.loops)),source=[...expandedRims][0].color.clone().convertLinearToSRGB();regions.push({id:'svg-expanded-rim',sourcePaintIds:[...expandedRims].map(p=>p.sourceId),role:'rim',renderLoops:norm(loops),color:{r:.5,g:.5,b:.5},validationColor:{r:source.r,g:source.g,b:source.b},loops:norm(loops)});}
+ const editablePaints=paints.map(p=>({id:p.sourceId,label:p.label,paint:p.role,role:p.role==='rim'||isMetalFill(p.color,strokeColors)?'rim':'enamel',color:'#'+p.color.getHexString(),loops:norm(p.loops)}));
+ return{editablePaints,key:'custom',name,viewBox:[0,0,304,304],strokeWidth:strokeWidths.length?strokeWidths.sort((a,b)=>a-b)[Math.floor(strokeWidths.length/2)]*scale:undefined,sourceBounds:{minX:minX/S,minY:minY/S,maxX:maxX/S,maxY:maxY/S},regions};
 }

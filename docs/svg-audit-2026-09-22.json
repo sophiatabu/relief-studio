@@ -1,0 +1,770 @@
+[
+  {
+    "file": "achievement-001.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2393.599999997765,
+    "totalMs": 13715.599999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-002.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2213.400000002235,
+    "totalMs": 17571.39999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-003.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1176.1000000014901,
+    "totalMs": 9007.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-004.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 542.8999999985099,
+    "totalMs": 8877.89999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-005.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1030.800000000745,
+    "totalMs": 9558.10000000149,
+    "errors": []
+  },
+  {
+    "file": "achievement-006.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 675.6999999992549,
+    "totalMs": 7481,
+    "errors": []
+  },
+  {
+    "file": "achievement-007.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 751.5,
+    "totalMs": 7839.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-008.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2435.5,
+    "totalMs": 16562,
+    "errors": []
+  },
+  {
+    "file": "achievement-009.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 4.899999998509884,
+    "totalMs": 422.1000000014901,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-010.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 3.899999998509884,
+    "totalMs": 364.69999999925494,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-011.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 3.900000002235174,
+    "totalMs": 362.9000000022352,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-012.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 963.8000000007451,
+    "totalMs": 7361.199999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-013.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 996.8999999985099,
+    "totalMs": 7133.400000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-014.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 902.3000000007451,
+    "totalMs": 9815.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-015.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 965.3999999985099,
+    "totalMs": 9931.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-016.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 4,
+    "totalMs": 398.0999999977648,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-017.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 5.099999997764826,
+    "totalMs": 391.69999999925494,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-018.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 928,
+    "totalMs": 8270.599999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-019.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 3.699999999254942,
+    "totalMs": 356.70000000298023,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-020.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1148.199999999255,
+    "totalMs": 7547.599999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-021.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 852.8000000007451,
+    "totalMs": 8167.60000000149,
+    "errors": []
+  },
+  {
+    "file": "achievement-022.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1081.0999999977648,
+    "totalMs": 9499.400000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-023.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1586.199999999255,
+    "totalMs": 8396.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-024.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1058.699999999255,
+    "totalMs": 9085.60000000149,
+    "errors": []
+  },
+  {
+    "file": "achievement-025.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2316.39999999851,
+    "totalMs": 11574.800000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-026.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1295.1000000014901,
+    "totalMs": 7925.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-027.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1143.6000000014901,
+    "totalMs": 9736.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-028.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 848.1999999992549,
+    "totalMs": 8112.099999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-029.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 753.2000000029802,
+    "totalMs": 6240.79999999702,
+    "errors": []
+  },
+  {
+    "file": "achievement-030.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 3.800000000745058,
+    "totalMs": 373.80000000074506,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-031.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 3.800000000745058,
+    "totalMs": 357.5999999977648,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-032.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 434.69999999925494,
+    "totalMs": 2199.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-033.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 438.1000000014901,
+    "totalMs": 2168.7000000029802,
+    "errors": []
+  },
+  {
+    "file": "achievement-034.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 480.80000000074506,
+    "totalMs": 4741.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-035.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 547.1999999992549,
+    "totalMs": 15113,
+    "errors": []
+  },
+  {
+    "file": "achievement-036.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1901.5,
+    "totalMs": 11751.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-037.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1172.300000000745,
+    "totalMs": 8498.89999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-038.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1047.800000000745,
+    "totalMs": 9379,
+    "errors": []
+  },
+  {
+    "file": "achievement-039.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2494.599999997765,
+    "totalMs": 17348,
+    "errors": []
+  },
+  {
+    "file": "achievement-040.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1606.6000000014901,
+    "totalMs": 9024.800000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-041.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1405,
+    "totalMs": 10457.199999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-042.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1508.199999999255,
+    "totalMs": 9610.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-043.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1925.699999999255,
+    "totalMs": 9535.89999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-044.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 545.8999999985099,
+    "totalMs": 4755.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-045.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1578.7000000029802,
+    "totalMs": 9107.699999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-046.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1691.800000000745,
+    "totalMs": 16668.10000000149,
+    "errors": []
+  },
+  {
+    "file": "achievement-047.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 533.3000000007451,
+    "totalMs": 3585.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-048.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1073.199999999255,
+    "totalMs": 6832.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-049.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1692.3999999985099,
+    "totalMs": 9403.699999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-050.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1036.300000000745,
+    "totalMs": 10887.79999999702,
+    "errors": []
+  },
+  {
+    "file": "achievement-051.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1417.1000000014901,
+    "totalMs": 8230.800000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-052.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1632.199999999255,
+    "totalMs": 9015,
+    "errors": []
+  },
+  {
+    "file": "achievement-053.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1368.300000000745,
+    "totalMs": 8674.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-054.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: Контуры после импорта не совпали с исходным SVG (53818 пикс. при проверке 1024×1024). Создание значка остановлено, чтобы не показать искажённый результат. Проверьте маски, эффекты и прозрачные наложения в исходнике, упростите их и экспортируйте SVG заново.",
+    "importMs": 606.8999999985099,
+    "totalMs": 974.0999999977648,
+    "errors": [
+      "Error: Контуры после импорта не совпали с исходным SVG (53818 пикс. при проверке 1024×1024). Создание значка остановлено, чтобы не показать искажённый результат. Проверьте маски, эффекты и прозрачные наложения в исходнике, упростите их и экспортируйте SVG заново.\n    at Oa (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:62492)\n    at async Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65462)\n    at async b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95206)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-055.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 668.3000000007451,
+    "totalMs": 6673.800000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-056.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1602.3999999985099,
+    "totalMs": 8966.5,
+    "errors": []
+  },
+  {
+    "file": "achievement-057.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 768.8999999985099,
+    "totalMs": 5760.89999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-058.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 745.8999999985099,
+    "totalMs": 4334.699999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-059.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: Контуры после импорта не совпали с исходным SVG (87108 пикс. при проверке 1024×1024). Создание значка остановлено, чтобы не показать искажённый результат. Проверьте маски, эффекты и прозрачные наложения в исходнике, упростите их и экспортируйте SVG заново.",
+    "importMs": 857.3999999985099,
+    "totalMs": 1219.8999999985099,
+    "errors": [
+      "Error: Контуры после импорта не совпали с исходным SVG (87108 пикс. при проверке 1024×1024). Создание значка остановлено, чтобы не показать искажённый результат. Проверьте маски, эффекты и прозрачные наложения в исходнике, упростите их и экспортируйте SVG заново.\n    at Oa (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:62492)\n    at async Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65462)\n    at async b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95206)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-060.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1804.699999999255,
+    "totalMs": 9824.39999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-061.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1613.0999999977648,
+    "totalMs": 10221.79999999702,
+    "errors": []
+  },
+  {
+    "file": "achievement-062.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2620.099999997765,
+    "totalMs": 11052,
+    "errors": []
+  },
+  {
+    "file": "achievement-063.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2025,
+    "totalMs": 10334.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-064.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2203.60000000149,
+    "totalMs": 10881.10000000149,
+    "errors": []
+  },
+  {
+    "file": "achievement-065.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1949.5,
+    "totalMs": 11973.400000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-066.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1431.3999999985099,
+    "totalMs": 8492.39999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-067.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1469.1000000014901,
+    "totalMs": 12118.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-068.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1399,
+    "totalMs": 11134.79999999702,
+    "errors": []
+  },
+  {
+    "file": "achievement-069.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2405.60000000149,
+    "totalMs": 7081.29999999702,
+    "errors": []
+  },
+  {
+    "file": "achievement-070.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 997.3000000007451,
+    "totalMs": 4524.599999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-071.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 726.4000000022352,
+    "totalMs": 2983.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-072.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 557.8999999985099,
+    "totalMs": 4788.400000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-073.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 554.6000000014901,
+    "totalMs": 2417.10000000149,
+    "errors": []
+  },
+  {
+    "file": "achievement-074.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 306,
+    "totalMs": 2285.699999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-075.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 3202.699999999255,
+    "totalMs": 12466,
+    "errors": []
+  },
+  {
+    "file": "achievement-076.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1806.7000000029802,
+    "totalMs": 11086,
+    "errors": []
+  },
+  {
+    "file": "achievement-077.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2183.800000000745,
+    "totalMs": 11242.199999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-078.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2132.60000000149,
+    "totalMs": 7992.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-079.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2140.199999999255,
+    "totalMs": 14377,
+    "errors": []
+  },
+  {
+    "file": "achievement-080.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2568.60000000149,
+    "totalMs": 13335.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-081.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2059.10000000149,
+    "totalMs": 9765,
+    "errors": []
+  },
+  {
+    "file": "achievement-082.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2342.199999999255,
+    "totalMs": 10949.300000000745,
+    "errors": []
+  },
+  {
+    "file": "achievement-083.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 2749.599999997765,
+    "totalMs": 13811.599999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-084.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1983.5999999977648,
+    "totalMs": 9040.699999999255,
+    "errors": []
+  },
+  {
+    "file": "achievement-085.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 3060.699999999255,
+    "totalMs": 13453,
+    "errors": []
+  },
+  {
+    "file": "achievement-086.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 512.8999999985099,
+    "totalMs": 4387.39999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-087.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: Контуры после импорта не совпали с исходным SVG (3970 пикс. при проверке 1024×1024). Создание значка остановлено, чтобы не показать искажённый результат. Проверьте маски, эффекты и прозрачные наложения в исходнике, упростите их и экспортируйте SVG заново.",
+    "importMs": 166.09999999776483,
+    "totalMs": 528.1000000014901,
+    "errors": [
+      "Error: Контуры после импорта не совпали с исходным SVG (3970 пикс. при проверке 1024×1024). Создание значка остановлено, чтобы не показать искажённый результат. Проверьте маски, эффекты и прозрачные наложения в исходнике, упростите их и экспортируйте SVG заново.\n    at Oa (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:62492)\n    at async Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65462)\n    at async b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95206)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-088.svg",
+    "status": "error",
+    "message": "Не получилось завершить действие: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.",
+    "importMs": 5.200000002980232,
+    "totalMs": 366.69999999925494,
+    "errors": [
+      "Error: В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.\n    at Ea (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:39617)\n    at Da (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:55427)\n    at Pr (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:48812)\n    at Gt (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:65405)\n    at b.onchange (http://127.0.0.1:5193/assets/index-i1BnhLxa.js:28:95212)\n    at async http://127.0.0.1:5193/audit.js:25:2"
+    ]
+  },
+  {
+    "file": "achievement-089.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 559.5999999977648,
+    "totalMs": 5656.39999999851,
+    "errors": []
+  },
+  {
+    "file": "achievement-090.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1736.800000000745,
+    "totalMs": 7346.099999997765,
+    "errors": []
+  },
+  {
+    "file": "achievement-091.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 1238.1000000014901,
+    "totalMs": 4913.900000002235,
+    "errors": []
+  },
+  {
+    "file": "achievement-092.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 630.1999999992549,
+    "totalMs": 2892.2000000029802,
+    "errors": []
+  },
+  {
+    "file": "achievement-093.svg",
+    "status": "pass",
+    "message": null,
+    "importMs": 606.5,
+    "totalMs": 2674.89999999851,
+    "errors": []
+  }
+]

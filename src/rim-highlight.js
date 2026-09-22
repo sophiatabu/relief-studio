@@ -13,7 +13,7 @@ export function edgeHighlight(u,nx,ny,strength,width,directions){
 export function updateRimHighlight(model,settings,sources){
  if(!model)return false;
  const directions=(settings.rimHighlight??.55)<=0?[]:sources.filter(s=>s.kind!=='dark'&&s.enabled&&s.power>0&&(s.contourInfluence??1)>0).map(s=>({x:Math.sin(s.azimuth*Math.PI/180),y:Math.cos(s.azimuth*Math.PI/180),power:Math.min(1,s.power*(s.contourInfluence??1))}));
- const materials=[];model.traverse(mesh=>{if(mesh.isMesh&&mesh.userData.surface==='rim-cap')materials.push(mesh.material.uuid);});
+ const materials=[];model.traverse(mesh=>{if(mesh.isMesh&&mesh.userData.surface==='rim-cap')materials.push([mesh.material.uuid,mesh.material.version]);});
  const signature=JSON.stringify([directions,settings.rimHighlight,settings.rimHighlightWidth,materials]);
  if(applied.get(model)===signature)return false;
  model.traverse(mesh=>{
