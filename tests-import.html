@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>SVG import regression</title><style>body{background:#222;color:#eee;font:16px system-ui}canvas,img{width:420px;height:420px}</style><h1>SVG import regression</h1><pre id="results"></pre><script type="module">
+import{prepareAsset}from'/src/geometry.js';import{validateSVG}from'/src/validate-svg.js';
+const log=t=>document.querySelector('#results').textContent+=t+'\n';
+for(const key of ['sheared-badge','robot','meditation','paw','car','sneaker']){
+try{const raw=key==='sheared-badge'?{name:key,sourceSVG:await(await fetch('/tests/fixtures/sheared-badge.svg')).text()}:await(await fetch('/assets/'+key+'.json')).json();const start=performance.now(),asset=prepareAsset(raw);log(key+' parsed in '+Math.round(performance.now()-start)+'ms');await validateSVG(raw.sourceSVG,asset);log('PASS '+key);}catch(e){log('FAIL '+key+' '+e.stack);}}
+try{const source=await(await fetch('/tests/fixtures/sheared-badge.svg')).text(),asset=prepareAsset({name:'negative',sourceSVG:source});asset.regions.find(r=>r.role==='enamel').color={r:1,g:0,b:0};let rejected=false;try{await validateSVG(source,asset)}catch{rejected=true}if(!rejected)throw Error('Changed colour accepted');log('PASS · Real colour mismatch still rejected');}catch(e){log('FAIL '+e.message)}
+log('DONE');
+</script>

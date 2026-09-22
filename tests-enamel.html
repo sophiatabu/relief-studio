@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><title>Стыки эмали</title><pre id="results"></pre><script type="module">
+import{importSVG,buildBadge,disposeModel}from'/src/geometry.js';import{validateSVG}from'/src/validate-svg.js';
+const log=t=>document.querySelector('#results').textContent+=t+'\n';
+try{
+ const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10 10H50V90H10Z" fill="#0088ff"/><path d="M50 10H90V90H50Z" fill="#ff6600"/></svg>',asset=importSVG(svg);
+ await validateSVG(svg,asset);if(asset.regions.some(r=>r.role==='rim'))throw Error('Лишний бортик');
+ const{model}=buildBadge(asset,{height:9,bevel:1.2,dome:1,roughness:.38,gloss:.45});
+ const tops=model.children.filter(m=>m.geometry.type==='BufferGeometry'),sides=[];
+ for(const mesh of tops){const p=mesh.geometry.attributes.position,n=mesh.geometry.attributes.normal,points=new Map();for(let i=0;i<p.count;i++)if(Math.abs(p.getX(i))<.001)points.set(p.getY(i).toFixed(4),[p.getZ(i),n.getX(i),n.getY(i),n.getZ(i)]);sides.push(points);}
+ if(sides.length!==2)throw Error('Ожидались две цветные поверхности');let count=0;
+ for(const[y,a]of sides[0]){const b=sides[1].get(y);if(!b)continue;count++;if(a.some((v,i)=>Math.abs(v-b[i])>1e-6))throw Error('Несовпадение высоты или нормали на стыке');}
+ if(count<20||sides[0].get('0.0000')?.[0]<4.5)throw Error('Нет общей выпуклой поверхности');
+ log('PASS · Стык двух цветов: '+count+' точек, одинаковые высоты и нормали, без канавки и металлической обводки');disposeModel(model);
+ const monochrome=importSVG(svg.replace('#0088ff','black').replace('#ff6600','white'));if(monochrome.regions.some(r=>r.role!=='enamel'))throw Error('Цвет подменил материал');log('PASS · Чёрная и белая заливки остаются эмалью');
+}catch(e){log('FAIL '+e.stack)}
+</script>

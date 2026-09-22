@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>Плавность градиента</title><style>body{background:#202122;color:white;font:16px system-ui}#panels{display:flex;gap:20px}figure{margin:0}canvas{width:500px;height:500px}</style><h1>Тёмная эмаль · точность градиента</h1><pre id="results"></pre><div id="panels"></div><script type="module">
+import * as THREE from 'three';import {RenderTarget2DArray} from '/node_modules/three-gpu-pathtracer/src/uniforms/RenderTarget2DArray.js';import {FullScreenQuad} from 'three/addons/postprocessing/Pass.js';import {createDarkness} from './src/darkness.js';
+const log=t=>document.querySelector('#results').textContent+=t+'\n';
+try{
+ const m=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshPhysicalMaterial({color:'#333333'}));m.userData.role='enamel';const d=createDarkness();d.update(m,[{kind:'dark',enabled:true,power:.3,softness:3,distance:1.8,azimuth:-135,elevation:25,blendMode:'multiply',richness:.35},{kind:'light',enabled:true,power:1,azimuth:35,blendMode:'screen',richness:.15}]);
+ const renderer=new THREE.WebGLRenderer({preserveDrawingBuffer:true});renderer.setSize(512,512);const counts=[];
+ for(const [type,label]of [[THREE.UnsignedByteType,'Было · 8 бит в линейном цвете'],[THREE.HalfFloatType,'Стало · 16 бит с плавающей точкой']]){
+  const atlas=new RenderTarget2DArray(512,512,{type});atlas.setTextures(renderer,[m.material.map]);renderer.setRenderTarget(atlas,0);const values=type===THREE.HalfFloatType?new Uint16Array(512*4):new Uint8Array(512*4);renderer.readRenderTargetPixels(atlas,0,256,512,1,values);const count=new Set(Array.from({length:512},(_,i)=>values[i*4])).size;counts.push(count);
+  const quad=new FullScreenQuad(new THREE.ShaderMaterial({uniforms:{map:{value:atlas.texture}},vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',fragmentShader:'uniform highp sampler2DArray map;varying vec2 vUv;void main(){vec3 c=texture(map,vec3(vUv,0.)).rgb;gl_FragColor=vec4(c,1.);\n#include <colorspace_fragment>\n}'}));renderer.setRenderTarget(null);quad.render(renderer);
+  const figure=document.createElement('figure'),caption=document.createElement('figcaption'),canvas=document.createElement('canvas');caption.textContent=label;canvas.width=canvas.height=512;canvas.getContext('2d').drawImage(renderer.domElement,0,0);figure.append(caption,canvas);document.querySelector('#panels').append(figure);quad.material.dispose();quad.dispose();atlas.dispose();
+ }
+ if(counts[1]<400||counts[0]>20)throw Error('Unexpected GPU precision '+counts);log('PASS · GPU: '+counts[0]+' → '+counts[1]+' оттенков на строке');renderer.dispose();d.dispose();
+}catch(e){log('FAIL '+e.stack)}
+</script>

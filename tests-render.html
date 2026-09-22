@@ -1,0 +1,30 @@
+<!doctype html><meta charset="utf-8"><title>Relief · проверка рендера</title><style>body{font:15px system-ui;background:#20221f;color:#d0ef9e;padding:20px}iframe{width:1280px;height:850px;border:0}p{padding:8px;border-bottom:1px solid #444}</style><h1>Проверка света и импорта</h1><div id="results"></div><iframe></iframe>
+<script type="module">
+const frame=document.querySelector('iframe'),log=t=>{const p=document.createElement('p');p.textContent=t;document.querySelector('#results').append(p)},sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const until=async(fn,label,timeout=90000)=>{const start=performance.now();while(!fn()){if(performance.now()-start>timeout)throw Error(label);await sleep(100)}};
+// Isolate test settings: this fixture never changes the user's saved lighting.
+window.testStorage=new Map();
+const html=await(await fetch('/')).text();
+const fixture=html.replace('<head>','<head><base href="/"><script>Object.defineProperty(window,"localStorage",{value:{getItem:k=>parent.testStorage.get(k)??null,setItem:(k,v)=>parent.testStorage.set(k,v)}});<\/script>');
+const mount=async()=>{const ready=new Promise(r=>frame.onload=r);frame.srcdoc=fixture;await ready;await until(()=>frame.contentWindow.reliefMetrics?.key==='robot','Робот не построился');};
+const $=id=>frame.contentDocument.getElementById(id),input=(id,value)=>{$(id).value=value;$(id).dispatchEvent(new frame.contentWindow.Event('input',{bubbles:true}));};
+try{
+ await mount();
+ if($('renderMode')||frame.contentWindow.reliefMetrics.mode!=='physical')throw Error('Доступен другой режим');
+ await until(()=>parseInt($('samples').textContent)>=2,'Нет накопления лучей');log('PASS · Только физическая трассировка, лучи накапливаются');
+ if(!$('transparent').checked)throw Error('Фон включён по умолчанию');
+ const snapshot=frame.contentDocument.createElement('canvas');snapshot.width=560;snapshot.height=560;const pixels=snapshot.getContext('2d');pixels.drawImage(frame.contentDocument.querySelector('#viewport canvas'),0,0);if(pixels.getImageData(2,2,1,1).data[3]!==0)throw Error('Нет прозрачности вне значка');log('PASS · По умолчанию фон и падающая тень прозрачны');
+ if($('power').disabled||$('softness').disabled||$('powerLabel').textContent!=='Сила затемнения')throw Error('Затемнение заблокировано');
+ $('darkBlend').value='neutral';$('darkBlend').dispatchEvent(new frame.contentWindow.Event('change'));if(!$('darkRichness').disabled)throw Error('Сочность активна в обычном режиме');$('darkBlend').value='multiply';$('darkBlend').dispatchEvent(new frame.contentWindow.Event('change'));input('darkRichness',.35);
+ input('rimHighlight',.4);input('rimHighlightWidth',.25);input('dome',.75);input('power',.25);input('softness',2.5);input('azimuth',-110);
+ const saved=JSON.parse(window.testStorage.get('relief-studio-lighting-v1'));
+ if(saved.sources.find(s=>s.kind==='dark').power!==.25)throw Error('Сила не сохранилась');
+ frame.contentDocument.querySelector('[data-asset="meditation"]').click();await until(()=>frame.contentWindow.reliefMetrics?.key==='meditation','Медитация не построилась');
+ if(Number($('power').value)!==.25||Number($('azimuth').value)!==-110)throw Error('Настройки изменились при смене макета');
+ await mount();if(Number($('rimHighlight').value)!==.4||Number($('rimHighlightWidth').value)!==.25||Number($('dome').value)!==.75||Number($('darkRichness').value)!==.35||$('darkBlend').value!=='multiply'||Number($('power').value)!==.25||Number($('softness').value)!==2.5)throw Error('Настройки потерялись при перезагрузке');log('PASS · Редактирование, общие настройки и восстановление после перезагрузки');
+ const win=frame.contentWindow,transfer=new win.DataTransfer();transfer.items.add(new win.File(['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="38" fill="white" stroke="#888" stroke-width="5"/></svg>'],'test-circle.svg',{type:'image/svg+xml'}));$('fileInput').files=transfer.files;$('fileInput').dispatchEvent(new win.Event('change',{bubbles:true}));
+ await until(()=>win.reliefMetrics?.key==='custom','SVG не импортировался');if($('sourcePreview').hidden||!$('error').hidden)throw Error('Нет исходника или ошибка импорта');
+ if(Number($('power').value)!==.25)throw Error('Импорт сменил освещение');log('PASS · Собственный SVG и предпросмотр, освещение сохраняется');
+ await until(()=>parseInt($('samples').textContent)>=2,'Рендер SVG не запустился');log('ГОТОВО · Все проверки пройдены');
+}catch(e){log('FAIL · '+e.message)}
+</script>

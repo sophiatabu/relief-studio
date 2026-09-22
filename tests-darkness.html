@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><title>Relief · проверка Multiply</title><pre id="out"></pre><script type="module">
+import * as THREE from 'three';import {GLTFExporter} from 'three/addons/exporters/GLTFExporter.js';import {modelForGLTF} from './src/gradient-texture.js';import {createDarkness} from './src/darkness.js';
+const log=t=>document.querySelector('#out').textContent+=t+'\n',check=(v,t)=>{if(!v)throw Error(t);log('PASS · '+t)};
+try{
+ const model=new THREE.Group(),make=(colour,role)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshPhysicalMaterial({color:colour}));m.userData.role=role;model.add(m);return m};
+ const colour=make('#33d3cf','enamel'),white=make('#ffffff','enamel'),rim=make('#b5b6b2','rim');
+ const s={kind:'dark',enabled:true,power:.7,softness:3,distance:1.8,azimuth:-135,elevation:25,blendMode:'neutral',richness:.2},d=createDarkness(),pixels=m=>m.material.map.image.data.slice();
+ d.update(model,[s]);const before=pixels(colour),metalBefore=pixels(rim);
+ s.blendMode='multiply';check(d.update(model,[s]),'Смена режима обновляет текстуры');const after=pixels(colour),w=pixels(white),metalAfter=pixels(rim);
+ let brighter=0,coloured=0;for(let i=0;i<after.length;i+=4){if(after[i+1]>before[i+1])brighter++;if(after[i+1]>after[i])coloured++;if(w[i]!==w[i+1]||w[i+1]!==w[i+2])throw Error('Белая эмаль получила оттенок');if(metalBefore[i]!==metalAfter[i])throw Error('Изменился металл '+i+': '+metalBefore[i]+' → '+metalAfter[i]);}
+ check(brighter>10000&&coloured>10000,'Тени эмали светлее и насыщеннее');log('PASS · Белая эмаль нейтральна, металл без изменений');
+ check(!d.update(model,[s]),'Неизменный кадр использует кэш');
+ colour.material.color.set('#ff8822');check(d.update(model,[s]),'Перекраска обновляет оттенок тени');
+ s.blendMode='neutral';d.update(model,[s]);check(pixels(colour).every((v,i)=>v===before[i]),'Обычный режим точно возвращает прежнее затемнение');
+ s.enabled=false;d.update(model,[s]);check(pixels(colour).every(v=>v===THREE.DataUtils.toHalfFloat(1)),'Выключение источника полностью убирает затемнение');const lamp={kind:'light',enabled:true,power:1,azimuth:35,blendMode:'screen',richness:.15};const pigment=colour.material.color.clone();d.update(model,[lamp]);check(colour.material.color.getHex()===0xffffff&&!!colour.material.userData.screenBase,'Screen запекается в отражающий цвет без свечения');check(colour.material.emissive.getHex()===0,'Screen не создаёт излучение');lamp.blendMode='none';d.update(model,[lamp]);check(colour.material.color.equals(pigment),'Выключение Screen возвращает исходный пигмент');const copy=modelForGLTF(model);try{const glb=await new GLTFExporter().parseAsync(copy.model,{binary:true});check(glb instanceof ArrayBuffer&&glb.byteLength>1000,'GLB с градиентами сохраняется');}finally{copy.dispose();}d.dispose();log('ГОТОВО');
+}catch(e){log('FAIL · '+e.message)}
+</script>

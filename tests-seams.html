@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><title>Контроль стыка</title><style>body{background:#20221f;color:white;font:14px system-ui}canvas{width:600px;height:350px}</style><pre id="out"></pre><script type="module">
+import * as THREE from 'three';import {prepareAsset,buildBadge}from './src/geometry.js';
+const asset=prepareAsset(await(await fetch('/assets/paw.json')).json()),{model}=buildBadge(asset,{height:9,bevel:1.2,dome:3.25,roughness:.38,gloss:.45});
+const counts=new Map();for(const m of model.children.filter(m=>m.name==='rim')){const p=m.geometry.attributes.position;for(let i=0;i<p.count;i++){if(p.getZ(i)<9.001)continue;const key=Math.round(p.getX(i)*10000)+','+Math.round(p.getY(i)*10000);if(!counts.has(key))counts.set(key,new Set());counts.get(key).add(p.getZ(i).toFixed(4));}}
+const conflicts=[...counts].filter(([_,s])=>s.size>1);document.querySelector('#out').textContent='Убрано дублирующих контуров: '+asset.regions.find(r=>r.role==='rim').redundantOutlines+'; Несовпадающие высоты общих точек: '+conflicts.length+' '+JSON.stringify(conflicts.slice(0,10).map(([k,v])=>[k,[...v]]));
+const scene=new THREE.Scene();scene.background=new THREE.Color('#20221f');scene.add(model);scene.add(new THREE.HemisphereLight(0xffffff,0x444444,2));const light=new THREE.DirectionalLight(0xffffff,3);light.position.set(-2,3,6);scene.add(light);
+const r=new THREE.WebGLRenderer({antialias:true});r.setSize(1200,700);r.outputColorSpace=THREE.SRGBColorSpace;const camera=new THREE.OrthographicCamera(-.35,.35,.20,-.20,.01,10);camera.position.set(0,1.04,5);camera.lookAt(0,1.04,0);document.body.append(r.domElement);r.render(scene,camera);
+</script>

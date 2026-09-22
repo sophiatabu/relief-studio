@@ -1,0 +1,5 @@
+<!doctype html><meta charset="utf-8"><title>Rim width audit</title><pre id="out"></pre><script type="module">
+import {prepareAsset} from './src/geometry.js';import {widenRim} from './src/rim-width.js';import C from 'clipper-lib';
+const area=p=>Math.abs(C.Clipper.Area(p))/1e6,info=loops=>({parts:loops.filter(C.Clipper.Orientation).length,holes:loops.filter(p=>!C.Clipper.Orientation(p)).map(area).sort((a,b)=>a-b),minX:Math.min(...loops.flat().map(p=>p.X))/1000});
+for(const key of ['robot','meditation','paw','sneaker','car']){const a=prepareAsset(await(await fetch('/assets/'+key+'.json')).json()),loops=a.regions.find(r=>r.role==='rim').loops;const off=new C.ClipperOffset(2,5),full=[];off.AddPaths(loops,C.JoinType.jtRound,C.EndType.etClosedPolygon);off.Execute(full,a.strokeWidth*.25/2*1000);const current=widenRim(loops,a.strokeWidth);const actual=2*(info(loops).minX-info(current).minX)/a.strokeWidth;document.querySelector('#out').textContent+=JSON.stringify({key,sourceWidth:a.strokeWidth,resultWidth:a.strokeWidth*(1+actual),gainPercent:Math.round(actual*1000)/10,pass:Math.abs(actual-.25)<.001,openings:info(current).holes.length})+'\n';}
+</script>
