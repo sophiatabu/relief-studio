@@ -1,0 +1,3984 @@
+{
+  "date": "2026-09-22",
+  "count": 93,
+  "passed": 93,
+  "failed": 0,
+  "runtimeErrors": 0,
+  "invalidVertices": 0,
+  "samples": 128,
+  "drawingBuffer": [
+    320,
+    320
+  ],
+  "nodeTestsPassed": 92,
+  "focusedFiles": [
+    9,
+    10,
+    11,
+    16,
+    17,
+    19,
+    30,
+    31,
+    54,
+    59,
+    87,
+    88
+  ],
+  "commentsPreserved": true,
+  "results": [
+    {
+      "index": 0,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:34:52.955Z",
+      "file": "achievement-001.svg",
+      "source": "Frame 2087331927.svg",
+      "sha256": "c10eaa97da2d96609d90953ba6cf0cc438025f35c5d69747aab12cbe1cfa4410",
+      "importStarted": 427.5,
+      "importMs": 2330.89999999851,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 351144,
+        "triangles": 117048,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 17,
+        "sourceBounds": {
+          "minX": 18.115,
+          "minY": 8.89,
+          "maxX": 81.715,
+          "maxY": 95.382
+        }
+      },
+      "pixels": {
+        "visible": 36332,
+        "coverage": 0.3548046875,
+        "darkFraction": 0,
+        "mean": 103.59390252853714
+      },
+      "totalMs": 13907.10000000149
+    },
+    {
+      "index": 1,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:35:07.051Z",
+      "file": "achievement-002.svg",
+      "source": "Frame-1.svg",
+      "sha256": "1c51a0d7615958026c7f35ae0a3c29b6382a4999bb9a06aa843ffbd1ec4a830c",
+      "importStarted": 394.1000000014901,
+      "importMs": 1569.3000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 356775,
+        "triangles": 118925,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 3,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 63.6,
+          "maxY": 83.54
+        }
+      },
+      "pixels": {
+        "visible": 35728,
+        "coverage": 0.34890625,
+        "darkFraction": 0,
+        "mean": 132.0161497984801
+      },
+      "totalMs": 13259.20000000298
+    },
+    {
+      "index": 2,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:35:20.504Z",
+      "file": "achievement-003.svg",
+      "source": "Frame-2.svg",
+      "sha256": "e2b4c91dcdfbab5ce5c4449d5ced467629d3de43d9e96f930a477c55ff312b2c",
+      "importStarted": 360.8999999985099,
+      "importMs": 1080.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 235506,
+        "triangles": 78502,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 4.13,
+          "minY": 11.069,
+          "maxX": 67.73,
+          "maxY": 96.61
+        }
+      },
+      "pixels": {
+        "visible": 33907,
+        "coverage": 0.331123046875,
+        "darkFraction": 0,
+        "mean": 108.17774107608294
+      },
+      "totalMs": 9215
+    },
+    {
+      "index": 3,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:35:29.901Z",
+      "file": "achievement-004.svg",
+      "source": "Frame-3.svg",
+      "sha256": "6010255e9c32be08fa69dcaa67da2f068ee089eb3bac05e4a68ab3e7147c8a82",
+      "importStarted": 384.3999999985099,
+      "importMs": 482,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 60510,
+        "triangles": 20170,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 63.72,
+          "maxY": 85.82
+        }
+      },
+      "pixels": {
+        "visible": 34511,
+        "coverage": 0.337021484375,
+        "darkFraction": 0,
+        "mean": 124.6161803482952
+      },
+      "totalMs": 9278.5
+    },
+    {
+      "index": 4,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:35:39.366Z",
+      "file": "achievement-005.svg",
+      "source": "Frame-4.svg",
+      "sha256": "03c315675b0aec452cc8aa94d05cc70c87f02932cef7cad8b6db4bc1adf9d06a",
+      "importStarted": 365,
+      "importMs": 996.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 217488,
+        "triangles": 72496,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 4.388,
+          "maxX": 63.6,
+          "maxY": 83.51
+        }
+      },
+      "pixels": {
+        "visible": 38695,
+        "coverage": 0.377880859375,
+        "darkFraction": 0,
+        "mean": 112.75702287117225
+      },
+      "totalMs": 9706.89999999851
+    },
+    {
+      "index": 5,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:35:49.264Z",
+      "file": "achievement-006.svg",
+      "source": "Frame-5.svg",
+      "sha256": "0c47cda4aab141d21d2add179bc2fe0a7d3336d20b8596635cffb639ef0d0fd9",
+      "importStarted": 367.69999999552965,
+      "importMs": 587.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 81933,
+        "triangles": 27311,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 70.846,
+          "maxY": 70.819
+        }
+      },
+      "pixels": {
+        "visible": 40888,
+        "coverage": 0.399296875,
+        "darkFraction": 0,
+        "mean": 117.30569686296971
+      },
+      "totalMs": 7862.39999999851
+    },
+    {
+      "index": 6,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:35:57.316Z",
+      "file": "achievement-007.svg",
+      "source": "Frame-6.svg",
+      "sha256": "3d00e3c84026e5f91e3ef000e0c2920c359418770d9a312ebf9eb2588909171a",
+      "importStarted": 381.5,
+      "importMs": 673.7000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 117117,
+        "triangles": 39039,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0.004,
+          "minY": 0,
+          "maxX": 74.549,
+          "maxY": 74.6
+        }
+      },
+      "pixels": {
+        "visible": 42961,
+        "coverage": 0.419541015625,
+        "darkFraction": 0,
+        "mean": 156.08811868127208
+      },
+      "totalMs": 8409.70000000298
+    },
+    {
+      "index": 7,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:05.908Z",
+      "file": "achievement-008.svg",
+      "source": "Frame.svg",
+      "sha256": "914c33566c728ac06fb193acb9209d7841f9d218ca7bbd6eb2335a10a83e9b84",
+      "importStarted": 360.09999999403954,
+      "importMs": 1852.7000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 355848,
+        "triangles": 118616,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 4,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.008,
+          "maxX": 63.6,
+          "maxY": 81.1
+        }
+      },
+      "pixels": {
+        "visible": 36412,
+        "coverage": 0.3555859375,
+        "darkFraction": 0,
+        "mean": 131.41345344025785
+      },
+      "totalMs": 14169.69999999553
+    },
+    {
+      "index": 8,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3221)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3221)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3221)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:20.271Z",
+      "file": "achievement-009.svg",
+      "source": "Group 2087331897.svg",
+      "sha256": "0bbcc3b9418d4d40ca5b29df87111d8d29ea47b06d9f6654a772af47661f794e",
+      "importStarted": 453,
+      "importMs": 426.1000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 50169,
+        "triangles": 16723,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 4,
+        "sourceBounds": {
+          "minX": 0.314,
+          "minY": 8.969,
+          "maxX": 44.556,
+          "maxY": 62.036
+        }
+      },
+      "pixels": {
+        "visible": 27571,
+        "coverage": 0.269248046875,
+        "darkFraction": 0,
+        "mean": 158.83840508747414
+      },
+      "totalMs": 2667.60000000149
+    },
+    {
+      "index": 9,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3225)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3225)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:23.124Z",
+      "file": "achievement-010.svg",
+      "source": "Group 2087331898.svg",
+      "sha256": "b3d0667369905cbe2a2c222c877063cc914ccc2221e185efc00227e72ab1251f",
+      "importStarted": 365.79999999701977,
+      "importMs": 398,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 48570,
+        "triangles": 16190,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 4,
+        "sourceBounds": {
+          "minX": 0.314,
+          "minY": 7.379,
+          "maxX": 44.556,
+          "maxY": 62.036
+        }
+      },
+      "pixels": {
+        "visible": 25839,
+        "coverage": 0.252333984375,
+        "darkFraction": 0,
+        "mean": 121.4892991214827
+      },
+      "totalMs": 2366.7999999970198
+    },
+    {
+      "index": 10,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3228)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3228)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:25.675Z",
+      "file": "achievement-011.svg",
+      "source": "Group 2087331899.svg",
+      "sha256": "c321ae7584673fed234d7a9e59558495fa6cd330c4589d3da64e76d8a209f55d",
+      "importStarted": 365.6000000014901,
+      "importMs": 387.5,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 44544,
+        "triangles": 14848,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 4,
+        "sourceBounds": {
+          "minX": 0.679,
+          "minY": 2.836,
+          "maxX": 44.921,
+          "maxY": 65.073
+        }
+      },
+      "pixels": {
+        "visible": 22502,
+        "coverage": 0.21974609375,
+        "darkFraction": 0,
+        "mean": 96.36273812698032
+      },
+      "totalMs": 2281.7999999970198
+    },
+    {
+      "index": 11,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:28.141Z",
+      "file": "achievement-012.svg",
+      "source": "Group 2087331931.svg",
+      "sha256": "e32671635b228a142be23741a9ed8c81d97d9ee97bd73f3e49bb849682f93f5f",
+      "importStarted": 357.79999999701977,
+      "importMs": 838.7000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 175164,
+        "triangles": 58388,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0.183,
+          "minY": 0,
+          "maxX": 55.817,
+          "maxY": 52
+        }
+      },
+      "pixels": {
+        "visible": 42132,
+        "coverage": 0.4114453125,
+        "darkFraction": 0,
+        "mean": 144.06240703818844
+      },
+      "totalMs": 7825.0999999940395
+    },
+    {
+      "index": 12,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:36.163Z",
+      "file": "achievement-013.svg",
+      "source": "Group 2087331932.svg",
+      "sha256": "9f753f2d0506b98dbbf7742b46405f5635823398ec21355148af71b2d921b2c5",
+      "importStarted": 951.2999999970198,
+      "importMs": 910.4000000059605,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 189960,
+        "triangles": 63320,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0.183,
+          "minY": 0,
+          "maxX": 55.817,
+          "maxY": 66.413
+        }
+      },
+      "pixels": {
+        "visible": 31251,
+        "coverage": 0.305185546875,
+        "darkFraction": 0,
+        "mean": 113.35098610178255
+      },
+      "totalMs": 8498.89999999851
+    },
+    {
+      "index": 13,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:44.862Z",
+      "file": "achievement-014.svg",
+      "source": "Group 2087331938.svg",
+      "sha256": "9e7f09d59c209b0eaef415dab647fb5d3f2e4ecebbcd1081d1aee0f055d57b8b",
+      "importStarted": 1005.2000000029802,
+      "importMs": 788.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 149619,
+        "triangles": 49873,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.802,
+          "maxX": 52.165,
+          "maxY": 53.554
+        }
+      },
+      "pixels": {
+        "visible": 41416,
+        "coverage": 0.404453125,
+        "darkFraction": 0,
+        "mean": 120.79211737814326
+      },
+      "totalMs": 11364.29999999702
+    },
+    {
+      "index": 14,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:36:56.416Z",
+      "file": "achievement-015.svg",
+      "source": "Group 2087331939.svg",
+      "sha256": "7d082446164e81c713cbec3dad024419bd78b7b32d8b516e4a3d33e9c3efaf13",
+      "importStarted": 358.8999999985099,
+      "importMs": 855.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 171642,
+        "triangles": 57214,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 52.165,
+          "maxY": 56
+        }
+      },
+      "pixels": {
+        "visible": 37412,
+        "coverage": 0.3653515625,
+        "darkFraction": 0,
+        "mean": 109.93477137461038
+      },
+      "totalMs": 10736.39999999851
+    },
+    {
+      "index": 15,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint1_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint1_linear_41_2463)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2463)",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:07.339Z",
+      "file": "achievement-016.svg",
+      "source": "Group 2087331960.svg",
+      "sha256": "db15e08db0d9cef530c943ebedef2abd0ba302505765829a322781fd37a8790c",
+      "importStarted": 361.3999999985099,
+      "importMs": 1076.1000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 210231,
+        "triangles": 70077,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 5.173,
+          "minY": 0.941,
+          "maxX": 72.89,
+          "maxY": 67.009
+        }
+      },
+      "pixels": {
+        "visible": 41714,
+        "coverage": 0.40736328125,
+        "darkFraction": 0,
+        "mean": 124.08147544389112
+      },
+      "totalMs": 9767.39999999851
+    },
+    {
+      "index": 16,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint1_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint3_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint1_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_41_2478)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint3_linear_41_2478)",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:17.292Z",
+      "file": "achievement-017.svg",
+      "source": "Group 2087331961.svg",
+      "sha256": "1018b110b7e009116d74bf2440f45a40159b34034529daf354c8258343f11f2b",
+      "importStarted": 408.59999999403954,
+      "importMs": 909.1000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 141378,
+        "triangles": 47126,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0.005,
+          "minY": 0,
+          "maxX": 67.722,
+          "maxY": 64.847
+        }
+      },
+      "pixels": {
+        "visible": 35601,
+        "coverage": 0.347666015625,
+        "darkFraction": 0,
+        "mean": 108.95356871998221
+      },
+      "totalMs": 9994
+    },
+    {
+      "index": 17,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:27.469Z",
+      "file": "achievement-018.svg",
+      "source": "Group 2087332036.svg",
+      "sha256": "e36ad0f1ef027348c9ff9c8cdddd544817a9c016027edd88ed5be3ff2df578b7",
+      "importStarted": 361.79999999701977,
+      "importMs": 870.7000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 160695,
+        "triangles": 53565,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 1.793,
+          "minY": 5.086,
+          "maxX": 58.143,
+          "maxY": 68.52
+        }
+      },
+      "pixels": {
+        "visible": 37583,
+        "coverage": 0.367021484375,
+        "darkFraction": 0,
+        "mean": 143.47588892140143
+      },
+      "totalMs": 9724.20000000298
+    },
+    {
+      "index": 18,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3212)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_62_3212)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint4_linear_62_3212)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_62_3212)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_62_3212)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint4_linear_62_3212)",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:37.380Z",
+      "file": "achievement-019.svg",
+      "source": "Group 2087332037.svg",
+      "sha256": "238c5b68a8efc825e947996c59376885deba0b6b2610a309875a6fbd15abf58f",
+      "importStarted": 383.6000000014901,
+      "importMs": 414.20000000298023,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 54621,
+        "triangles": 18207,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0.004,
+          "minY": 0.001,
+          "maxX": 36.998,
+          "maxY": 59.202
+        }
+      },
+      "pixels": {
+        "visible": 25895,
+        "coverage": 0.252880859375,
+        "darkFraction": 0,
+        "mean": 86.95225590525882
+      },
+      "totalMs": 2285.7000000029802
+    },
+    {
+      "index": 19,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:39.853Z",
+      "file": "achievement-020.svg",
+      "source": "Group 2087332038.svg",
+      "sha256": "c2b343f7877f7758ddb2c5c7a719ffbf50a49512ce0d775c9992fd729e7b6e4f",
+      "importStarted": 360,
+      "importMs": 1012.2999999970198,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 216429,
+        "triangles": 72143,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0.183,
+          "minY": 0,
+          "maxX": 55.817,
+          "maxY": 66.413
+        }
+      },
+      "pixels": {
+        "visible": 31255,
+        "coverage": 0.305224609375,
+        "darkFraction": 0,
+        "mean": 104.4748360262402
+      },
+      "totalMs": 8044.79999999702
+    },
+    {
+      "index": 20,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:48.090Z",
+      "file": "achievement-021.svg",
+      "source": "Group 2087332139.svg",
+      "sha256": "883cca41e48825676feafa079ab6a7005c00c6ad8f41e1b301b79238f4f823f7",
+      "importStarted": 360.3999999985099,
+      "importMs": 693.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 122205,
+        "triangles": 40735,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 52.165,
+          "maxY": 55
+        }
+      },
+      "pixels": {
+        "visible": 38260,
+        "coverage": 0.3736328125,
+        "darkFraction": 0,
+        "mean": 128.09102631120126
+      },
+      "totalMs": 9018.5
+    },
+    {
+      "index": 21,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:37:57.298Z",
+      "file": "achievement-022.svg",
+      "source": "Group 2087332326.svg",
+      "sha256": "7484987bdbb3cff9f0ba89abcb3a1d09cf48f48291fd24e95c10cfb4a7df3c27",
+      "importStarted": 356.80000000447035,
+      "importMs": 1052.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 211071,
+        "triangles": 70357,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 16,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 1.664,
+          "maxX": 74.422,
+          "maxY": 87.827
+        }
+      },
+      "pixels": {
+        "visible": 32479,
+        "coverage": 0.317177734375,
+        "darkFraction": 0,
+        "mean": 145.8679659677499
+      },
+      "totalMs": 9775
+    },
+    {
+      "index": 22,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:38:07.294Z",
+      "file": "achievement-023.svg",
+      "source": "Group 2087332374.svg",
+      "sha256": "7fe259d4dc0e0fabe81c625ce206a43e4564773b2410590b46aa413d2c8c642f",
+      "importStarted": 364.5,
+      "importMs": 1486.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 338466,
+        "triangles": 112822,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.246,
+          "maxX": 85.664,
+          "maxY": 78.525
+        }
+      },
+      "pixels": {
+        "visible": 41301,
+        "coverage": 0.403330078125,
+        "darkFraction": 0,
+        "mean": 171.4661307635707
+      },
+      "totalMs": 8950.89999999851
+    },
+    {
+      "index": 23,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:38:16.429Z",
+      "file": "achievement-024.svg",
+      "source": "Group 2087332375.svg",
+      "sha256": "66d7ea5efdf4527af08491cd4f836e247e08703fd3a1d2103ae01b865f77d755",
+      "importStarted": 358.29999999701977,
+      "importMs": 943.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 184317,
+        "triangles": 61439,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 22,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 76.423,
+          "maxY": 79.301
+        }
+      },
+      "pixels": {
+        "visible": 38510,
+        "coverage": 0.37607421875,
+        "darkFraction": 0,
+        "mean": 186.6883147234398
+      },
+      "totalMs": 8730.10000000149
+    },
+    {
+      "index": 24,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:38:25.393Z",
+      "file": "achievement-025.svg",
+      "source": "Group 2087332378.svg",
+      "sha256": "91a741deab010aa8767c4c2541cb9b9c9cb2a21e85ba138696e266decf58f38e",
+      "importStarted": 384.70000000298023,
+      "importMs": 2393.39999999851,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 436485,
+        "triangles": 145495,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 52,
+        "sourceBounds": {
+          "minX": 5.474,
+          "minY": 11.779,
+          "maxX": 80.256,
+          "maxY": 98.584
+        }
+      },
+      "pixels": {
+        "visible": 33588,
+        "coverage": 0.3280078125,
+        "darkFraction": 0,
+        "mean": 108.14202492954394
+      },
+      "totalMs": 12000.70000000298
+    },
+    {
+      "index": 25,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:38:37.680Z",
+      "file": "achievement-026.svg",
+      "source": "Group 2087332384.svg",
+      "sha256": "4e459f46c485a708a9485c31b3023f9a63c0944b339a7e2cd6f22d87f5c8c49a",
+      "importStarted": 367.5,
+      "importMs": 1208.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 272274,
+        "triangles": 90758,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 4.863,
+          "minY": 0.068,
+          "maxX": 85.122,
+          "maxY": 76.655
+        }
+      },
+      "pixels": {
+        "visible": 41005,
+        "coverage": 0.400439453125,
+        "darkFraction": 0,
+        "mean": 169.59787017842464
+      },
+      "totalMs": 9430.70000000298
+    },
+    {
+      "index": 26,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:38:47.299Z",
+      "file": "achievement-027.svg",
+      "source": "Group 2087332411.svg",
+      "sha256": "082bf7e2c2571a52e0e47659c06d30549cfbbf42854169a8ef1ee8396b1f9daa",
+      "importStarted": 362.8999999985099,
+      "importMs": 1143,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 225306,
+        "triangles": 75102,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 17,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.001,
+          "maxX": 81.677,
+          "maxY": 83.407
+        }
+      },
+      "pixels": {
+        "visible": 36280,
+        "coverage": 0.354296875,
+        "darkFraction": 0,
+        "mean": 146.06647372289092
+      },
+      "totalMs": 10445.5
+    },
+    {
+      "index": 27,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:38:58.006Z",
+      "file": "achievement-028.svg",
+      "source": "Group 2087332443.svg",
+      "sha256": "c14a619e93fd54bd8352d7a3e251607ec01f82b46ad5093a92bfea03dd8c519a",
+      "importStarted": 361.3999999985099,
+      "importMs": 740.2000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 145140,
+        "triangles": 48380,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.004,
+          "maxX": 63.6,
+          "maxY": 89.859
+        }
+      },
+      "pixels": {
+        "visible": 33005,
+        "coverage": 0.322314453125,
+        "darkFraction": 0,
+        "mean": 136.30782204716425
+      },
+      "totalMs": 8664.80000000447
+    },
+    {
+      "index": 28,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:06.887Z",
+      "file": "achievement-029.svg",
+      "source": "Group 2087332448.svg",
+      "sha256": "a8302fed57eee72676f20b22504bfafe2146ff69820535cc4a6be41ceaa8e47c",
+      "importStarted": 357.30000000447035,
+      "importMs": 676.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 115722,
+        "triangles": 38574,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 89.33,
+          "maxY": 103.161
+        }
+      },
+      "pixels": {
+        "visible": 36931,
+        "coverage": 0.360654296875,
+        "darkFraction": 0,
+        "mean": 200.56518011064594
+      },
+      "totalMs": 6863.70000000298
+    },
+    {
+      "index": 29,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_51)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_51)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_51)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_51)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_51)",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:13.944Z",
+      "file": "achievement-030.svg",
+      "source": "Mask group.svg",
+      "sha256": "0925cc50cc1e39f629ffdcf775e0fa29256e49cab39a446d6c31a21158e8443b",
+      "importStarted": 360.80000000447035,
+      "importMs": 886,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 127689,
+        "triangles": 42563,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 3,
+        "sourceBounds": {
+          "minX": 16.254,
+          "minY": 26.1,
+          "maxX": 55.401,
+          "maxY": 62.649
+        }
+      },
+      "pixels": {
+        "visible": 46869,
+        "coverage": 0.457705078125,
+        "darkFraction": 0,
+        "mean": 138.90898034947958
+      },
+      "totalMs": 8126
+    },
+    {
+      "index": 30,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_56)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_130_56)",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:22.254Z",
+      "file": "achievement-031.svg",
+      "source": "Vector 3438.svg",
+      "sha256": "94ce6f9cee272f3df186ccf030ac6a009603f48f83bddaa2633fad869ee04c97",
+      "importStarted": 360.19999999552965,
+      "importMs": 475.30000000447035,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 63762,
+        "triangles": 21254,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 54.648,
+          "maxY": 29.826
+        }
+      },
+      "pixels": {
+        "visible": 19188,
+        "coverage": 0.1873828125,
+        "darkFraction": 0,
+        "mean": 91.96487387950691
+      },
+      "totalMs": 5892.39999999851
+    },
+    {
+      "index": 31,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:28.330Z",
+      "file": "achievement-032.svg",
+      "source": "Vector 3439.svg",
+      "sha256": "0f9e227e0bd47a71c923a53287063e6a4c9fb364980a179c9186d53e53e6194e",
+      "importStarted": 366.30000000447035,
+      "importMs": 361.79999999701977,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 27765,
+        "triangles": 9255,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.007,
+          "maxX": 7.787,
+          "maxY": 31.507
+        }
+      },
+      "pixels": {
+        "visible": 5634,
+        "coverage": 0.05501953125,
+        "darkFraction": 0,
+        "mean": 146.8609631996259
+      },
+      "totalMs": 2111.5
+    },
+    {
+      "index": 32,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:30.621Z",
+      "file": "achievement-033.svg",
+      "source": "Vector-1.svg",
+      "sha256": "e45e9b502d9e8cff8d7723c9880ac31b5f20e0cbb03f69c83f1687974205bd3a",
+      "importStarted": 356,
+      "importMs": 379.09999999403954,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 38841,
+        "triangles": 12947,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 1,
+        "sourceBounds": {
+          "minX": 0.005,
+          "minY": 0,
+          "maxX": 67.722,
+          "maxY": 64.847
+        }
+      },
+      "pixels": {
+        "visible": 6290,
+        "coverage": 0.06142578125,
+        "darkFraction": 0,
+        "mean": 141.89904610493082
+      },
+      "totalMs": 2117.5999999940395
+    },
+    {
+      "index": 33,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:32.928Z",
+      "file": "achievement-034.svg",
+      "source": "Vector.svg",
+      "sha256": "26de2d0c59c71c591242429e05ab5837d70a5eae3664f51a93a3d5df8f44a7b8",
+      "importStarted": 367,
+      "importMs": 432.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 54549,
+        "triangles": 18183,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0.005,
+          "minY": 0,
+          "maxX": 67.722,
+          "maxY": 64.847
+        }
+      },
+      "pixels": {
+        "visible": 35858,
+        "coverage": 0.35017578125,
+        "darkFraction": 0,
+        "mean": 106.24792236042246
+      },
+      "totalMs": 4981.29999999702
+    },
+    {
+      "index": 34,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:38.097Z",
+      "file": "achievement-035.svg",
+      "source": "_Слой_3.svg",
+      "sha256": "5242bb2aa49268db1932721bc3785c9c56007ad5c2ef1b2c47904e6ffa3b159c",
+      "importStarted": 363.20000000298023,
+      "importMs": 495.19999999552965,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 73737,
+        "triangles": 24579,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.01,
+          "maxX": 63.6,
+          "maxY": 73.09
+        }
+      },
+      "pixels": {
+        "visible": 42657,
+        "coverage": 0.416572265625,
+        "darkFraction": 0,
+        "mean": 116.13099842933094
+      },
+      "totalMs": 15683.10000000149
+    },
+    {
+      "index": 35,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:39:53.971Z",
+      "file": "achievement-036.svg",
+      "source": "Новая папка 2/Frame-1.svg",
+      "sha256": "55acf1fa7a72dc0e492d66758143eef896b9513cbda800cdfa527f4c29587d9c",
+      "importStarted": 370.5,
+      "importMs": 1745.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 409407,
+        "triangles": 136469,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.001,
+          "maxX": 70.75,
+          "maxY": 73.89
+        }
+      },
+      "pixels": {
+        "visible": 45639,
+        "coverage": 0.445693359375,
+        "darkFraction": 0,
+        "mean": 132.9283653600229
+      },
+      "totalMs": 12604.20000000298
+    },
+    {
+      "index": 36,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:40:06.764Z",
+      "file": "achievement-037.svg",
+      "source": "Новая папка 2/Frame-2.svg",
+      "sha256": "70d3888d333fe22c2eb92b0959a738f9644964599a6f182d6329f9baf3e14c28",
+      "importStarted": 363,
+      "importMs": 1055.2000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 249357,
+        "triangles": 83119,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 70.75,
+          "maxY": 73.34
+        }
+      },
+      "pixels": {
+        "visible": 46723,
+        "coverage": 0.456279296875,
+        "darkFraction": 0,
+        "mean": 128.9139538699653
+      },
+      "totalMs": 8874.5
+    },
+    {
+      "index": 37,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:40:15.825Z",
+      "file": "achievement-038.svg",
+      "source": "Новая папка 2/Frame-3.svg",
+      "sha256": "e32d7834bb5f98e89e8cd919cbdcd8c9d25fd0d965e8f825fed10ea474455d72",
+      "importStarted": 365.80000000447035,
+      "importMs": 874.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 173619,
+        "triangles": 57873,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0.001,
+          "minY": 0.009,
+          "maxX": 79.557,
+          "maxY": 73.79
+        }
+      },
+      "pixels": {
+        "visible": 38497,
+        "coverage": 0.375947265625,
+        "darkFraction": 0,
+        "mean": 136.27638517286886
+      },
+      "totalMs": 9758.30000000447
+    },
+    {
+      "index": 38,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:40:25.779Z",
+      "file": "achievement-039.svg",
+      "source": "Новая папка 2/Frame-4.svg",
+      "sha256": "dc9d65d3c6b9979f73f495b02644bd04be629ad03f01aa5ce6451cde5b093399",
+      "importStarted": 360.8999999985099,
+      "importMs": 1255.4000000059605,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 8,
+        "vertices": 282273,
+        "triangles": 94091,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 70.74,
+          "maxY": 70.47
+        }
+      },
+      "pixels": {
+        "visible": 47286,
+        "coverage": 0.46177734375,
+        "darkFraction": 0,
+        "mean": 179.7617829096887
+      },
+      "totalMs": 10404.39999999851
+    },
+    {
+      "index": 39,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:40:36.388Z",
+      "file": "achievement-040.svg",
+      "source": "Новая папка 2/Frame-5.svg",
+      "sha256": "fdbe6d3673c24c166933fd0d03f8b5200a9b8fc3d5435a63238e2bbc14397559",
+      "importStarted": 1076.3999999985099,
+      "importMs": 1561.1000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 348138,
+        "triangles": 116046,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 3,
+        "sourceBounds": {
+          "minX": 0.005,
+          "minY": 0,
+          "maxX": 73.07,
+          "maxY": 78.61
+        }
+      },
+      "pixels": {
+        "visible": 41300,
+        "coverage": 0.4033203125,
+        "darkFraction": 0,
+        "mean": 134.52540758675795
+      },
+      "totalMs": 10493.79999999702
+    },
+    {
+      "index": 40,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:40:47.074Z",
+      "file": "achievement-041.svg",
+      "source": "Новая папка 2/Frame.svg",
+      "sha256": "ce7d1f31f8cabb1df82194d455cb2f80c9f6b1dafa2eeff66a46493e215176db",
+      "importStarted": 365.20000000298023,
+      "importMs": 1264.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 293604,
+        "triangles": 97868,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 11,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 70.75,
+          "maxY": 75.78
+        }
+      },
+      "pixels": {
+        "visible": 42362,
+        "coverage": 0.41369140625,
+        "darkFraction": 0,
+        "mean": 135.1406291802248
+      },
+      "totalMs": 10717.60000000149
+    },
+    {
+      "index": 41,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:40:57.985Z",
+      "file": "achievement-042.svg",
+      "source": "Новая папка 2/Group 2087332477.svg",
+      "sha256": "417666aabc5a71d3418e78a7d45730cbc40be7c8f293b020ffc83eac6ed6aaac",
+      "importStarted": 367.59999999403954,
+      "importMs": 1386.4000000059605,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 314748,
+        "triangles": 104916,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 13,
+        "sourceBounds": {
+          "minX": 1.766,
+          "minY": 2.029,
+          "maxX": 88.454,
+          "maxY": 80.054
+        }
+      },
+      "pixels": {
+        "visible": 43987,
+        "coverage": 0.429560546875,
+        "darkFraction": 0,
+        "mean": 153.66739415433022
+      },
+      "totalMs": 9812.29999999702
+    },
+    {
+      "index": 42,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:07.985Z",
+      "file": "achievement-043.svg",
+      "source": "Новая папка 2/Group 2087332478.svg",
+      "sha256": "a0e44683aa2e4ce010203de95f3f68ddd171d2e48f306bdf1ec0ace0335dde3e",
+      "importStarted": 368.79999999701977,
+      "importMs": 1747.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 8,
+        "vertices": 383928,
+        "triangles": 127976,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 19,
+        "sourceBounds": {
+          "minX": 0.579,
+          "minY": 2.029,
+          "maxX": 91.468,
+          "maxY": 84.202
+        }
+      },
+      "pixels": {
+        "visible": 42486,
+        "coverage": 0.41490234375,
+        "darkFraction": 0,
+        "mean": 152.8097334023707
+      },
+      "totalMs": 9791.5
+    },
+    {
+      "index": 43,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:17.964Z",
+      "file": "achievement-044.svg",
+      "source": "Новая папка 2/Group 2087332504.svg",
+      "sha256": "4db7c416c3696722a436f5f66330d372abd00fbf36613b4e924a2af228e4137f",
+      "importStarted": 370.29999999701977,
+      "importMs": 476.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 62616,
+        "triangles": 20872,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 3,
+        "sourceBounds": {
+          "minX": 2.601,
+          "minY": 0.615,
+          "maxX": 24.316,
+          "maxY": 28.258
+        }
+      },
+      "pixels": {
+        "visible": 31098,
+        "coverage": 0.30369140625,
+        "darkFraction": 0,
+        "mean": 180.24025124872978
+      },
+      "totalMs": 4764.5999999940395
+    },
+    {
+      "index": 44,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:22.915Z",
+      "file": "achievement-045.svg",
+      "source": "Новая папка 2/Group 2087332505.svg",
+      "sha256": "1db2cdaf665b2b9b13e08f8518b3e167fef5c0aa40e88ad7480ae1a9f5ddbde7",
+      "importStarted": 362.6000000014901,
+      "importMs": 1335.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 309144,
+        "triangles": 103048,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 15,
+        "sourceBounds": {
+          "minX": 0.609,
+          "minY": 1.134,
+          "maxX": 74.182,
+          "maxY": 75.295
+        }
+      },
+      "pixels": {
+        "visible": 42559,
+        "coverage": 0.415615234375,
+        "darkFraction": 0,
+        "mean": 158.54470264807202
+      },
+      "totalMs": 9193.40000000596
+    },
+    {
+      "index": 45,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:32.322Z",
+      "file": "achievement-046.svg",
+      "source": "Новая папка 2/Group.svg",
+      "sha256": "82fb80198fedf02f9c3e028bedb7251d23accdad0c4ef44aa31cf58d24262eeb",
+      "importStarted": 466.6000000014901,
+      "importMs": 659.6999999955297,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 103770,
+        "triangles": 34590,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0.458,
+          "minY": 0.004,
+          "maxX": 77.258,
+          "maxY": 90.413
+        }
+      },
+      "pixels": {
+        "visible": 29684,
+        "coverage": 0.2898828125,
+        "darkFraction": 0,
+        "mean": 133.17388716705113
+      },
+      "totalMs": 7910.19999999553
+    },
+    {
+      "index": 46,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:40.421Z",
+      "file": "achievement-047.svg",
+      "source": "Новая папка 2/Vector.svg",
+      "sha256": "6a35792027ab1fb3ed56ea553e89b1d9c14645dc2daadc82029258895aa20671",
+      "importStarted": 358.5,
+      "importMs": 516.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 77337,
+        "triangles": 25779,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 52.716,
+          "maxY": 54.139
+        }
+      },
+      "pixels": {
+        "visible": 14891,
+        "coverage": 0.145419921875,
+        "darkFraction": 0,
+        "mean": 178.69102142234254
+      },
+      "totalMs": 3617.39999999851
+    },
+    {
+      "index": 47,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:44.224Z",
+      "file": "achievement-048.svg",
+      "source": "Новая папка 2/_Слой_1.svg",
+      "sha256": "e5df58b041461823aebe2b92f514eb4ac041122f2787fa9e25a1bc8a43f2f28d",
+      "importStarted": 356,
+      "importMs": 989.7999999970198,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 200373,
+        "triangles": 66791,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 80.522,
+          "maxY": 66.95
+        }
+      },
+      "pixels": {
+        "visible": 38823,
+        "coverage": 0.379130859375,
+        "darkFraction": 0,
+        "mean": 119.9889841932155
+      },
+      "totalMs": 6787.19999999553
+    },
+    {
+      "index": 48,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:41:51.199Z",
+      "file": "achievement-049.svg",
+      "source": "Новая папка 2/_Слой_3.svg",
+      "sha256": "a6c08f71df4eb8da74721872a6703334caa6d578503f53a20c365470864dc49e",
+      "importStarted": 360.3999999985099,
+      "importMs": 1505,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 9,
+        "vertices": 330180,
+        "triangles": 110060,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 10,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.014,
+          "maxX": 70.77,
+          "maxY": 70.75
+        }
+      },
+      "pixels": {
+        "visible": 47570,
+        "coverage": 0.46455078125,
+        "darkFraction": 0,
+        "mean": 138.62936024104516
+      },
+      "totalMs": 9806.69999999553
+    },
+    {
+      "index": 49,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:42:01.192Z",
+      "file": "achievement-050.svg",
+      "source": "Новая папка 3/Frame 2087331992.svg",
+      "sha256": "3677c78dae8bac9a5725100e00a6983e2e868a9a5670f264b821d15e488cea1e",
+      "importStarted": 368.5,
+      "importMs": 1049.6999999955297,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 206232,
+        "triangles": 68744,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 10,
+        "sourceBounds": {
+          "minX": 11.843,
+          "minY": 16.622,
+          "maxX": 88.157,
+          "maxY": 85.676
+        }
+      },
+      "pixels": {
+        "visible": 45848,
+        "coverage": 0.447734375,
+        "darkFraction": 0,
+        "mean": 129.69480311754475
+      },
+      "totalMs": 12361.79999999702
+    },
+    {
+      "index": 50,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:47:46.414Z",
+      "file": "achievement-051.svg",
+      "source": "Новая папка 3/Group 2087332498.svg",
+      "sha256": "32384bba338db735e4dfdfda0f722835402aa65db62f86d1b5a4502c64a66962",
+      "importStarted": 443.6000000014901,
+      "importMs": 1455.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 299337,
+        "triangles": 99779,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.002,
+          "maxX": 76.315,
+          "maxY": 69.078
+        }
+      },
+      "pixels": {
+        "visible": 45557,
+        "coverage": 0.444892578125,
+        "darkFraction": 0,
+        "mean": 129.86971632606443
+      },
+      "totalMs": 9226.10000000149
+    },
+    {
+      "index": 51,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:47:55.827Z",
+      "file": "achievement-052.svg",
+      "source": "Новая папка 3/Group 2087332500.svg",
+      "sha256": "90b37fe1bd01bc15d14cab0605aacaa44801da343fd407bfac0c3b76d5d30a11",
+      "importStarted": 370.69999999552965,
+      "importMs": 1487.1000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 300801,
+        "triangles": 100267,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 15,
+        "sourceBounds": {
+          "minX": 0.004,
+          "minY": 8.744,
+          "maxX": 74.27,
+          "maxY": 93.84
+        }
+      },
+      "pixels": {
+        "visible": 39720,
+        "coverage": 0.387890625,
+        "darkFraction": 0,
+        "mean": 131.21176569317933
+      },
+      "totalMs": 9755.39999999851
+    },
+    {
+      "index": 52,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:05.769Z",
+      "file": "achievement-053.svg",
+      "source": "Новая папка 3/Group 2087332593.svg",
+      "sha256": "f70d848bbb4967b96815301ef44384deaee307bfdfd1f2575d34bf24920b8bb0",
+      "importStarted": 363.3999999985099,
+      "importMs": 1233.8000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 270948,
+        "triangles": 90316,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 6,
+        "sourceBounds": {
+          "minX": 3.585,
+          "minY": 0,
+          "maxX": 80.042,
+          "maxY": 81.948
+        }
+      },
+      "pixels": {
+        "visible": 37445,
+        "coverage": 0.365673828125,
+        "darkFraction": 0,
+        "mean": 125.95851693595148
+      },
+      "totalMs": 9259.39999999851
+    },
+    {
+      "index": 53,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:15.214Z",
+      "file": "achievement-054.svg",
+      "source": "Новая папка 3/Group 2087332673.svg",
+      "sha256": "05e59af6532d294a7486ee646d5c38833a6c1b49c8702e1790c2a3d42dfec6dc",
+      "importStarted": 365.69999999552965,
+      "importMs": 1267.8000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 294510,
+        "triangles": 98170,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0.003,
+          "minY": 11.823,
+          "maxX": 74.04,
+          "maxY": 89.122
+        }
+      },
+      "pixels": {
+        "visible": 48436,
+        "coverage": 0.4730078125,
+        "darkFraction": 0,
+        "mean": 157.97020810965728
+      },
+      "totalMs": 9811.69999999553
+    },
+    {
+      "index": 54,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:25.212Z",
+      "file": "achievement-055.svg",
+      "source": "Новая папка 3/Group 2087332679.svg",
+      "sha256": "62c1f66fa03c8da369218e610cbbc0d9d2cb0c2bfbdd6fc6ac7d6fedbe67dd4f",
+      "importStarted": 362.5,
+      "importMs": 673.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 113808,
+        "triangles": 37936,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 15,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 1.113,
+          "maxX": 73.17,
+          "maxY": 84.504
+        }
+      },
+      "pixels": {
+        "visible": 47278,
+        "coverage": 0.46169921875,
+        "darkFraction": 0.4040780066838699,
+        "mean": 83.39998871921473
+      },
+      "totalMs": 7841.79999999702
+    },
+    {
+      "index": 55,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:33.271Z",
+      "file": "achievement-056.svg",
+      "source": "Новая папка 3/Group 2087332683.svg",
+      "sha256": "a267d14934e99c79253ffe2e4090c4bb1366fc0970e23075d33c5870f22acc15",
+      "importStarted": 360.1000000014901,
+      "importMs": 1540.5,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 327321,
+        "triangles": 109107,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 12,
+        "sourceBounds": {
+          "minX": 7.763,
+          "minY": 21.541,
+          "maxX": 99.722,
+          "maxY": 105.639
+        }
+      },
+      "pixels": {
+        "visible": 39540,
+        "coverage": 0.3861328125,
+        "darkFraction": 0,
+        "mean": 156.34119878603497
+      },
+      "totalMs": 9367.40000000596
+    },
+    {
+      "index": 56,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:42.826Z",
+      "file": "achievement-057.svg",
+      "source": "Новая папка 3/Group 2087332696.svg",
+      "sha256": "dc1558557923a1d2c9dbdb693bb0fa8c3394491dc34f41669ed5ceb90139e26a",
+      "importStarted": 360.40000000596046,
+      "importMs": 689.7999999970198,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 118635,
+        "triangles": 39545,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0.003,
+          "minY": 0,
+          "maxX": 74.04,
+          "maxY": 77.733
+        }
+      },
+      "pixels": {
+        "visible": 49732,
+        "coverage": 0.4856640625,
+        "darkFraction": 0,
+        "mean": 162.07615485670485
+      },
+      "totalMs": 6166.4000000059605
+    },
+    {
+      "index": 57,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:49.177Z",
+      "file": "achievement-058.svg",
+      "source": "Новая папка 3/_Слой_4.svg",
+      "sha256": "ded0ddda6c36e9ca7de24b93556609c53ff63395beb9610db6c848fd668ad701",
+      "importStarted": 364.70000000298023,
+      "importMs": 733.7999999970198,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 147012,
+        "triangles": 49004,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0.168,
+          "minY": 2.401,
+          "maxX": 73.577,
+          "maxY": 75.385
+        }
+      },
+      "pixels": {
+        "visible": 54925,
+        "coverage": 0.536376953125,
+        "darkFraction": 0,
+        "mean": 132.2334456076434
+      },
+      "totalMs": 4824
+    },
+    {
+      "index": 58,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:48:54.192Z",
+      "file": "achievement-059.svg",
+      "source": "Новая папка 4/Frame-1.svg",
+      "sha256": "f91a3bf1df9e91c3ca00c9ed9985b53de15901a8e3287ea5a4ac868d446fc381",
+      "importStarted": 360.8999999985099,
+      "importMs": 858.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 169866,
+        "triangles": 56622,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0.006,
+          "minY": 0.001,
+          "maxX": 77.385,
+          "maxY": 81.203
+        }
+      },
+      "pixels": {
+        "visible": 46077,
+        "coverage": 0.449970703125,
+        "darkFraction": 0,
+        "mean": 154.09837156642112
+      },
+      "totalMs": 7870.29999999702
+    },
+    {
+      "index": 59,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:49:02.255Z",
+      "file": "achievement-060.svg",
+      "source": "Новая папка 4/Frame-2.svg",
+      "sha256": "0cb582cf595752ba1836145b2c96340e6762ae89a0506661307b865ffb5fcb40",
+      "importStarted": 358.6000000014901,
+      "importMs": 1723.2000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 390411,
+        "triangles": 130137,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 9,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 85.92,
+          "maxY": 75.35
+        }
+      },
+      "pixels": {
+        "visible": 47602,
+        "coverage": 0.46486328125,
+        "darkFraction": 0,
+        "mean": 136.96381804685822
+      },
+      "totalMs": 11167.80000000447
+    },
+    {
+      "index": 60,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:49:13.610Z",
+      "file": "achievement-061.svg",
+      "source": "Новая папка 4/Frame-3.svg",
+      "sha256": "9580ee7d5ca3ad608fb8046cb52437a803a8b035bc660489825bd428720861df",
+      "importStarted": 387.19999999552965,
+      "importMs": 1505.5,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 358494,
+        "triangles": 119498,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.002,
+          "maxX": 86.05,
+          "maxY": 76.99
+        }
+      },
+      "pixels": {
+        "visible": 43615,
+        "coverage": 0.425927734375,
+        "darkFraction": 0,
+        "mean": 135.20054262676692
+      },
+      "totalMs": 11008.5
+    },
+    {
+      "index": 61,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:49:24.803Z",
+      "file": "achievement-062.svg",
+      "source": "Новая папка 4/Frame-4.svg",
+      "sha256": "e2bde63ecd28da1652c1cf42995dd53c43408f59f1b961102b6d6c4b91e34f20",
+      "importStarted": 361.3999999985099,
+      "importMs": 2517.10000000149,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 9,
+        "vertices": 579210,
+        "triangles": 193070,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 11,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.009,
+          "maxX": 76.995,
+          "maxY": 90.78
+        }
+      },
+      "pixels": {
+        "visible": 40895,
+        "coverage": 0.399365234375,
+        "darkFraction": 0,
+        "mean": 123.56744508293282
+      },
+      "totalMs": 11815.79999999702
+    },
+    {
+      "index": 62,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:49:36.802Z",
+      "file": "achievement-063.svg",
+      "source": "Новая папка 4/Frame-5.svg",
+      "sha256": "98447f42b646a32a62ca649362c0423458b77d357403994af9474d157e3a3d86",
+      "importStarted": 368,
+      "importMs": 1849.1999999955297,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 9,
+        "vertices": 418386,
+        "triangles": 139462,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 9,
+        "sourceBounds": {
+          "minX": 0.008,
+          "minY": 0,
+          "maxX": 81.7,
+          "maxY": 76.98
+        }
+      },
+      "pixels": {
+        "visible": 49340,
+        "coverage": 0.4818359375,
+        "darkFraction": 0,
+        "mean": 142.85552628022722
+      },
+      "totalMs": 10913.29999999702
+    },
+    {
+      "index": 63,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:49:47.903Z",
+      "file": "achievement-064.svg",
+      "source": "Новая папка 4/Frame-6.svg",
+      "sha256": "43e4e64d2699bff4f50a92dd4bd8f7c18046abfa85c29ed95d104cfa5ec5c5eb",
+      "importStarted": 365.1000000014901,
+      "importMs": 2091.39999999851,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 498336,
+        "triangles": 166112,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 76.41,
+          "maxY": 76.41
+        }
+      },
+      "pixels": {
+        "visible": 39900,
+        "coverage": 0.3896484375,
+        "darkFraction": 0,
+        "mean": 140.7787635755984
+      },
+      "totalMs": 11351.5
+    },
+    {
+      "index": 64,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:49:59.441Z",
+      "file": "achievement-065.svg",
+      "source": "Новая папка 4/Frame-7.svg",
+      "sha256": "39b902750e0880879d9004d56f3177591318522f3509329fff9e044ba6364099",
+      "importStarted": 360.29999999701977,
+      "importMs": 1920.8000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 453042,
+        "triangles": 151014,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 9,
+        "sourceBounds": {
+          "minX": 0.002,
+          "minY": 0,
+          "maxX": 78.979,
+          "maxY": 76.987
+        }
+      },
+      "pixels": {
+        "visible": 49591,
+        "coverage": 0.484287109375,
+        "darkFraction": 0,
+        "mean": 142.45022954432636
+      },
+      "totalMs": 13109.79999999702
+    },
+    {
+      "index": 65,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:50:12.737Z",
+      "file": "achievement-066.svg",
+      "source": "Новая папка 4/Frame-8.svg",
+      "sha256": "c8b2ecab713a55b1e62fa90a172a384200526746bbdcacd62604117da7b0a6c5",
+      "importStarted": 363.8999999985099,
+      "importMs": 1346.1000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 312069,
+        "triangles": 104023,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.005,
+          "maxX": 81.879,
+          "maxY": 76.99
+        }
+      },
+      "pixels": {
+        "visible": 46254,
+        "coverage": 0.45169921875,
+        "darkFraction": 0,
+        "mean": 167.76552658505332
+      },
+      "totalMs": 9311.80000000447
+    },
+    {
+      "index": 66,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:50:22.234Z",
+      "file": "achievement-067.svg",
+      "source": "Новая папка 4/Frame-9.svg",
+      "sha256": "546a3cdcb3c672231f8a9ee548cf7d57e2ad7196da7bc453efc9f4c1280295e6",
+      "importStarted": 361.79999999701977,
+      "importMs": 1496.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 8,
+        "vertices": 368103,
+        "triangles": 122701,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 29,
+        "sourceBounds": {
+          "minX": 0.002,
+          "minY": 0,
+          "maxX": 77,
+          "maxY": 85.01
+        }
+      },
+      "pixels": {
+        "visible": 44131,
+        "coverage": 0.430966796875,
+        "darkFraction": 0,
+        "mean": 138.32531931446655
+      },
+      "totalMs": 12771
+    },
+    {
+      "index": 67,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:50:35.270Z",
+      "file": "achievement-068.svg",
+      "source": "Новая папка 4/Frame.svg",
+      "sha256": "9acb14af8c10322ae5277370ba2bd45c6124efa8c2a0a90699e8f1269d54b736",
+      "importStarted": 361.59999999403954,
+      "importMs": 1294.5,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 292506,
+        "triangles": 97502,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.001,
+          "maxX": 76.98,
+          "maxY": 84.85
+        }
+      },
+      "pixels": {
+        "visible": 45671,
+        "coverage": 0.446005859375,
+        "darkFraction": 0,
+        "mean": 134.49493113791155
+      },
+      "totalMs": 11546.5
+    },
+    {
+      "index": 68,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:50:47.008Z",
+      "file": "achievement-069.svg",
+      "source": "Новая папка 4/Слой 3-1.svg",
+      "sha256": "050397c4adc118e24403b2e57c5f96e71f5f791a80ae4e3cadd3ed8d3c91c952",
+      "importStarted": 388.80000000447035,
+      "importMs": 2473,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 617223,
+        "triangles": 205741,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 1,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.001,
+          "maxX": 81.415,
+          "maxY": 76.995
+        }
+      },
+      "pixels": {
+        "visible": 20546,
+        "coverage": 0.20064453125,
+        "darkFraction": 0,
+        "mean": 145.35281806678412
+      },
+      "totalMs": 7583.89999999851
+    },
+    {
+      "index": 69,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:50:54.778Z",
+      "file": "achievement-070.svg",
+      "source": "Новая папка 4/Слой 3.svg",
+      "sha256": "d3ca9439d563c6b6612fffdbd63d4dfe0fee0ebc913061581551053ad33fcce5",
+      "importStarted": 361.09999999403954,
+      "importMs": 1031.3000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 258795,
+        "triangles": 86265,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 1,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.002,
+          "maxX": 87.167,
+          "maxY": 85.913
+        }
+      },
+      "pixels": {
+        "visible": 16441,
+        "coverage": 0.160556640625,
+        "darkFraction": 0,
+        "mean": 143.3954747278145
+      },
+      "totalMs": 5069.5
+    },
+    {
+      "index": 70,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:00.031Z",
+      "file": "achievement-071.svg",
+      "source": "Новая папка 4/Слой 4-1.svg",
+      "sha256": "f967b758cc43c2f588b1fed61220454b23068dd0fef53ec36b8b361b04e63421",
+      "importStarted": 359.59999999403954,
+      "importMs": 514.9000000059605,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 9,
+        "vertices": 53847,
+        "triangles": 17949,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 9,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 78.954,
+          "maxY": 75.18
+        }
+      },
+      "pixels": {
+        "visible": 46727,
+        "coverage": 0.456318359375,
+        "darkFraction": 0,
+        "mean": 138.48804046197367
+      },
+      "totalMs": 2998.0999999940395
+    },
+    {
+      "index": 71,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:03.223Z",
+      "file": "achievement-072.svg",
+      "source": "Новая папка 4/Слой 4.svg",
+      "sha256": "8d892544183b4db1ed7c539f38bf41baf1bb5c17fa9e45e93051311c4e48d2b2",
+      "importStarted": 360.1000000014901,
+      "importMs": 488.09999999403954,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 49938,
+        "triangles": 16646,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 84.149,
+          "maxY": 84.02
+        }
+      },
+      "pixels": {
+        "visible": 44517,
+        "coverage": 0.434736328125,
+        "darkFraction": 0,
+        "mean": 153.17015971425542
+      },
+      "totalMs": 5176.69999999553
+    },
+    {
+      "index": 72,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:08.588Z",
+      "file": "achievement-073.svg",
+      "source": "Новая папка/Frame 2087331944.svg",
+      "sha256": "06b31d94be7192821cb5b7f5b03b9992b699f812583b7937de12a565de4bb62d",
+      "importStarted": 363.1000000014901,
+      "importMs": 521.0999999940395,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 75519,
+        "triangles": 25173,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 12.655,
+          "minY": 3.903,
+          "maxX": 99.738,
+          "maxY": 51
+        }
+      },
+      "pixels": {
+        "visible": 21255,
+        "coverage": 0.207568359375,
+        "darkFraction": 0,
+        "mean": 158.7448757155269
+      },
+      "totalMs": 2603
+    },
+    {
+      "index": 73,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:11.374Z",
+      "file": "achievement-074.svg",
+      "source": "Новая папка/Frame 2087331953.svg",
+      "sha256": "bcde135e1eb984e6cc4dc4b0990df1b1b82e5127afa998e9fe3e111676ae7547",
+      "importStarted": 360.5,
+      "importMs": 305.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 14325,
+        "triangles": 4775,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 1,
+        "sourceBounds": {
+          "minX": 9.469,
+          "minY": 0,
+          "maxX": 45,
+          "maxY": 21.238
+        }
+      },
+      "pixels": {
+        "visible": 7611,
+        "coverage": 0.074326171875,
+        "darkFraction": 0,
+        "mean": 150.64087066964484
+      },
+      "totalMs": 2474.2000000029802
+    },
+    {
+      "index": 74,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:14.033Z",
+      "file": "achievement-075.svg",
+      "source": "Новая папка/Frame-1.svg",
+      "sha256": "1cc26ec4c57a234fb2f12cb477b5df513cac6eee7050887280c5b2210b64faea",
+      "importStarted": 363.80000000447035,
+      "importMs": 3088.39999999851,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 679545,
+        "triangles": 226515,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 9,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 76.48,
+          "maxY": 81.27
+        }
+      },
+      "pixels": {
+        "visible": 47273,
+        "coverage": 0.461650390625,
+        "darkFraction": 0,
+        "mean": 147.8454508916143
+      },
+      "totalMs": 13349.20000000298
+    },
+    {
+      "index": 75,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:27.571Z",
+      "file": "achievement-076.svg",
+      "source": "Новая папка/Frame-10.svg",
+      "sha256": "7e4ef5903169f3073a11b35121c18d116718e17054cc126c51f7e47c4848da42",
+      "importStarted": 365.19999999552965,
+      "importMs": 1727.6000000014901,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 398433,
+        "triangles": 132811,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0.004,
+          "minY": 0,
+          "maxX": 79.35,
+          "maxY": 76.98
+        }
+      },
+      "pixels": {
+        "visible": 50445,
+        "coverage": 0.492626953125,
+        "darkFraction": 0,
+        "mean": 155.70548782501837
+      },
+      "totalMs": 11235
+    },
+    {
+      "index": 76,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:38.995Z",
+      "file": "achievement-077.svg",
+      "source": "Новая папка/Frame-2.svg",
+      "sha256": "d772757960282fe75693eedf7152c4f2c29486a96665bda5c8ef26262fdab5a2",
+      "importStarted": 366,
+      "importMs": 2064.60000000149,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 498516,
+        "triangles": 166172,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 10,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 76.98,
+          "maxY": 87.97
+        }
+      },
+      "pixels": {
+        "visible": 41492,
+        "coverage": 0.4051953125,
+        "darkFraction": 0,
+        "mean": 147.3888139078911
+      },
+      "totalMs": 11330.80000000447
+    },
+    {
+      "index": 77,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:50.511Z",
+      "file": "achievement-078.svg",
+      "source": "Новая папка/Frame-3.svg",
+      "sha256": "19bea51fc68463a1f08336830f2b4ea5759b41037868fe468191c754c22a2004",
+      "importStarted": 362.6000000014901,
+      "importMs": 2070.89999999851,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 461340,
+        "triangles": 153780,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 7,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 89.53,
+          "maxY": 83.15
+        }
+      },
+      "pixels": {
+        "visible": 41206,
+        "coverage": 0.40240234375,
+        "darkFraction": 0,
+        "mean": 152.40202883075625
+      },
+      "totalMs": 8384.5
+    },
+    {
+      "index": 78,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:51:59.078Z",
+      "file": "achievement-079.svg",
+      "source": "Новая папка/Frame-4.svg",
+      "sha256": "90e22320169198ae25551ceb07f62d04f8873c471fd70ff0a500c603ab1081fb",
+      "importStarted": 362.69999999552965,
+      "importMs": 1966.7000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 8,
+        "vertices": 607998,
+        "triangles": 202666,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 47,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 85.61,
+          "maxY": 76.48
+        }
+      },
+      "pixels": {
+        "visible": 44918,
+        "coverage": 0.43865234375,
+        "darkFraction": 0.17039939445211275,
+        "mean": 114.62099826349389
+      },
+      "totalMs": 14250.19999999553
+    },
+    {
+      "index": 79,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:52:13.634Z",
+      "file": "achievement-080.svg",
+      "source": "Новая папка/Frame-5.svg",
+      "sha256": "3c8d24b4b10765cf1b67bfddfb9ea4513c8ecfccfc90e489811ad9f46bd94984",
+      "importStarted": 366.30000000447035,
+      "importMs": 2554.5999999940395,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 592158,
+        "triangles": 197386,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 5,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 81.98,
+          "maxY": 77.11
+        }
+      },
+      "pixels": {
+        "visible": 48908,
+        "coverage": 0.4776171875,
+        "darkFraction": 0,
+        "mean": 141.48064393009113
+      },
+      "totalMs": 13736.5
+    },
+    {
+      "index": 80,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:52:27.564Z",
+      "file": "achievement-081.svg",
+      "source": "Новая папка/Frame-6.svg",
+      "sha256": "53d1966b3b2d4969ee6d870f7755c067372b51afd7192f7cd2df819e38653f81",
+      "importStarted": 368.79999999701977,
+      "importMs": 1891.8999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 9,
+        "vertices": 438141,
+        "triangles": 146047,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.009,
+          "maxX": 76.98,
+          "maxY": 85.43
+        }
+      },
+      "pixels": {
+        "visible": 42441,
+        "coverage": 0.414462890625,
+        "darkFraction": 0,
+        "mean": 154.62550364033595
+      },
+      "totalMs": 10371
+    },
+    {
+      "index": 81,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:52:38.119Z",
+      "file": "achievement-082.svg",
+      "source": "Новая папка/Frame-7.svg",
+      "sha256": "46bb1165a807f4e20c4b92bb2df6e34e2df64fa9c731606fbd6b1234be76b198",
+      "importStarted": 358.20000000298023,
+      "importMs": 2294.7999999970198,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 538500,
+        "triangles": 179500,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.001,
+          "maxX": 84.271,
+          "maxY": 80.51
+        }
+      },
+      "pixels": {
+        "visible": 46226,
+        "coverage": 0.45142578125,
+        "darkFraction": 0,
+        "mean": 125.85699966829183
+      },
+      "totalMs": 11488.60000000149
+    },
+    {
+      "index": 82,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:52:49.796Z",
+      "file": "achievement-083.svg",
+      "source": "Новая папка/Frame-8.svg",
+      "sha256": "37799f6420c50bab80207b2a7ed454d2dbebbe40f80e857c9d17746fddf2caae",
+      "importStarted": 371.70000000298023,
+      "importMs": 2729.0999999940395,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 5,
+        "vertices": 625923,
+        "triangles": 208641,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 80.03,
+          "maxY": 81.52
+        }
+      },
+      "pixels": {
+        "visible": 50104,
+        "coverage": 0.489296875,
+        "darkFraction": 0,
+        "mean": 134.82417904091875
+      },
+      "totalMs": 13866.79999999702
+    },
+    {
+      "index": 83,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:03.852Z",
+      "file": "achievement-084.svg",
+      "source": "Новая папка/Frame-9.svg",
+      "sha256": "2c8189417588026ba4756cb4839abe0a9f9706119f6fb50fce22fc630f3c5477",
+      "importStarted": 372.30000000447035,
+      "importMs": 1917.2999999970198,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 455322,
+        "triangles": 151774,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 10,
+        "sourceBounds": {
+          "minX": 0.001,
+          "minY": 0,
+          "maxX": 86.324,
+          "maxY": 79.42
+        }
+      },
+      "pixels": {
+        "visible": 46968,
+        "coverage": 0.458671875,
+        "darkFraction": 0,
+        "mean": 165.9151479021132
+      },
+      "totalMs": 9939
+    },
+    {
+      "index": 84,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:13.979Z",
+      "file": "achievement-085.svg",
+      "source": "Новая папка/Frame.svg",
+      "sha256": "cdd468738f3cb4bd9fd7cc0de4328b0d5db08b82f90df95204caa4eaf85b489b",
+      "importStarted": 362,
+      "importMs": 2924.89999999851,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 8,
+        "vertices": 655050,
+        "triangles": 218350,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 15,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 79.24,
+          "maxY": 83.54
+        }
+      },
+      "pixels": {
+        "visible": 46848,
+        "coverage": 0.4575,
+        "darkFraction": 0,
+        "mean": 157.04723076046102
+      },
+      "totalMs": 14050
+    },
+    {
+      "index": 85,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:28.216Z",
+      "file": "achievement-086.svg",
+      "source": "Новая папка/Group 2087332405.svg",
+      "sha256": "e1cb22bfa5e40be90449b1125cd6c30849cb783b116ad628a6c5629c10066880",
+      "importStarted": 365.6000000014901,
+      "importMs": 462.5,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 4,
+        "vertices": 59070,
+        "triangles": 19690,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 76,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 114,
+          "maxY": 89.57
+        }
+      },
+      "pixels": {
+        "visible": 28834,
+        "coverage": 0.28158203125,
+        "darkFraction": 0,
+        "mean": 120.57870338258056
+      },
+      "totalMs": 4506.5
+    },
+    {
+      "index": 86,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:32.929Z",
+      "file": "achievement-087.svg",
+      "source": "Новая папка/Mask group-1.svg",
+      "sha256": "547814fc893b7f2a8882883b1747ca8ad3a6d6560e19acd8325fbf5e6286d8d9",
+      "importStarted": 371.6000000014901,
+      "importMs": 422.79999999701977,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 45750,
+        "triangles": 15250,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 10.326,
+          "minY": 34.348,
+          "maxX": 74.73,
+          "maxY": 96.517
+        }
+      },
+      "pixels": {
+        "visible": 25138,
+        "coverage": 0.24548828125,
+        "darkFraction": 0,
+        "mean": 160.2753600127353
+      },
+      "totalMs": 2381.5
+    },
+    {
+      "index": 87,
+      "errors": [],
+      "warnings": [
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint1_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint3_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint4_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint5_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint6_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint7_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint0_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint1_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint2_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint3_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint4_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint5_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint6_linear_293_95)",
+        "SVGLoader: url access in attributes is not implemented.",
+        "THREE.Color: Unknown color model url(#paint7_linear_293_95)",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:35.503Z",
+      "file": "achievement-088.svg",
+      "source": "Новая папка/Mask group.svg",
+      "sha256": "72909cf6614f8b156c4b082642c9dc698b96b759195289d028a5bb8cf36c8ded",
+      "importStarted": 375.70000000298023,
+      "importMs": 620.7000000029802,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 98667,
+        "triangles": 32889,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 14,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 3.432,
+          "maxX": 112.105,
+          "maxY": 104.356
+        }
+      },
+      "pixels": {
+        "visible": 45732,
+        "coverage": 0.4466015625,
+        "darkFraction": 0,
+        "mean": 100.36790431207457
+      },
+      "totalMs": 5762.20000000298
+    },
+    {
+      "index": 88,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:41.448Z",
+      "file": "achievement-089.svg",
+      "source": "Новая папка/Vector 4452.svg",
+      "sha256": "bbd05dddedcd5a6adaf32e1445ee9c37ae9c73c2491c5177803c8e1e7714c8ef",
+      "importStarted": 356.6000000014901,
+      "importMs": 530.3999999985099,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 3,
+        "vertices": 79914,
+        "triangles": 26638,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0.003,
+          "minY": 0.006,
+          "maxX": 91.767,
+          "maxY": 92.531
+        }
+      },
+      "pixels": {
+        "visible": 26150,
+        "coverage": 0.25537109375,
+        "darkFraction": 0,
+        "mean": 110.0041810070136
+      },
+      "totalMs": 6761.80000000447
+    },
+    {
+      "index": 89,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:48.396Z",
+      "file": "achievement-090.svg",
+      "source": "Новая папка/Слой 3-1.svg",
+      "sha256": "37819917ba82399c6edb6b26ec78d1b52a55be5851444aaa3e13445cc97e0833",
+      "importStarted": 356.6000000014901,
+      "importMs": 1769.8000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 436401,
+        "triangles": 145467,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 1,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 76.98,
+          "maxY": 82.902
+        }
+      },
+      "pixels": {
+        "visible": 21649,
+        "coverage": 0.211416015625,
+        "darkFraction": 0,
+        "mean": 144.185782253229
+      },
+      "totalMs": 8152.4000000059605
+    },
+    {
+      "index": 90,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:53:56.732Z",
+      "file": "achievement-091.svg",
+      "source": "Новая папка/Слой 3.svg",
+      "sha256": "c8e35253e3c7257e4d3fd149fd58057ae9337ceb21f20ae98a853ba077d8580a",
+      "importStarted": 362.59999999403954,
+      "importMs": 1254.8000000044703,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 2,
+        "vertices": 280380,
+        "triangles": 93460,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 2,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 71.35,
+          "maxY": 72.32
+        }
+      },
+      "pixels": {
+        "visible": 24472,
+        "coverage": 0.238984375,
+        "darkFraction": 0,
+        "mean": 144.5934128800346
+      },
+      "totalMs": 5246.79999999702
+    },
+    {
+      "index": 91,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:54:02.164Z",
+      "file": "achievement-092.svg",
+      "source": "Новая папка/Слой 4-1.svg",
+      "sha256": "c214e297af31f420fab1f88c3fea1a096654852df4485901a1369fba90766b23",
+      "importStarted": 359.69999999552965,
+      "importMs": 483.20000000298023,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 7,
+        "vertices": 51168,
+        "triangles": 17056,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 11,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0.006,
+          "maxX": 75.18,
+          "maxY": 81.541
+        }
+      },
+      "pixels": {
+        "visible": 44645,
+        "coverage": 0.435986328125,
+        "darkFraction": 0,
+        "mean": 153.77928846080718
+      },
+      "totalMs": 2963.5999999940395
+    },
+    {
+      "index": 92,
+      "errors": [],
+      "warnings": [
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead.",
+        "MeshBVH: \"maxLeafTris\" option has been deprecated. Use \"targetLeafSize\", instead."
+      ],
+      "startedAt": "2026-09-22T18:54:05.313Z",
+      "file": "achievement-093.svg",
+      "source": "Новая папка/Слой 4.svg",
+      "sha256": "812b6e97c95c413dcd6be2f4a112147b4f6bf9185221897d51d7d5f247e1c49c",
+      "importStarted": 362.20000000298023,
+      "importMs": 471.5,
+      "status": "pass",
+      "model": {
+        "hasModel": true,
+        "meshes": 6,
+        "vertices": 54123,
+        "triangles": 18041,
+        "invalid": 0,
+        "buffer": [
+          320,
+          320
+        ],
+        "samples": 128,
+        "regions": 8,
+        "sourceBounds": {
+          "minX": 0,
+          "minY": 0,
+          "maxX": 69.671,
+          "maxY": 70.613
+        }
+      },
+      "pixels": {
+        "visible": 53931,
+        "coverage": 0.526669921875,
+        "darkFraction": 0,
+        "mean": 124.8093737059093
+      },
+      "totalMs": 2779.3000000044703
+    }
+  ]
+}

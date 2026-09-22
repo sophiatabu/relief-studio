@@ -1,3 +1,4 @@
+import {prepareAppearance,attachAppearanceEffects} from './svg-appearance.js';
 import {createDetailEditor} from './detail-editor.js';
 import {compileDetailAssignments} from './detail-document.js';
 import { disposeRenderPipeline, setModelDepth, refreshBatchMaterials, createRenderScheduler } from './render-pipeline.js';
@@ -191,7 +192,8 @@ async function rebuild(){
  let nextModel=null;
  try{
   const previous=model;
-  const built=buildBadge(source,settings,overrides);nextModel=built.model;
+  const appearance=await prepareAppearance(source);if(version!==buildVersion)return;
+  const built=buildBadge(source,settings,overrides);nextModel=built.model;nextModel.svgAppearance=appearance;attachAppearanceEffects(nextModel,appearance);
   if(previous)scene.remove(previous);
   scene.add(nextModel);
   try{light();updatePresentation(nextModel);scene.updateMatrixWorld(true);if(physical())ensureTracer().setScene(scene,camera);}
@@ -217,7 +219,7 @@ function updateMaterials(){checkpoint();
   const r=asset.regions.find(r=>r.id===part.regionId);
   if(!r)return old.clone();
   const override=overrides[r.id]||{};
-  return makeMaterial({...r,role:override.role||r.role,overrideColor:override.color,surface:part.surface},settings);
+  return makeMaterial({...r,role:override.role||r.role,overrideColor:override.color||r.overrideColor,surface:part.surface},settings);
  });
  updatePresentation();
  if(physical()){if(changedGeometry||pigments!==model.children.map(m=>m.userData.colorKey).join('|'))ensureTracer().setScene(scene,camera);else {ensureTracer().updateMaterials();if(!contour.enabled)ensureTracer().setScene(scene,camera);}}
@@ -468,7 +470,7 @@ const detailEditor=createDetailEditor({
  read:()=>{
   if(!asset)return null;
   const assignments=structuredClone(asset.detailAssignments||{});
-  for(const region of asset.regions){const edit=overrides[region.id];if(!edit)continue;for(const id of region.sourcePaintIds||[region.id]){const p=asset.editablePaints?.find(p=>p.id===id);if(p)assignments[id]={role:edit.role||assignments[id]?.role||p.role,color:edit.color||assignments[id]?.color||p.color};}}
+  for(const region of asset.regions){const edit=overrides[region.id];if(!edit)continue;for(const id of region.sourcePaintIds||[region.id]){const p=asset.editablePaints?.find(p=>p.id===id);if(p)assignments[id]={...assignments[id],role:edit.role||assignments[id]?.role||p.role,...(edit.color?{color:edit.color}:{})};}}
   return {...asset,detailAssignments:assignments};
  },
  pause(){detailEditing=true;controls.enabled=false;},

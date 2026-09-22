@@ -23,12 +23,13 @@ export function exportGradientTexture(source){
  const {width,height,data}=source.image,out=new Uint8Array(width*height*4);
  for(let i=0;i<out.length;i+=4){let hash=Math.imul(i/4+1,0x45d9f3b);hash=Math.imul(hash^(hash>>>16),0x45d9f3b);const noise=((hash^(hash>>>16))>>>0)/4294967296-.5;
   for(let c=0;c<3;c++)out[i+c]=Math.max(0,Math.min(255,Math.round(LinearToSRGB(THREE.DataUtils.fromHalfFloat(data[i+c]))*255+noise)));
-  out[i+3]=255;
+  out[i+3]=Math.max(0,Math.min(255,Math.round(THREE.DataUtils.fromHalfFloat(data[i+3])*255)));
  }
  const texture=new THREE.DataTexture(out,width,height,THREE.RGBAFormat);texture.colorSpace=THREE.SRGBColorSpace;texture.minFilter=texture.magFilter=THREE.LinearFilter;texture.needsUpdate=true;return texture;
 }
 export function modelForGLTF(model){
  const copy=model.clone(true),materials=[],textures=new Map();
+ if(model.svgEffectLayer){const layer=model.svgEffectLayer.clone();layer.matrix.identity();copy.add(layer);}
  copy.traverse(mesh=>{if(!mesh.isMesh)return;mesh.material=mesh.material.clone();materials.push(mesh.material);
   const map=mesh.material.map;if(map?.userData.reliefGradient){if(!textures.has(map))textures.set(map,exportGradientTexture(map));mesh.material.map=textures.get(map);}
  });

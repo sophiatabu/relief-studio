@@ -24,3 +24,13 @@ test('cutout removes occluded material without becoming a mesh or revealing stro
  const edited=compileDetailAssignments(asset,{cover:{role:'cutout'}});
  assert.equal(edited.regions.length,1);assert.equal(area(edited.regions[0]),5000);
 });
+
+test('gradient role changes retain pigment and effects survive project roundtrip',()=>{
+ const a={...asset,hasAppearance:true,effects:[{id:'shadow'}],editablePaints:[{...asset.editablePaints[0],gradient:{id:'g',type:'radialGradient'}}]};
+ const edited=compileDetailAssignments(a,{base:{role:'rim'},'effect:shadow':{enabled:false}});
+ assert.equal(edited.regions[0].gradient.id,'g');assert.equal(edited.regions[0].overrideColor,undefined);assert.equal(edited.regions[0].svgAppearance,true);
+ const saved=JSON.parse(JSON.stringify(edited));assert.deepEqual(compileDetailAssignments(saved,saved.detailAssignments).regions,edited.regions);
+ assert.equal(saved.detailAssignments['effect:shadow'].enabled,false);
+ const solid=compileDetailAssignments(a,{base:{color:'#ffffff'}});assert.equal(solid.regions[0].overrideColor,'#ffffff');
+ assert.deepEqual(normalizeAssignments(a.editablePaints,{'effect:unknown':{enabled:false}},a.effects),{});
+});

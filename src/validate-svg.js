@@ -8,6 +8,9 @@ export const svgMismatchLimit=size=>Math.max(64,Math.round(size*size*.002));
 export async function validateSVG(source,asset){
  if(!source||!asset.sourceBounds)return;
  const xml=new DOMParser().parseFromString(source,'image/svg+xml'),root=xml.documentElement;
+ // Filters change appearance, not vector boundaries; validate unfiltered geometry.
+ for(const n of root.querySelectorAll('[filter]'))n.removeAttribute('filter');
+ for(const n of root.querySelectorAll('[style]'))n.style.filter='none';
  const sourceViewBox=(root.getAttribute('viewBox')||'').trim().split(/[ ,]+/).map(Number),backdrop=svgCanvasBackdrop(root,sourceViewBox);if(backdrop)backdrop.remove();
  for(const n of root.querySelectorAll('path,rect,circle,ellipse,polygon,polyline,line'))if(!n.closest('defs,mask,clipPath')){
   // Retain whether a stroke exists, including inherited/CSS strokes. Replacing
@@ -28,8 +31,9 @@ export async function validateSVG(source,asset){
  // Join equal-colour visible regions before rasterization: drawing adjacent
  // pieces separately introduces alpha seams absent from the original SVG.
  const groups=new Map();
- for(const r of asset.regions){const key=r.role==='rim'?(r.validationColor?'rim-'+JSON.stringify(r.validationColor):'rim'):JSON.stringify(r.color);if(!groups.has(key))groups.set(key,{...r,loops:[]});groups.get(key).loops.push(...r.loops);}
- for(const r of groups.values()){r.loops=polygonBoolean(r.loops);const paint=r.validationColor||r.color;ctx.fillStyle=r.role==='rim'&&!r.validationColor?'rgb('+color.join(',')+')':`rgb(${paint.r*255},${paint.g*255},${paint.b*255})`;ctx.beginPath();for(const loop of r.loops){loop.forEach((p,i)=>ctx[i?'lineTo':'moveTo'](p.X/1000,p.Y/1000));ctx.closePath();}ctx.fill('nonzero');}
+ for(const r of asset.regions.flatMap(r=>r.validationPaints?r.validationPaints.map(p=>({...r,loops:p.loops,validationColor:p.color})):r)){const key=r.svgAppearance?'svg-appearance':r.role==='rim'?(r.validationColor?'rim-'+JSON.stringify(r.validationColor):'rim'):JSON.stringify(r.color);if(!groups.has(key))groups.set(key,{...r,loops:[]});groups.get(key).loops.push(...r.loops);}
+ // Expanded metal fills retain source pigment; visible SVG strokes overlay them.
+ for(const r of [...groups.values()].sort((a,b)=>Number(a.role==='rim'&&!a.validationColor)-Number(b.role==='rim'&&!b.validationColor))){r.loops=polygonBoolean(r.loops);const paint=r.validationColor||r.color;ctx.fillStyle=r.role==='rim'&&!r.validationColor?'rgb('+color.join(',')+')':`rgb(${paint.r*255},${paint.g*255},${paint.b*255})`;ctx.beginPath();for(const loop of r.loops){loop.forEach((p,i)=>ctx[i?'lineTo':'moveTo'](p.X/1000,p.Y/1000));ctx.closePath();}if(r.svgAppearance){ctx.save();ctx.clip('nonzero');ctx.drawImage(native,0,0,304,304);ctx.restore();}else ctx.fill('nonzero');}
  const a=nctx.getImageData(0,0,SIZE,SIZE).data,c=ctx.getImageData(0,0,SIZE,SIZE).data;
  const difference=(p,q,arr=a)=>Math.max(...[0,1,2,3].map(k=>Math.abs(a[p+k]-arr[q+k])));
  let bad=0;

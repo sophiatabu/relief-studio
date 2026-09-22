@@ -14,6 +14,8 @@ export function disposeRenderPipeline(model) {
   model.removeFromParent();
   for (const geometry of geometries) geometry.dispose();
   for (const material of materials) material.dispose();
+  for(const texture of model.ownedTextures||[])texture.dispose();
+  model.svgEffectLayer?.geometry.dispose();model.svgEffectLayer?.material.dispose();
   model.clear();
 }
 
@@ -36,7 +38,7 @@ function normalizedGeometry(mesh) {
 // Materials with different response to lighting must never share a draw batch.
 export function materialBatchKey(material,role='') {
  const fields=['type','metalness','roughness','clearcoat','clearcoatRoughness','specularIntensity','transmission','ior','opacity','transparent','side','depthWrite','wireframe','flatShading'];
- return JSON.stringify([role,material.color?.getHexString(),material.emissive?.getHexString(),...fields.map(k=>material[k]),...['map','normalMap','roughnessMap','metalnessMap','alphaMap'].map(k=>material[k]?.uuid||null)]);
+ return JSON.stringify([role,!!material.userData.svgAppearance,material.color?.getHexString(),material.emissive?.getHexString(),...fields.map(k=>material[k]),...['map','normalMap','roughnessMap','metalnessMap','alphaMap'].map(k=>material[k]?.uuid||null)]);
 }
 
 export function batchByColor(model) {

@@ -60,10 +60,24 @@ export function createDarkness(){
     }
     return entry.texture;
    };
-   model.traverse(mesh=>{if(!mesh.isMesh)return;const g=mesh.geometry,p=g.attributes.position;if(!g.userData.badgeUV){const uv=new Float32Array(p.count*2);for(let i=0;i<p.count;i++){uv[2*i]=(p.getX(i)+152)/304;uv[2*i+1]=(p.getY(i)+152)/304;}g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.userData.badgeUV=true;}
+   const sourceMap=(appearance,fields,screen,scope)=>{
+    const id='svg|'+scope,version=key+'|'+(options.enamelBrightness??1)+'|'+(options.enamelSaturation??1);used.add(id);let entry=colours.get(id);
+    if(!entry){entry={texture:gradientTexture(N)};colours.set(id,entry);}
+    if(entry.key!==version||entry.source!==appearance){
+     const pixels=appearance.pixels,out=entry.texture.image.data,toHalf=THREE.DataUtils.toHalfFloat,brightness=scope==='surface'?(options.enamelBrightness??1):1,saturation=scope==='surface'?(options.enamelSaturation??1):1;
+     for(let p=0;p<N*N;p++){
+      const x=p%N,y=Math.floor(p/N),i=((N-1-y)*N+x)*4,peak=Math.max(pixels[i],pixels[i+1],pixels[i+2],1e-6),a=fields[p*5],t=fields[p*5+3],light=fields[p*5+4];
+      for(let c=0;c<3;c++){const base=Math.max(0,peak+(pixels[i+c]-peak)*saturation)*brightness,chroma=clamp(pixels[i+c]/peak),attenuation=clamp(a+t*(shadowChannelMultiplier(chroma,a)-a));let value=base*attenuation;if(screen)value=1-(1-value)*(1-chroma*light*.25);out[p*4+c]=toHalf(value);}
+      out[p*4+3]=toHalf(pixels[i+3]);
+     }
+     entry.texture.needsUpdate=true;entry.key=version;entry.source=appearance;changed=true;
+    }
+    return entry.texture;
+   };
+   model.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.role==='svg-effect')return;const g=mesh.geometry,p=g.attributes.position;if(!g.userData.badgeUV){const uv=new Float32Array(p.count*2);for(let i=0;i<p.count;i++){uv[2*i]=(p.getX(i)+152)/304;uv[2*i+1]=(p.getY(i)+152)/304;}g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.userData.badgeUV=true;}
     const role=mesh.userData.role,isEnamel=role==='enamel'||role==='light',fields=isEnamel?surfaceFields:metalFields,screen=(isEnamel?surfaceLights:metalLights).length>0;
     if(!screen&&mesh.material.userData.screenBase){mesh.material.color.copy(mesh.material.userData.screenBase);delete mesh.material.userData.screenBase;changed=true;}
-    const map=(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
+    const map=mesh.material.userData.svgAppearance&&model.svgAppearance?sourceMap(model.svgAppearance,fields,screen,isEnamel?'surface':'contour'):(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
     if(screen&&!mesh.material.userData.screenBase){mesh.material.userData.screenBase=mesh.material.color.clone();mesh.material.color.set(0xffffff);changed=true;}
     if(mesh.material.map!==map){mesh.material.map=map;mesh.material.needsUpdate=true;changed=true;}
    });

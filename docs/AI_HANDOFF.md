@@ -92,3 +92,9 @@ The render scene no longer creates part-selection WebGL overlays or raycasters. 
 Gradient field calculation reuses output arrays and precomputes channel chroma. Preserve exact old half-float outputs; tests verify the scalar formula. Do not reduce samples, texture resolution, bounces or preview/export quality as a performance shortcut.
 
 Run npm test and npm run build. The audit outputs and user comments remain outside the repo in ../relief-svg-audit-2026-09-22 and ../relief-detail-audit-2026-09-22. Never overwrite comments when refreshing renders.
+
+## Gradients, native effects and contour corrections (2026-09-22)
+
+Read `docs/SVG_GRADIENTS.md` before changing gradient/material code. `svg-appearance.js` owns bounded source-paint preparation; `darkness.js` combines it with lighting without reparsing SVG. Gradient paint and role are separate. Effects default on and persist as `effect:<id>: {enabled:false}` assignments when disabled. Do not replace source gradients with representative white when editing role/height. Exterior effects are composited after physical rendering and explicitly disposed. Keep alpha in PNG/glTF exports.
+
+054/059 validation order/color and 087 stroked alpha masks are corrected without loosening contour validation. Node suite now has 92 tests. Browser paint regression is `tools/svg-paint-qa.html`; full audit artifacts are outside the repo in `../relief-gradient-audit-2026-09-22/`. Refresh review render/result files only; preserve `comments.json`.

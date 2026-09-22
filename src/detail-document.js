@@ -1,13 +1,14 @@
 import C from 'clipper-lib';
 
 const roles=new Set(['rim','enamel','hidden','cutout']);
-export function normalizeAssignments(paints,input={}) {
+export function normalizeAssignments(paints,input={},effects=[]) {
  const result={};
  for(const p of paints){const edit=input[p.id];if(!edit)continue;
   const role=roles.has(edit.role)?edit.role:p.role;
   const color=/^#[0-9a-f]{6}$/i.test(edit.color)?edit.color.toLowerCase():p.color;
-  if(role!==p.role||color!==p.color)result[p.id]={role,color};
+  if(role!==p.role||color!==p.color||(p.gradient&&edit.color))result[p.id]={role,...(edit.color?{color}:{} )};
  }
+ for(const e of effects)if(input['effect:'+e.id]?.enabled===false)result['effect:'+e.id]={enabled:false};
  return result;
 }
 function subtract(subject,cutters){
@@ -18,12 +19,12 @@ function subtract(subject,cutters){
 export function compileDetailAssignments(asset,input={}){
  const paints=asset.editablePaints;
  if(!paints?.length)throw Error('У этого макета нет исходных элементов SVG.');
- const assignments=normalizeAssignments(paints,input);
+ const assignments=normalizeAssignments(paints,input,asset.effects);
  const visible=paints.map(p=>({...p,...assignments[p.id]})).filter(p=>p.role!=='hidden');
  const regions=visible.map((p,i)=>{
   const loops=subtract(p.loops,visible.slice(i+1).filter(q=>q.paint==='fill'||q.role==='cutout').flatMap(q=>q.loops));
   const hex=parseInt(p.color.slice(1),16);
-  return {id:p.id,role:p.role,loops,color:{r:(hex>>16)/255,g:(hex>>8&255)/255,b:(hex&255)/255},...(assignments[p.id]?.color?{overrideColor:p.color}:{})};
+  return {id:p.id,role:p.role,loops,gradient:p.gradient,svgAppearance:!!asset.hasAppearance&&(p.role!=='rim'||!!p.gradient),color:{r:(hex>>16)/255,g:(hex>>8&255)/255,b:(hex&255)/255},...(assignments[p.id]?.color?{overrideColor:p.color}:{})};
  }).filter(r=>r.loops.length&&r.role!=='cutout');
  if(!regions.length)throw Error('Оставьте хотя бы одну видимую деталь.');
  return {...asset,regions,detailAssignments:assignments};

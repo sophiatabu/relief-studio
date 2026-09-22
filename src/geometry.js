@@ -56,7 +56,7 @@ export function mergeMetalRegions(regions,overrides={}){
   const o=overrides[original.id]||{},role=o.role||original.role;
   if(role==='hidden')continue;
   if(role!=='rim'){output.push(original);continue;}
-  const key=JSON.stringify([o.color||original.overrideColor||null,o.lift||0]);
+  const key=JSON.stringify([!!original.svgAppearance&&!o.color&&!original.overrideColor,o.color||original.overrideColor||null,o.lift||0]);
   if(!groups.has(key))groups.set(key,[]);groups.get(key).push(original);
  }
  for(const metal of groups.values()){
@@ -75,7 +75,7 @@ function domeGeometry(shape,base,rise,sharedField){const flat=new THREE.ShapeGeo
  return geom;}
 function extrusion(shapes,depth,bevel=0,bevelHeight=bevel){return new THREE.ExtrudeGeometry(shapes,{depth:Math.max(.1,depth),...EXTRUDE_DEFAULTS,bevelEnabled:bevel>0,bevelSize:bevel,bevelOffset:-bevel,bevelThickness:bevelHeight});}
 function colorOf(r){return new THREE.Color().setRGB(r.color.r,r.color.g,r.color.b,THREE.SRGBColorSpace);}
-export function makeMaterial(region,settings){
+function solidMaterial(region,settings){
  const role=region.role;
  const color=/^#[0-9a-f]{6}$/i.test(region.overrideColor)?region.overrideColor:role==='rim'?0xb5b6b2:role==='pin'?0xeaece7:role==='metal-plate'?0x9c9e9a:role==='dark-metal'?0x686a68:role==='light'?0xfafbf7:colorOf(region);
  if(role==='rim')return new THREE.MeshPhysicalMaterial({color,metalness:.25,roughness:settings.roughness,clearcoat:.08,clearcoatRoughness:.3,...(region.surface==='rim-cap'?{vertexColors:true}:{})});
@@ -83,6 +83,11 @@ export function makeMaterial(region,settings){
  if(role==='metal-plate'||role==='dark-metal')return new THREE.MeshPhysicalMaterial({color,metalness:.28,roughness:.48});
  const pigment=cleanEnamelColour(color instanceof THREE.Color?color:new THREE.Color(color),settings.enamelSaturation??1).multiplyScalar(THREE.MathUtils.clamp(settings.enamelBrightness??1,.5,1.5));
  return new THREE.MeshPhysicalMaterial({color:pigment,metalness:0,specularIntensity:.045,roughness:.25+(1-settings.gloss)*.25,clearcoat:settings.gloss*.06,clearcoatRoughness:.23});
+}
+export function makeMaterial(region,settings){
+ const material=solidMaterial(region,settings);
+ if(region.svgAppearance&&!region.overrideColor){material.color.set(0xffffff);material.userData.svgAppearance=true;material.transparent=true;material.alphaTest=.001;}
+ return material;
 }
 function shapeSourceLoops(shape){return clip(loopsOfShapes([shape]).map(loop=>loop.map(p=>({X:p.X+152*S,Y:152*S-p.Y}))));}
 function sharedEnamelFields(asset,settings,overrides){

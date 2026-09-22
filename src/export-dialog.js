@@ -5,7 +5,7 @@ import {createContourEffects} from './contour-effects.js';
 import {usePreciseGradientAtlas} from './gradient-texture.js';
 import {createRenderHealthCheck} from './render-health.js';
 import {DEFAULT_EXPORT_SAMPLES,MAX_EXPORT_SAMPLES,exportQualityOptions} from './export-quality.js';
-import {PNG_EXPORT_PRESETS,exportInset} from './export-presets.js';
+import {PNG_EXPORT_PRESETS,exportInset,squareExportCamera} from './export-presets.js';
 export function createExportDialog(get,onBusy,download){
  const presets=PNG_EXPORT_PRESETS.map((preset,index)=>`<label class="export-preset"><input type="radio" name="pngPreset" value="${preset.id}"${index?'':' checked'}><strong>${preset.label}</strong><span>${preset.note}</span></label>`).join('');
  const dialog=document.createElement('dialog');dialog.className='export-dialog';dialog.setAttribute('aria-label','Экспорт PNG');dialog.innerHTML=`<div class="dialog-heading"><h2>Экспорт PNG</h2><button type="button" aria-label="Закрыть экспорт">×</button></div><fieldset class="export-presets"><legend>Формат</legend>${presets}</fieldset><details class="export-advanced"><summary>Дополнительные настройки</summary><label>Размер, px<input id="pngSize" type="number" min="32" max="2048" step="1" value="304"></label><label>Поля, px<input id="pngPadding" type="number" min="0" max="151" step="0.1" value="16"></label><label>Качество<select id="pngQuality">${exportQualityOptions()}</select></label><p class="export-recommendation"><strong>Максимальное качество</strong><span>${MAX_EXPORT_SAMPLES} сэмпла уменьшают зернистость, но требуют больше времени.</span></p><label class="inline-check"><input id="pngTransparent" type="checkbox" checked> Прозрачный фон</label><p class="export-help">Серый фон редактора не добавляется в прозрачный PNG.</p></details><progress max="1" value="0" hidden></progress><p class="export-message" role="status"></p><div class="export-actions"><button class="export-cancel">Закрыть</button><button class="primary export-start">Скачать PNG</button></div>`;document.body.append(dialog);
@@ -25,9 +25,10 @@ export function createExportDialog(get,onBusy,download){
   try{
    const renderer=task.renderer=new THREE.WebGLRenderer({alpha:true,preserveDrawingBuffer:true,powerPreference:'high-performance'});if(size>renderer.capabilities.maxTextureSize/2)throw Error('Недостаточно памяти для выбранного размера.');renderer.setSize(size,size,false);renderer.setPixelRatio(1);renderer.toneMapping=THREE.LinearToneMapping;renderer.toneMappingExposure=source.exposure;renderer.outputColorSpace=THREE.SRGBColorSpace;
    renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();if(token===serial)fail(Error('Браузер прервал работу с видеокартой.'));});
-   const scene=source.scene.clone(true),camera=source.camera.clone();scene.background=transparent?null:new THREE.Color(0x5e5e5e);
+   const scene=source.scene.clone(true),camera=squareExportCamera(source.camera);scene.background=null; // The output canvas adds the optional background after SVG effects.
    // clone() assigns UUIDs; the live badge is identified by its scene index.
    const badge=scene.children[source.scene.children.indexOf(source.model)];
+   badge.svgEffectLayer=source.model.svgEffectLayer;
    const tracer=task.tracer=new WebGLPathTracer(renderer);usePreciseGradientAtlas(tracer);tracer.bounces=6;tracer.filterGlossyFactor=.45;tracer.tiles.set(size>1024?4:2,size>1024?4:2);tracer.renderToCanvas=false;tracer.minSamples=1;tracer.renderDelay=0;tracer.fadeDuration=0;tracer.dynamicLowRes=false;
    task.denoiser=createRenderDenoiser(renderer);task.denoiser.attach(tracer);task.effects=createContourEffects(renderer);task.effects.attach(tracer,()=>({model:badge,settings:source.contour}));tracer.setScene(scene,camera);tracer.reset();const healthy=createRenderHealthCheck();
    const gl=renderer.getContext();

@@ -77,11 +77,33 @@ export function filledPath(path,flatten){
 }
 function matrixOf(node){const chain=[];for(let n=node;n?.nodeType===1;n=n.parentElement)chain.unshift(n);let m=new DOMMatrix();for(const n of chain){const a=n.transform?.baseVal?.consolidate()?.matrix;if(a)m=m.multiply(a);}return m;}
 function transformLoops(loops,m){return loops.map(p=>p.map(q=>{const v=m.transformPoint({x:q.X/S,y:q.Y/S});return{X:Math.round(v.x*S),Y:Math.round(v.y*S)};}));}
+// Include both fill and stroke in alpha-mask coverage, as the SVG renderer does.
+function maskPathCoverage(path,flatten){
+ const {style,node}=path.userData,loops=[];
+ if(style.fill&&style.fill!=='none'&&style.fillOpacity!==0)loops.push(...filledPath(path,flatten));
+ if(style.stroke&&style.stroke!=='none'&&style.strokeOpacity!==0&&style.strokeWidth>0){
+  const m=matrixOf(node),inverse=m.inverse();
+  for(const sub of path.subPaths){
+   const points=flatten(sub,.01).map(v=>{const p=inverse.transformPoint(v);return{X:Math.round(p.x*S),Y:Math.round(p.y*S)};});
+   if(points.length<2)continue;
+   const closed=sub.autoClose||(points.length>2&&points[0].X===points.at(-1).X&&points[0].Y===points.at(-1).Y);
+   if(closed&&points[0].X===points.at(-1).X&&points[0].Y===points.at(-1).Y)points.pop();
+   const offset=new C.ClipperOffset(style.strokeMiterLimit||4,.01*S),out=[];
+   const join=style.strokeLineJoin==='round'?C.JoinType.jtRound:style.strokeLineJoin==='bevel'?C.JoinType.jtSquare:C.JoinType.jtMiter;
+   const end=closed?C.EndType.etClosedLine:style.strokeLineCap==='round'?C.EndType.etOpenRound:style.strokeLineCap==='square'?C.EndType.etOpenSquare:C.EndType.etOpenButt;
+   offset.AddPath(points,join,end);offset.Execute(out,style.strokeWidth*S/2);loops.push(...transformLoops(out,m));
+  }
+ }
+ return polygonBoolean(loops);
+}
 export function readSVG(text,name,flatten){
  if(text.length>3_000_000)throw Error('SVG слишком большой для импорта: допустимо до 3 миллионов символов. Удалите ненужные объекты и экспортируйте файл снова.');
  const xml=new DOMParser().parseFromString(text,'image/svg+xml');if(xml.querySelector('parsererror'))throw Error('Не удалось прочитать SVG: структура файла повреждена. Экспортируйте его заново из векторного редактора.');
- if(xml.querySelector('image,linearGradient,radialGradient,text,use,filter,foreignObject'))throw Error('В SVG есть неподдерживаемые элементы: изображения, градиенты, текст, символы или эффекты. Используйте векторные фигуры со сплошной заливкой; преобразуйте текст и символы в кривые, удалите изображения и эффекты, замените градиенты сплошными цветами.');
+ if(xml.querySelector('image,text,use,foreignObject'))throw Error('В SVG есть неподдерживаемые элементы: встроенные изображения, текст, ссылки use или foreignObject. Градиенты и фильтры поддерживаются.');
  const parsed=new SVGLoader().parse(text),paints=[],strokeWidths=[];
+ const hasAppearance=!!xml.querySelector('linearGradient,radialGradient,filter');
+ const effects=[...xml.querySelectorAll('filter')].map((n,i)=>({id:n.id,label:'Эффект SVG '+(i+1)}));
+ const gradientOf=value=>{const id=paintServerId(value),n=id&&xml.getElementById(id);return n&&/^(linearGradient|radialGradient)$/.test(n.localName)?{id,type:n.localName,definition:new XMLSerializer().serializeToString(n)}:null;};
  const vb=(xml.documentElement.getAttribute('viewBox')||'').trim().split(/[ ,]+/).map(Number);
  // SVGLoader parses its own DOM document. Identify the backdrop in that copy,
  // otherwise object identity can never match the nodes in parsed.paths.
@@ -99,8 +121,7 @@ export function readSVG(text,name,flatten){
    // Figma commonly emits alpha masks with a solid shape plus an outline,
    // or with a stroke-only duplicate of that shape.  An alpha mask uses
    // opacity, so the paint colour and stroke are both valid mask geometry;
-   // keep the filled geometry here and let the normal SVG rasterizer account
-   // for the outline when it is the only visible part.
+   // include the complete filled and outlined coverage in the clipping shape.
    if(!shapes.length||shapes.some(c=>{
     const fill=inheritedPaint(c,'fill',def)||'none',stroke=inheritedPaint(c,'stroke',def)||'none';
     if(type==='alpha')return (!maskPaintSupported(type,fill,inheritedOpacity(c,def))&&stroke.toLowerCase()==='none')||(!Number.isFinite(inheritedOpacity(c,def))||inheritedOpacity(c,def)<.999);
@@ -113,10 +134,10 @@ export function readSVG(text,name,flatten){
    for(const [index,c] of partShapes.entries()){
     if(maskType){
      const original=sourceShapes[index];
-     const paintKind=maskPaintKind(maskType,inheritedPaint(original,'fill',def)||'black',inheritedOpacity(original,def));
+     const paintKind=maskType==='alpha'?'keep':maskPaintKind(maskType,inheritedPaint(original,'fill',def)||'black',inheritedOpacity(original,def));
      if(paintKind!==kind){c.remove();continue;}
     }
-    c.removeAttribute('stroke');c.setAttribute('fill','#fff');c.removeAttribute('mask');c.removeAttribute('clip-path');
+    if(maskType!=='alpha'){c.removeAttribute('stroke');c.setAttribute('fill','#fff');}c.removeAttribute('mask');c.removeAttribute('clip-path');
    }
    return part;
   };
@@ -124,7 +145,7 @@ export function readSVG(text,name,flatten){
   const svgOf=part=>'<svg xmlns="http://www.w3.org/2000/svg"><g transform="matrix('+[m.a,m.b,m.c,m.d,m.e,m.f].join(' ')+')">'+part.innerHTML+'</g></svg>';
   let mask;
   if(maskType){
-   const keep=polygonBoolean(new SVGLoader().parse(svgOf(renderMaskPart('keep'))).paths.flatMap(p=>filledPath(p,flatten)));
+   const keep=polygonBoolean(new SVGLoader().parse(svgOf(renderMaskPart('keep'))).paths.flatMap(p=>maskType==='alpha'?maskPathCoverage(p,flatten):filledPath(p,flatten)));
    const cut=polygonBoolean(new SVGLoader().parse(svgOf(renderMaskPart('cut'))).paths.flatMap(p=>filledPath(p,flatten)));
    mask=polygonBoolean(keep,cut,C.ClipType.ctDifference);
   }else mask=polygonBoolean(new SVGLoader().parse(svg).paths.flatMap(p=>filledPath(p,flatten)));
@@ -137,7 +158,7 @@ export function readSVG(text,name,flatten){
   if(hidden)continue;
   const filled=!!(style.fill&&style.fill!=='none'&&style.fillOpacity!==0);
   const add=(loops,role,color,metadata={})=>{loops=constraints(loops,node);if(loops.length)paints.push({loops,role,color,sourceId:`element-${pathIndex}-${role}`,label:(node.id||node.localName+' '+(pathIndex+1))+ (role==='rim'?' · обводка':' · заливка'),...metadata});};
-  if(style.fill&&style.fill!=='none'&&style.fillOpacity!==0)add(filledPath(path,flatten),'fill',path.color.clone());
+  if(style.fill&&style.fill!=='none'&&style.fillOpacity!==0)add(filledPath(path,flatten),'fill',gradientOf(style.fill)?new THREE.Color('#ffffff'):path.color.clone(),{gradient:gradientOf(style.fill)});
   if(style.stroke&&style.stroke!=='none'&&style.strokeOpacity!==0&&style.strokeWidth>0){
    if(node.getAttribute('stroke-dasharray')||node.style?.strokeDasharray)throw Error('Пунктирная обводка не поддерживается. Преобразуйте её в отдельные векторные фигуры перед экспортом SVG.');
    const m=matrixOf(node),inverse=m.inverse(),stroke=[];
@@ -151,7 +172,7 @@ export function readSVG(text,name,flatten){
     const end=closed?C.EndType.etClosedLine:style.strokeLineCap==='round'?C.EndType.etOpenRound:style.strokeLineCap==='square'?C.EndType.etOpenSquare:C.EndType.etOpenButt;
     offset.AddPath(points,join,end);offset.Execute(out,style.strokeWidth*S/2);stroke.push(...transformLoops(out,m));
    }
-   add(polygonBoolean(stroke),'rim',new THREE.Color(style.stroke),{filled,width,closed:path.subPaths.every(s=>s.autoClose),footprint:filledPath(path,flatten)});
+   add(polygonBoolean(stroke),'rim',new THREE.Color(gradientOf(style.stroke)?'#ffffff':style.stroke),{gradient:gradientOf(style.stroke),filled,width,closed:path.subPaths.every(s=>s.autoClose),footprint:filledPath(path,flatten)});
   }
  }
  // Apply SVG paint order before joining the metal. Covered paths cannot reappear
@@ -162,22 +183,23 @@ export function readSVG(text,name,flatten){
  if(!isFinite(minX)||Math.max(maxX-minX,maxY-minY)<1)throw Error('В SVG нет видимых векторных фигур подходящего размера. Проверьте, что экспортируете сами фигуры, а не пустой фрейм.');
  const extent=Math.max(maxX-minX,maxY-minY),scale=240*S/extent,cx=(minX+maxX)/2,cy=(minY+maxY)/2;
  const norm=loops=>loops.map(l=>l.map(p=>({X:Math.round((p.X-cx)*scale+152*S),Y:Math.round((p.Y-cy)*scale+152*S)})));
- const strokeColors=new Set(paints.filter(p=>p.role==='rim').map(p=>p.color.getHexString()));
+ const strokeColors=new Set(paints.filter(p=>p.role==='rim'&&!p.gradient).map(p=>p.color.getHexString()));
  // In badge artwork, dark neutral vector fills are expanded metal paths.
  // A fill that uses the stroke colour is metal regardless of its area: broad
  // junctions must merge with neighbouring strokes instead of becoming enamel.
- const expandedRims=new Set(visible.filter(p=>p.role==='fill'&&isMetalFill(p.color,strokeColors)));
+ const expandedRims=new Set(visible.filter(p=>p.role==='fill'&&!p.gradient&&isMetalFill(p.color,strokeColors)));
  const regions=[];
  for(const [i,p]of visible.entries())if(p.role==='fill'&&!expandedRims.has(p)){
   const c=p.color.clone().convertLinearToSRGB();
   // Fill colour is pigment, not a material tag. Only actual strokes form metal.
   const role='enamel';
- regions.push({id:'svg-'+i,sourcePaintIds:[p.sourceId],role,color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)});
+ regions.push({id:'svg-'+i,sourcePaintIds:[p.sourceId],role,gradient:p.gradient,svgAppearance:hasAppearance,color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)});
  }
  const redundant=redundantRims(paints),renderPaints=paints.filter(p=>!redundant.has(p));
- const renderRims=renderPaints.filter(p=>p.role==='rim').flatMap(p=>polygonBoolean(p.loops,renderPaints.slice(renderPaints.indexOf(p)+1).filter(q=>q.role==='fill').flatMap(q=>q.loops),C.ClipType.ctDifference));
- const rims=visible.filter(p=>p.role==='rim');if(rims.length)regions.push({id:'svg-rim',sourcePaintIds:rims.map(p=>p.sourceId),role:'rim',renderLoops:norm(polygonBoolean(renderRims)),redundantOutlines:redundant.size,color:{r:.5,g:.5,b:.5},loops:norm(polygonBoolean(rims.flatMap(p=>p.loops)))});
- if(expandedRims.size){const loops=polygonBoolean([...expandedRims].flatMap(p=>p.loops)),source=[...expandedRims][0].color.clone().convertLinearToSRGB();regions.push({id:'svg-expanded-rim',sourcePaintIds:[...expandedRims].map(p=>p.sourceId),role:'rim',renderLoops:norm(loops),color:{r:.5,g:.5,b:.5},validationColor:{r:source.r,g:source.g,b:source.b},loops:norm(loops)});}
- const editablePaints=paints.map(p=>({id:p.sourceId,label:p.label,paint:p.role,role:p.role==='rim'||isMetalFill(p.color,strokeColors)?'rim':'enamel',color:'#'+p.color.getHexString(),loops:norm(p.loops)}));
- return{editablePaints,key:'custom',name,viewBox:[0,0,304,304],strokeWidth:strokeWidths.length?strokeWidths.sort((a,b)=>a-b)[Math.floor(strokeWidths.length/2)]*scale:undefined,sourceBounds:{minX:minX/S,minY:minY/S,maxX:maxX/S,maxY:maxY/S},regions};
+ const renderRims=renderPaints.filter(p=>p.role==='rim'&&!p.gradient).flatMap(p=>polygonBoolean(p.loops,renderPaints.slice(renderPaints.indexOf(p)+1).filter(q=>q.role==='fill').flatMap(q=>q.loops),C.ClipType.ctDifference));
+ for(const p of visible.filter(p=>p.role==='rim'&&p.gradient))regions.push({id:p.sourceId,sourcePaintIds:[p.sourceId],role:'enamel',gradient:p.gradient,svgAppearance:true,color:{r:1,g:1,b:1},loops:norm(p.loops)});
+ const rims=visible.filter(p=>p.role==='rim'&&!p.gradient);if(rims.length)regions.push({id:'svg-rim',sourcePaintIds:rims.map(p=>p.sourceId),role:'rim',renderLoops:norm(polygonBoolean(renderRims)),redundantOutlines:redundant.size,color:{r:.5,g:.5,b:.5},loops:norm(polygonBoolean(rims.flatMap(p=>p.loops)))});
+ if(expandedRims.size){const loops=polygonBoolean([...expandedRims].flatMap(p=>p.loops)),source=[...expandedRims][0].color.clone().convertLinearToSRGB();regions.push({id:'svg-expanded-rim',sourcePaintIds:[...expandedRims].map(p=>p.sourceId),role:'rim',renderLoops:norm(loops),color:{r:.5,g:.5,b:.5},validationColor:{r:source.r,g:source.g,b:source.b},validationPaints:[...expandedRims].map(p=>{const c=p.color.clone().convertLinearToSRGB();return{color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)};}),loops:norm(loops)});}
+ const editablePaints=paints.map(p=>({id:p.sourceId,label:p.label,paint:p.role,gradient:p.gradient,role:p.gradient?'enamel':p.role==='rim'||isMetalFill(p.color,strokeColors)?'rim':'enamel',color:'#'+p.color.getHexString(),loops:norm(p.loops)}));
+ return{hasAppearance,effects,editablePaints,key:'custom',name,viewBox:[0,0,304,304],strokeWidth:strokeWidths.length?strokeWidths.sort((a,b)=>a-b)[Math.floor(strokeWidths.length/2)]*scale:undefined,sourceBounds:{minX:minX/S,minY:minY/S,maxX:maxX/S,maxY:maxY/S},regions};
 }
