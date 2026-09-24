@@ -73,7 +73,9 @@ const contourControls=createContourControls($('contourControls'),()=>contour,(ke
 contourControls.update();
 const physical=()=>true;
 function ensureTracer(){
- if(!tracer){tracer=new WebGLPathTracer(renderer);usePreciseGradientAtlas(tracer);tracer.bounces=6;tracer.filterGlossyFactor=.45;tracer.tiles.set(1,1);tracer.minSamples=1;tracer.renderDelay=80;tracer.fadeDuration=150;tracer.dynamicLowRes=true;tracer.lowResScale=.45;denoiser.attach(tracer);contourEffects.attach(tracer,()=>({model,settings:contour}));}
+ if(!tracer){tracer=new WebGLPathTracer(renderer);usePreciseGradientAtlas(tracer);tracer.bounces=6;tracer.filterGlossyFactor=.45;tracer.tiles.set(1,1);tracer.minSamples=1;tracer.renderDelay=80;tracer.fadeDuration=150;tracer.dynamicLowRes=true;tracer.lowResScale=.45;denoiser.attach(tracer);
+  // Preview targets are 128/512/1024 samples, so this cadence always composites the final sample.
+  contourEffects.attach(tracer,()=>({model,settings:contour}),16);}
  return tracer;
 }
 let lightDrag=null;
