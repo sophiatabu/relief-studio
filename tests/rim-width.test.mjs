@@ -13,7 +13,8 @@ test('adjustable rim gain changes rendered outline thickness proportionally',()=
  const width=out=>Math.max(...out.flat().map(p=>p.X))-Math.min(...out.flat().map(p=>p.X));
  assert.equal(width(widenRim(loops,5,0)),5000);
  assert.equal(width(widenRim(loops,5,.5)),7500);
-});\ntest('narrow holes remain open and original geometry stays untouched',()=>{
+});
+test('narrow holes remain open and original geometry stays untouched',()=>{
  const loops=[rect(0,0,10000,10000),rect(4800,3000,400,4000).reverse()],copy=structuredClone(loops);
  const out=widenRim(loops,5);assert.deepEqual(loops,copy);
  assert.equal(out.filter(p=>!C.Clipper.Orientation(p)).length,1);
