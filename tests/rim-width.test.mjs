@@ -8,7 +8,7 @@ test('straight border expands equally to 125% of source width',()=>{
  assert.equal(Math.max(...p.map(p=>p.X))-Math.min(...p.map(p=>p.X)),6250);
  assert.equal(Math.min(...p.map(p=>p.X)),-625);
 });
-test('narrow holes remain open and original geometry stays untouched',()=>{
+test('adjustable rim gain changes rendered outline thickness proportionally',()=>{\n const loops=[rect(0,0,5000,40000)];\n const width=out=>Math.max(...out.flat().map(p=>p.X))-Math.min(...out.flat().map(p=>p.X));\n assert.equal(width(widenRim(loops,5,0)),5000);\n assert.equal(width(widenRim(loops,5,.5)),7500);\n});\ntest('narrow holes remain open and original geometry stays untouched',()=>{
  const loops=[rect(0,0,10000,10000),rect(4800,3000,400,4000).reverse()],copy=structuredClone(loops);
  const out=widenRim(loops,5);assert.deepEqual(loops,copy);
  assert.equal(out.filter(p=>!C.Clipper.Orientation(p)).length,1);

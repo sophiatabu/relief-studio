@@ -3,7 +3,7 @@ import {highlightSource} from './lighting.js';
 // Runtime settings are editable normalized copies of this object.
 export const STUDIO=Object.freeze({
  version:'robot-reference-v3',name:'По умолчанию',fill:.48,exposure:1.05,
- appearance:Object.freeze({height:9,bevel:1.5,dome:1,roughness:.52,gloss:.38,enamelSaturation:1.25,enamelBrightness:1.15,rimHighlight:.65,rimHighlightWidth:.25,metalShadeGain:2.2}),
+ appearance:Object.freeze({height:9,rimWidthGain:.25,bevel:1.5,dome:1,roughness:.52,gloss:.38,enamelSaturation:1.25,enamelBrightness:1.15,rimHighlight:.65,rimHighlightWidth:.25,metalShadeGain:2.2}),
  contour:Object.freeze({enabled:true,facet:true,facetWidth:.72,facetStrength:.58,highlight:true,highlightAngle:0,highlightWidth:.3,highlightStrength:.72,highlightSoftness:.42,shadow:true,shadowAngle:225,shadowOffset:.8,shadowSoftness:1.35,shadowStrength:.58}),
  sources:Object.freeze([
   Object.freeze({id:'key',name:'Основной свет',kind:'light',enabled:true,color:'#ffffff',power:.92,softness:2.8,azimuth:-25,elevation:42.5,distance:Math.hypot(3.5,3.2),blendMode:'screen',richness:.12,surfaceInfluence:1,contourInfluence:.72}),
