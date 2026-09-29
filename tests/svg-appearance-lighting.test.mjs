@@ -17,3 +17,7 @@ test('gradient metallic regions are not merged with unpainted metal',()=>{
  const groups=mergeMetalRegions([{id:'a',role:'rim',loops:loop},{id:'b',role:'rim',loops:loop,svgAppearance:true,gradient:{id:'g'}}]);assert.equal(groups.length,2);
  const mat=makeMaterial(groups.find(g=>g.gradient),{roughness:.4});assert.equal(mat.userData.svgAppearance,true);mat.dispose();
 });
+test('default metal outline uses a neutral gray base instead of pale silver',()=>{
+ const mat=makeMaterial({role:'rim'},{roughness:.5});
+ assert.equal(mat.color.getHexString(),'929491');mat.dispose();
+});

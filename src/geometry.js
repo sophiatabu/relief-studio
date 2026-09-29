@@ -77,7 +77,7 @@ function extrusion(shapes,depth,bevel=0,bevelHeight=bevel){return new THREE.Extr
 function colorOf(r){return new THREE.Color().setRGB(r.color.r,r.color.g,r.color.b,THREE.SRGBColorSpace);}
 function solidMaterial(region,settings){
  const role=region.role;
- const color=/^#[0-9a-f]{6}$/i.test(region.overrideColor)?region.overrideColor:role==='rim'?0xb5b6b2:role==='pin'?0xeaece7:role==='metal-plate'?0x9c9e9a:role==='dark-metal'?0x686a68:role==='light'?0xfafbf7:colorOf(region);
+ const color=/^#[0-9a-f]{6}$/i.test(region.overrideColor)?region.overrideColor:role==='rim'?0x929491:role==='pin'?0xeaece7:role==='metal-plate'?0x9c9e9a:role==='dark-metal'?0x686a68:role==='light'?0xfafbf7:colorOf(region);
  if(role==='rim')return new THREE.MeshPhysicalMaterial({color,metalness:.25,roughness:settings.roughness,clearcoat:.08,clearcoatRoughness:.3,...(region.surface==='rim-cap'?{vertexColors:true}:{})});
  if(role==='pin')return new THREE.MeshPhysicalMaterial({color,metalness:.32,roughness:.24,clearcoat:.22,clearcoatRoughness:.25});
  if(role==='metal-plate'||role==='dark-metal')return new THREE.MeshPhysicalMaterial({color,metalness:.28,roughness:.48});
