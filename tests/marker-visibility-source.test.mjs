@@ -46,7 +46,9 @@ test('current render can be placed beside achievement examples without UI overla
  const main=await readFile(new URL('../src/main.js',import.meta.url),'utf8');
  const css=await readFile(new URL('../src/style.css',import.meta.url),'utf8');
  assert.match(main,/compareRender\.textContent='Посмотреть'/);
- assert.match(main,/currentRenderContext\.drawImage\(source,sx,sy,side,side,padding,padding,size-padding\*2,size-padding\*2\)/);
+ assert.match(main,/new THREE\.Box3\(\)\.setFromObject\(model\)/);
+ assert.match(main,/projected\.push\(new THREE\.Vector3\([^;]+\.project\(camera\)\)/);
+ assert.match(main,/currentRenderContext\.drawImage\(source,sx,sy,cropSide,cropSide,padding,padding,size-padding\*2,size-padding\*2\)/);
  assert.match(main,/referenceBoard\.prepend\(currentRenderFigure\)/);
  assert.match(main,/classList\.add\('comparison-mode'\)/);
  assert.match(main,/showColours\(false\);showSettings\(true\)/);
