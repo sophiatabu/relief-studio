@@ -81,7 +81,7 @@ export function createDarkness(){
     const role=mesh.userData.role,isEnamel=role==='enamel'||role==='light',fields=isEnamel?surfaceFields:metalFields,screen=(isEnamel?surfaceLights:metalLights).length>0,solidSvgFill=!!mesh.userData.solidSvgFill;
     if(!screen&&mesh.material.userData.screenBase){mesh.material.color.copy(mesh.material.userData.screenBase);delete mesh.material.userData.screenBase;changed=true;}
     const preservePigment=!!mesh.material.userData.solidSvgFill;
-    const map=preservePigment?null:mesh.material.userData.svgAppearance&&model.svgAppearance?sourceMap(model.svgAppearance,fields,screen,isEnamel?'surface':'contour'):(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
+    const map=preservePigment?(isEnamel?flatSurface:flatMetal):mesh.material.userData.svgAppearance&&model.svgAppearance?sourceMap(model.svgAppearance,fields,screen,isEnamel?'surface':'contour'):(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
     if(screen&&!preservePigment&&!mesh.material.userData.screenBase){mesh.material.userData.screenBase=mesh.material.color.clone();mesh.material.color.set(0xffffff);changed=true;}
     if(mesh.material.map!==map){mesh.material.map=map;mesh.material.needsUpdate=true;changed=true;}
    });
