@@ -26,5 +26,5 @@ test('gradient metallic regions are not merged with unpainted metal',()=>{
 });
 test('default metal outline uses a neutral gray base instead of pale silver',()=>{
  const mat=makeMaterial({role:'rim'},{roughness:.5});
- assert.equal(mat.color.getHexString(),'929491');mat.dispose();
+ assert.equal(mat.color.getHexString(),'7c7e7b');mat.dispose();
 });

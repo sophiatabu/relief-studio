@@ -4,7 +4,7 @@ import {STUDIO,migrateAppearance,migrateColourBalance} from '../src/studio.js';
 import {CONTOUR_DEFAULTS} from '../src/contour-settings.js';
 test('robot-hand recipe is the single source for every default setting',()=>{
  assert.equal(STUDIO.name,'По умолчанию');
- assert.equal(STUDIO.version,'robot-reference-v3');
+ assert.equal(STUDIO.version,'robot-reference-v4');
  assert.equal(STUDIO.exposure,1.05);
  assert.equal(STUDIO.appearance.enamelSaturation,1.25);
  assert.equal(STUDIO.appearance.enamelBrightness,1.15);
@@ -14,6 +14,8 @@ test('robot-hand recipe is the single source for every default setting',()=>{
  assert.equal(CONTOUR_DEFAULTS,STUDIO.contour);
  const old={profile:'soft-enamel-v3',fill:.2,exposure:.8,sources:[{kind:'dark',power:.11}]};
  assert.deepEqual(migrateColourBalance(old),{...old,profile:STUDIO.version});
+ const previous={profile:'robot-reference-v3',sources:[{id:'key',kind:'light',contourInfluence:.72},{id:'custom',kind:'light',contourInfluence:.3}]};
+ assert.deepEqual(migrateColourBalance(previous),{profile:STUDIO.version,sources:[{id:'key',kind:'light',contourInfluence:.55},{id:'custom',kind:'light',contourInfluence:.3}]});
 });
 test('the new recipe updates untouched defaults but retains custom lighting',()=>{
  const source={kind:'dark',power:.22,softness:3,azimuth:-135,distance:1.8,enabled:true};
@@ -26,6 +28,8 @@ test('the new recipe updates untouched defaults but retains custom lighting',()=
 test('only the complete previous default appearance is upgraded',()=>{
  const previous={height:9,bevel:1.5,dome:1,roughness:.44,gloss:.45,rimHighlight:.7,rimHighlightWidth:.35,metalShadeGain:1.8};
  assert.deepEqual(migrateAppearance(previous),STUDIO.appearance);
+ const oldRim={height:9,rimWidthGain:.25,bevel:1.5,dome:1,roughness:.52,gloss:.38,enamelSaturation:1.25,enamelBrightness:1.15,rimHighlight:.65,rimHighlightWidth:.25,metalShadeGain:2.2};
+ assert.deepEqual(migrateAppearance(oldRim),STUDIO.appearance);
  const custom={...previous,dome:.3};assert.deepEqual(migrateAppearance(custom),custom);
  assert.equal(migrateAppearance(null),null);
 });
