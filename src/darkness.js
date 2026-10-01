@@ -19,7 +19,7 @@ function sourcesForMaterial(sources,key,darkGain=1){
 }
 
 export function createDarkness(){
- const metal=gradientTexture(N),enamel=gradientTexture(N),colours=new Map();let previous='',surfaceFields,metalFields;
+ const metal=gradientTexture(N),enamel=gradientTexture(N),flatSurface=gradientTexture(N),flatMetal=gradientTexture(N),colours=new Map();let previous='',surfaceFields,metalFields;
  return{
   update(model,sources,surface,options={}){
    if(!model)return false;
@@ -39,8 +39,11 @@ export function createDarkness(){
      for(let c=0;c<3;c++){surfaceFields[p*5+c]=s[0]*(surfacePixels?SRGBToLinear(surfacePixels[offset+c]/255):1);metalFields[p*5+c]=m[0];}
      surfaceFields[p*5+3]=s[1];surfaceFields[p*5+4]=s[2];metalFields[p*5+3]=m[1];metalFields[p*5+4]=m[2];
      setGradientPixel(enamel,p*4,surfaceFields[p*5],surfaceFields[p*5+1],surfaceFields[p*5+2]);setGradientPixel(metal,p*4,m[0],m[0],m[0]);
+     const surfaceShade=clamp(s[0]+s[1]*(shadowChannelMultiplier(1,s[0])-s[0])),metalShade=clamp(m[0]+m[1]*(shadowChannelMultiplier(1,m[0])-m[0]));
+     const neutralSurface=1-(1-surfaceShade)*(1-s[2]*.25),neutralMetal=1-(1-metalShade)*(1-m[2]*.25);
+     setGradientPixel(flatSurface,p*4,neutralSurface,neutralSurface,neutralSurface);setGradientPixel(flatMetal,p*4,neutralMetal,neutralMetal,neutralMetal);
     }
-    metal.needsUpdate=enamel.needsUpdate=true;
+    metal.needsUpdate=enamel.needsUpdate=flatSurface.needsUpdate=flatMetal.needsUpdate=true;
    }
    const chromatic=active.some(s=>s.blendMode!=='neutral'&&(s.richness??.2)>0&&s.power>0),used=new Set();
    const colouredMap=(material,fields,screen,scope)=>{
@@ -75,7 +78,7 @@ export function createDarkness(){
     return entry.texture;
    };
    model.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.role==='svg-effect')return;const g=mesh.geometry,p=g.attributes.position;if(!g.userData.badgeUV){const uv=new Float32Array(p.count*2);for(let i=0;i<p.count;i++){uv[2*i]=(p.getX(i)+152)/304;uv[2*i+1]=(p.getY(i)+152)/304;}g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.userData.badgeUV=true;}
-    const role=mesh.userData.role,isEnamel=role==='enamel'||role==='light',fields=isEnamel?surfaceFields:metalFields,screen=(isEnamel?surfaceLights:metalLights).length>0;
+    const role=mesh.userData.role,isEnamel=role==='enamel'||role==='light',fields=isEnamel?surfaceFields:metalFields,screen=(isEnamel?surfaceLights:metalLights).length>0,solidSvgFill=!!mesh.userData.solidSvgFill;
     if(!screen&&mesh.material.userData.screenBase){mesh.material.color.copy(mesh.material.userData.screenBase);delete mesh.material.userData.screenBase;changed=true;}
     const preservePigment=!!mesh.material.userData.solidSvgFill;
     const map=preservePigment?null:mesh.material.userData.svgAppearance&&model.svgAppearance?sourceMap(model.svgAppearance,fields,screen,isEnamel?'surface':'contour'):(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
@@ -84,6 +87,6 @@ export function createDarkness(){
    });
    for(const [id,entry]of colours)if(!used.has(id)){entry.texture.dispose();colours.delete(id);}
    return changed;
-  },dispose(){metal.dispose();enamel.dispose();for(const entry of colours.values())entry.texture.dispose();colours.clear();}
+  },dispose(){metal.dispose();enamel.dispose();flatSurface.dispose();flatMetal.dispose();for(const entry of colours.values())entry.texture.dispose();colours.clear();}
  };
 }

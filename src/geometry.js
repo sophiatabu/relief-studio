@@ -81,7 +81,7 @@ function solidMaterial(region,settings){
  if(role==='rim')return new THREE.MeshPhysicalMaterial({color,metalness:.25,roughness:settings.roughness,clearcoat:.08,clearcoatRoughness:.3,...(region.surface==='rim-cap'?{vertexColors:true}:{})});
  if(role==='pin')return new THREE.MeshPhysicalMaterial({color,metalness:.32,roughness:.24,clearcoat:.22,clearcoatRoughness:.25});
  if(role==='metal-plate'||role==='dark-metal')return new THREE.MeshPhysicalMaterial({color,metalness:.28,roughness:.48});
- const pigment=cleanEnamelColour(color instanceof THREE.Color?color:new THREE.Color(color),settings.enamelSaturation??1).multiplyScalar(THREE.MathUtils.clamp(settings.enamelBrightness??1,.5,1.5));
+ const pigment=region.solidSvgFill?(color instanceof THREE.Color?color.clone():new THREE.Color(color)):cleanEnamelColour(color instanceof THREE.Color?color:new THREE.Color(color),settings.enamelSaturation??1).multiplyScalar(THREE.MathUtils.clamp(settings.enamelBrightness??1,.5,1.5));
  return new THREE.MeshPhysicalMaterial({color:pigment,metalness:0,specularIntensity:.045,roughness:.25+(1-settings.gloss)*.25,clearcoat:settings.gloss*.06,clearcoatRoughness:.23});
 }
 export function makeMaterial(region,settings){
