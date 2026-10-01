@@ -12,6 +12,13 @@ test('SVG pigment texture retains spatial color/alpha and reuses geometry during
  darkness.update(model,[{kind:'dark',enabled:true,power:.3,azimuth:40,elevation:45,distance:2,softness:2,richness:0,blendMode:'neutral'}]);assert.equal(mesh.geometry,geometry);assert.equal(mesh.material.map,map);
  let disposed=0;map.addEventListener('dispose',()=>disposed++);darkness.dispose();assert.equal(disposed,1);disposeRenderPipeline(model);
 });
+test('solid SVG enamel keeps its chosen pigment instead of receiving synthetic color gradients',()=>{
+ const model=new THREE.Group(),mat=makeMaterial({role:'enamel',solidSvgFill:true,color:{r:139/255,g:255/255,b:214/255}},{enamelSaturation:1,enamelBrightness:1,roughness:.5,gloss:.4});
+ const mesh=new THREE.Mesh(new THREE.BoxGeometry(),mat);mesh.userData.role='enamel';model.add(mesh);const base=mat.color.clone(),darkness=createDarkness();
+ darkness.update(model,[{kind:'light',enabled:true,power:1,azimuth:-25,elevation:45,distance:3,softness:2,blendMode:'screen',richness:.8},{kind:'dark',enabled:true,power:.4,azimuth:160,elevation:30,distance:2,softness:2,blendMode:'multiply',richness:.8}]);
+ assert.deepEqual(mat.color.toArray(),base.toArray());assert.equal(mat.userData.screenBase,undefined);assert.equal(mat.map,null);
+ darkness.dispose();disposeRenderPipeline(model);
+});
 test('gradient metallic regions are not merged with unpainted metal',()=>{
  const loop=[[{X:0,Y:0},{X:100,Y:0},{X:100,Y:100},{X:0,Y:100}]];
  const groups=mergeMetalRegions([{id:'a',role:'rim',loops:loop},{id:'b',role:'rim',loops:loop,svgAppearance:true,gradient:{id:'g'}}]);assert.equal(groups.length,2);

@@ -193,13 +193,13 @@ export function readSVG(text,name,flatten){
   const c=p.color.clone().convertLinearToSRGB();
   // Fill colour is pigment, not a material tag. Only actual strokes form metal.
   const role='enamel';
- regions.push({id:'svg-'+i,sourcePaintIds:[p.sourceId],role,gradient:p.gradient,svgAppearance:hasAppearance,color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)});
+ regions.push({id:'svg-'+i,sourcePaintIds:[p.sourceId],role,gradient:p.gradient,solidSvgFill:!p.gradient&&!hasAppearance,svgAppearance:hasAppearance,color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)});
  }
  const redundant=redundantRims(paints),renderPaints=paints.filter(p=>!redundant.has(p));
  const renderRims=renderPaints.filter(p=>p.role==='rim'&&!p.gradient).flatMap(p=>polygonBoolean(p.loops,renderPaints.slice(renderPaints.indexOf(p)+1).filter(q=>q.role==='fill').flatMap(q=>q.loops),C.ClipType.ctDifference));
  for(const p of visible.filter(p=>p.role==='rim'&&p.gradient))regions.push({id:p.sourceId,sourcePaintIds:[p.sourceId],role:'enamel',gradient:p.gradient,svgAppearance:true,color:{r:1,g:1,b:1},loops:norm(p.loops)});
  const rims=visible.filter(p=>p.role==='rim'&&!p.gradient);if(rims.length)regions.push({id:'svg-rim',sourcePaintIds:rims.map(p=>p.sourceId),role:'rim',renderLoops:norm(polygonBoolean(renderRims)),redundantOutlines:redundant.size,color:{r:.5,g:.5,b:.5},loops:norm(polygonBoolean(rims.flatMap(p=>p.loops)))});
  if(expandedRims.size){const loops=polygonBoolean([...expandedRims].flatMap(p=>p.loops)),source=[...expandedRims][0].color.clone().convertLinearToSRGB();regions.push({id:'svg-expanded-rim',sourcePaintIds:[...expandedRims].map(p=>p.sourceId),role:'rim',renderLoops:norm(loops),color:{r:.5,g:.5,b:.5},validationColor:{r:source.r,g:source.g,b:source.b},validationPaints:[...expandedRims].map(p=>{const c=p.color.clone().convertLinearToSRGB();return{color:{r:c.r,g:c.g,b:c.b},loops:norm(p.loops)};}),loops:norm(loops)});}
- const editablePaints=paints.map(p=>({id:p.sourceId,label:p.label,paint:p.role,gradient:p.gradient,role:p.gradient?'enamel':p.role==='rim'||isMetalFill(p.color,strokeColors)?'rim':'enamel',color:'#'+p.color.getHexString(),loops:norm(p.loops)}));
+ const editablePaints=paints.map(p=>({id:p.sourceId,label:p.label,paint:p.role,gradient:p.gradient,solidSvgFill:!p.gradient&&!hasAppearance,role:p.gradient?'enamel':p.role==='rim'||isMetalFill(p.color,strokeColors)?'rim':'enamel',color:'#'+p.color.getHexString(),loops:norm(p.loops)}));
  return{hasAppearance,effects,editablePaints,key:'custom',name,viewBox:[0,0,304,304],strokeWidth:strokeWidths.length?strokeWidths.sort((a,b)=>a-b)[Math.floor(strokeWidths.length/2)]*scale:undefined,sourceBounds:{minX:minX/S,minY:minY/S,maxX:maxX/S,maxY:maxY/S},regions};
 }

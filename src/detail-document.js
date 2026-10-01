@@ -24,7 +24,7 @@ export function compileDetailAssignments(asset,input={}){
  const regions=visible.map((p,i)=>{
   const loops=subtract(p.loops,visible.slice(i+1).filter(q=>q.paint==='fill'||q.role==='cutout').flatMap(q=>q.loops));
   const hex=parseInt(p.color.slice(1),16);
-  return {id:p.id,role:p.role,loops,gradient:p.gradient,svgAppearance:!!asset.hasAppearance&&(p.role!=='rim'||!!p.gradient),color:{r:(hex>>16)/255,g:(hex>>8&255)/255,b:(hex&255)/255},...(assignments[p.id]?.color?{overrideColor:p.color}:{})};
+  return {id:p.id,role:p.role,loops,gradient:p.gradient,solidSvgFill:!!p.solidSvgFill,svgAppearance:!!asset.hasAppearance&&(p.role!=='rim'||!!p.gradient),color:{r:(hex>>16)/255,g:(hex>>8&255)/255,b:(hex&255)/255},...(assignments[p.id]?.color?{overrideColor:p.color}:{})};
  }).filter(r=>r.loops.length&&r.role!=='cutout');
  if(!regions.length)throw Error('Оставьте хотя бы одну видимую деталь.');
  return {...asset,regions,detailAssignments:assignments};

@@ -77,8 +77,9 @@ export function createDarkness(){
    model.traverse(mesh=>{if(!mesh.isMesh||mesh.userData.role==='svg-effect')return;const g=mesh.geometry,p=g.attributes.position;if(!g.userData.badgeUV){const uv=new Float32Array(p.count*2);for(let i=0;i<p.count;i++){uv[2*i]=(p.getX(i)+152)/304;uv[2*i+1]=(p.getY(i)+152)/304;}g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.userData.badgeUV=true;}
     const role=mesh.userData.role,isEnamel=role==='enamel'||role==='light',fields=isEnamel?surfaceFields:metalFields,screen=(isEnamel?surfaceLights:metalLights).length>0;
     if(!screen&&mesh.material.userData.screenBase){mesh.material.color.copy(mesh.material.userData.screenBase);delete mesh.material.userData.screenBase;changed=true;}
-    const map=mesh.material.userData.svgAppearance&&model.svgAppearance?sourceMap(model.svgAppearance,fields,screen,isEnamel?'surface':'contour'):(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
-    if(screen&&!mesh.material.userData.screenBase){mesh.material.userData.screenBase=mesh.material.color.clone();mesh.material.color.set(0xffffff);changed=true;}
+    const preservePigment=!!mesh.material.userData.solidSvgFill;
+    const map=preservePigment?null:mesh.material.userData.svgAppearance&&model.svgAppearance?sourceMap(model.svgAppearance,fields,screen,isEnamel?'surface':'contour'):(screen||(isEnamel&&chromatic))?colouredMap(mesh.material,fields,screen,isEnamel?'surface':'contour'):surface&&role!=='rim'&&role!=='pin'?enamel:metal;
+    if(screen&&!preservePigment&&!mesh.material.userData.screenBase){mesh.material.userData.screenBase=mesh.material.color.clone();mesh.material.color.set(0xffffff);changed=true;}
     if(mesh.material.map!==map){mesh.material.map=map;mesh.material.needsUpdate=true;changed=true;}
    });
    for(const [id,entry]of colours)if(!used.has(id)){entry.texture.dispose();colours.delete(id);}
