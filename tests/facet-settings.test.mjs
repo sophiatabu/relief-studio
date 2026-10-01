@@ -17,9 +17,9 @@ test('facet can become very narrow and highlight can become broader',()=>{
  assert.equal(normalizeContour({facetWidth:0}).facetWidth,.03);
  assert.equal(normalizeContour({highlightWidth:5}).highlightWidth,1.5);
 });
-test('range expansion keeps the original defaults and repairs the temporary altered preset',()=>{
- assert.equal(CONTOUR_DEFAULTS.facetWidth,.72);assert.equal(CONTOUR_DEFAULTS.highlightWidth,.3);
- const altered={...CONTOUR_DEFAULTS,facetWidth:.42,highlightWidth:.55};
+test('requested contour recipe is the default and the temporary altered preset migrates to it',()=>{
+ assert.equal(CONTOUR_DEFAULTS.highlightAngle,32);assert.equal(CONTOUR_DEFAULTS.facetWidth,.95);assert.equal(CONTOUR_DEFAULTS.highlightWidth,1.5);
+ const altered={enabled:true,facet:true,facetWidth:.42,facetStrength:.58,highlight:true,highlightAngle:0,highlightWidth:.55,highlightStrength:.72,highlightSoftness:.42,shadow:true,shadowAngle:225,shadowOffset:.8,shadowSoftness:1.35,shadowStrength:.58};
  assert.deepEqual(migrateContourDefaults(altered),CONTOUR_DEFAULTS);
  assert.equal(migrateContourDefaults({...altered,facetStrength:.4}).facetWidth,.42);
 });
