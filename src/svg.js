@@ -96,11 +96,50 @@ function maskPathCoverage(path,flatten){
  }
  return polygonBoolean(loops);
 }
+// SVGLoader reads stylesheet entries as object keys. Chromium exposes some
+// stroke declarations only through CSSStyleDeclaration.getPropertyValue().
+function inlineStrokeStyles(xml){
+ const properties=['stroke-width','stroke-linecap','stroke-linejoin','stroke-miterlimit'];
+ const rules=[];
+ for(const style of xml.querySelectorAll('style')){
+  const sheet=new CSSStyleSheet();
+  sheet.replaceSync(style.textContent);
+  for(const rule of sheet.cssRules){
+   if(rule.type!==1)continue;
+   const declarations=properties.map(key=>[key,rule.style.getPropertyValue(key),rule.style.getPropertyPriority(key)]).filter(([,value])=>value);
+   if(!declarations.length)continue;
+   for(const selector of rule.selectorText.split(',').map(value=>value.trim())){
+    // Match the simple selectors supported by SVGLoader, plus SVG tag names.
+    if(!/^(?:[.#][\w-]+|[a-zA-Z][\w-]*|\*)$/.test(selector))continue;
+    rules.push({selector,declarations,specificity:selector.startsWith('#')?3:selector.startsWith('.')?2:selector==='*'?0:1});
+   }
+  }
+ }
+ if(!rules.length)return false;
+ for(const node of [xml.documentElement,...xml.documentElement.querySelectorAll('*')]){
+  if(!node.style)continue;
+  const winners=new Map();
+  for(const {selector,declarations,specificity} of rules){
+   if(!node.matches(selector))continue;
+   for(const [key,value,priority] of declarations){
+    const rank=specificity+(priority==='important'?10:0);
+    if(rank>=(winners.get(key)?.rank??-1))winners.set(key,{value,priority,rank});
+   }
+  }
+  for(const [key,{value,priority}] of winners){
+   if(node.style.getPropertyValue(key)&&(node.style.getPropertyPriority(key)==='important'||priority!=='important'))continue;
+   node.style.setProperty(key,value,priority);
+  }
+ }
+ return true;
+}
+
 export function readSVG(text,name,flatten){
  if(text.length>3_000_000)throw Error('SVG слишком большой для импорта: допустимо до 3 миллионов символов. Удалите ненужные объекты и экспортируйте файл снова.');
  const xml=new DOMParser().parseFromString(text,'image/svg+xml');if(xml.querySelector('parsererror'))throw Error('Не удалось прочитать SVG: структура файла повреждена. Экспортируйте его заново из векторного редактора.');
  if(xml.querySelector('image,text,use,foreignObject'))throw Error('В SVG есть неподдерживаемые элементы: встроенные изображения, текст, ссылки use или foreignObject. Градиенты и фильтры поддерживаются.');
- const parsed=new SVGLoader().parse(text),paints=[],strokeWidths=[];
+ const geometrySVG=inlineStrokeStyles(xml)?new XMLSerializer().serializeToString(xml):text;
+ const parsed=new SVGLoader().parse(geometrySVG),paints=[],strokeWidths=[];
  const hasAppearance=!!xml.querySelector('linearGradient,radialGradient,filter');
  const effects=[...xml.querySelectorAll('filter')].map((n,i)=>({id:n.id,label:'Эффект SVG '+(i+1)}));
  const gradientOf=value=>{const id=paintServerId(value),n=id&&xml.getElementById(id);return n&&/^(linearGradient|radialGradient)$/.test(n.localName)?{id,type:n.localName,definition:new XMLSerializer().serializeToString(n)}:null;};
