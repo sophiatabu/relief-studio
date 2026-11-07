@@ -45,7 +45,7 @@ test('panel and preview controls are rehomed without a second toolbar row',async
 test('current render can be placed beside achievement examples without UI overlays',async()=>{
  const main=await readFile(new URL('../src/main.js',import.meta.url),'utf8');
  const css=await readFile(new URL('../src/style.css',import.meta.url),'utf8');
- assert.match(main,/compareRender\.textContent='Посмотреть'/);
+ assert.match(main,/compareRender\.textContent='Сравнить с принятыми'/);
  assert.match(main,/new THREE\.Box3\(\)\.setFromObject\(model\)/);
  assert.match(main,/projected\.push\(new THREE\.Vector3\([^;]+\.project\(camera\)\)/);
  assert.match(main,/currentRenderContext\.drawImage\(source,sx,sy,cropSide,cropSide,padding,padding,size-padding\*2,size-padding\*2\)/);
@@ -106,7 +106,7 @@ test('completed previews stop continuous GPU compositing',async()=>{
  assert.match(main,/if\(!model\|\|busy\|\|exporting\|\|detailEditing\|\|document\.hidden\|\|renderFailed\)return;/);
  assert.match(main,/finally\{if\(version===buildVersion\)\{busy=false;startAnimation\(\);\}\}/);
  assert.doesNotMatch(main,/if\(tracer\.samples<target\)tracer\.renderSample\(\);else contourEffects\.redraw/);
- assert.equal((html.match(/loading="lazy"/g)||[]).length,9);
+ assert.equal((html.match(/loading="lazy"/g)||[]).length,15);
 });
 
 test('redundant enable switches and source explanations are absent',async()=>{

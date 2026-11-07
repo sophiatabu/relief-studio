@@ -39,7 +39,7 @@ const $=id=>document.getElementById(id),defaults={...STUDIO.appearance,...LIGHT_
 const publicAsset=name=>new URL(`${import.meta.env.BASE_URL}assets/${name}`,window.location.href).href;
 const freshSettings=()=>({...defaults,renderMode:'physical',showLights:true});
 const freshSources=()=>STUDIO.sources.map(source=>({...source}));
-let settings=freshSettings(),assetKey='custom',asset=null,model=null,overrides={},busy=false,geometryTimer=null,buildVersion=0,loadVersion=0,exporting=false,desiredSamples=128,view='front';const cache=new Map();
+let settings=freshSettings(),assetKey='custom',asset=null,model=null,overrides={},busy=false,geometryTimer=null,buildVersion=0,loadVersion=0,exporting=false,desiredSamples=128;const cache=new Map();
 let materialUpdateTimer=null,lightUpdateTimer=null,detailEditing=false;
 let history=null,historyAsset=null,selection=null,activeSection="highlight",settingsVisible=true,pointerTransaction=false,keyTransaction=false;
 function checkpoint(){queueMicrotask(()=>history?.commit());}
@@ -298,12 +298,11 @@ for(const k of Object.keys(defaults).filter(k=>!sourceKeys.includes(k)))$(k).add
   cancelGeometryUpdate();geometryTimer=setTimeout(rebuild,180);
  }else if(['rimHighlight','rimHighlightWidth'].includes(k))updateRimHighlights();else if(['roughness','gloss','enamelSaturation','enamelBrightness'].includes(k))updateMaterials();else refreshLight();
 });
-document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll('[data-view]').forEach(el=>el.classList.toggle('active',el===b));camera.position.set(...(view==='front'?[0,0,7]:[2.5,-2.8,5.8]));camera.up.set(0,1,0);camera.zoom=1;controls.target.set(0,0,.04);camera.lookAt(controls.target);camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();});
 const oldReferences=$('referenceDialog'),referencePanel=document.createElement('section');referencePanel.id='referenceDialog';referencePanel.className='reference-sidebar';referencePanel.setAttribute('aria-label','Примеры ачивок');referencePanel.append(...oldReferences.childNodes);oldReferences.replaceWith(referencePanel);document.querySelector('.viewports').append(referencePanel);
 const referenceHeading=referencePanel.querySelector('.pane-label'),referenceZoom=referenceHeading.querySelector('.reference-zoom');referenceHeading.after(referenceZoom);$('closeReferences').removeAttribute('autofocus');
-referencePanel.querySelector('.reference-caption').textContent='Колёсико — прокрутка · Ctrl + колёсико — масштаб. Потяните картинку, чтобы переместить.';
-const referenceBoard=referencePanel.querySelector('.reference-board'),currentRenderFigure=document.createElement('figure'),currentRenderCanvas=document.createElement('canvas'),currentRenderContext=currentRenderCanvas.getContext('2d',{alpha:true});currentRenderFigure.className='current-render-reference';currentRenderFigure.hidden=true;currentRenderFigure.draggable=true;currentRenderCanvas.width=currentRenderCanvas.height=512;currentRenderCanvas.setAttribute('role','img');currentRenderCanvas.setAttribute('aria-label','Текущий рендер для сравнения. Перетащите, чтобы поставить рядом с нужным примером');currentRenderFigure.append(currentRenderCanvas);referenceBoard.prepend(currentRenderFigure);
-const compareRender=document.createElement('button');compareRender.type='button';compareRender.id='compareRender';compareRender.textContent='Посмотреть';compareRender.disabled=true;compareRender.title='Поставить текущий рендер рядом с примерами';compareRender.setAttribute('aria-label','Посмотреть текущий рендер рядом с примерами');document.querySelector('.stage-options').append(compareRender);
+referencePanel.querySelector('.reference-caption').textContent='Колёсико — прокрутка · Ctrl + колёсико — масштаб. Перетащите текущий значок между примерами.';
+const referenceBoard=referencePanel.querySelector('.reference-board'),currentRenderFigure=document.createElement('figure'),currentRenderCanvas=document.createElement('canvas'),currentRenderContext=currentRenderCanvas.getContext('2d',{alpha:true});currentRenderFigure.className='current-render-reference';currentRenderFigure.hidden=true;currentRenderCanvas.width=currentRenderCanvas.height=512;currentRenderCanvas.setAttribute('role','img');currentRenderCanvas.setAttribute('aria-label','Текущий рендер для сравнения. Перетащите, чтобы поставить рядом с нужным примером');currentRenderFigure.append(currentRenderCanvas);referenceBoard.prepend(currentRenderFigure);
+const compareRender=document.createElement('button');compareRender.type='button';compareRender.id='compareRender';compareRender.textContent='Сравнить с принятыми';compareRender.disabled=true;compareRender.title='Сравнить текущий значок с принятыми';compareRender.setAttribute('aria-label','Сравнить с принятыми');document.querySelector('.stage-options').append(compareRender);
 document.querySelector('header .head-actions').prepend($('showReferences'));$('showReferences').removeAttribute('aria-haspopup');
 function updateComparisonPreview(){
  if(referencePanel.hidden||!referencePanel.classList.contains('comparison-mode')||!model)return;
@@ -323,9 +322,42 @@ function updateComparisonPreview(){
  currentRenderContext.drawImage(source,sx,sy,cropSide,cropSide,padding,padding,size-padding*2,size-padding*2);
 }
 function centerComparisonCamera(){const center=new THREE.Vector3(0,0,.04),offset=camera.position.clone().sub(controls.target);controls.target.copy(center);camera.position.copy(center).add(offset);camera.zoom=1;camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();refreshResetVisibility();}
-function placeComparisonAt(x,y){const targets=Array.from(referenceBoard.children).filter(node=>node!==currentRenderFigure&&!node.hidden);let target=null,distance=Infinity;for(const node of targets){const r=node.getBoundingClientRect(),d=Math.hypot(x-(r.left+r.width/2),y-(r.top+r.height/2));if(d<distance){distance=d;target=node;}}if(!target)return;const r=target.getBoundingClientRect(),after=y>r.top+r.height/2||(Math.abs(y-(r.top+r.height/2))<r.height*.35&&x>r.left+r.width/2);referenceBoard.insertBefore(currentRenderFigure,after?target.nextSibling:target);}
-let comparisonDrag=null;currentRenderFigure.addEventListener('pointerdown',e=>{if(e.button!==0)return;comparisonDrag={id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};currentRenderFigure.setPointerCapture(e.pointerId);e.stopPropagation();});currentRenderFigure.addEventListener('pointermove',e=>{if(comparisonDrag?.id!==e.pointerId)return;e.stopPropagation();if(!comparisonDrag.moved&&Math.hypot(e.clientX-comparisonDrag.x,e.clientY-comparisonDrag.y)<=5)return;comparisonDrag.moved=true;currentRenderFigure.classList.add('dragging');placeComparisonAt(e.clientX,e.clientY);});function stopComparisonDrag(e){if(comparisonDrag?.id!==e.pointerId)return;e.stopPropagation();if(comparisonDrag.moved)placeComparisonAt(e.clientX,e.clientY);comparisonDrag=null;currentRenderFigure.classList.remove('dragging');if(currentRenderFigure.hasPointerCapture(e.pointerId))currentRenderFigure.releasePointerCapture(e.pointerId);}for(const event of ['pointerup','pointercancel','lostpointercapture'])currentRenderFigure.addEventListener(event,stopComparisonDrag);
-currentRenderFigure.addEventListener('dragstart',e=>{currentRenderFigure.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','current-render');});currentRenderFigure.addEventListener('dragend',()=>currentRenderFigure.classList.remove('dragging'));referenceBoard.addEventListener('dragover',e=>{if(!currentRenderFigure.classList.contains('dragging'))return;e.preventDefault();placeComparisonAt(e.clientX,e.clientY);});referenceBoard.addEventListener('drop',e=>{if(!currentRenderFigure.classList.contains('dragging'))return;e.preventDefault();placeComparisonAt(e.clientX,e.clientY);});
+function comparisonTarget(x,y){
+ const tile=document.elementFromPoint(x,y)?.closest('figure');
+ if(!tile||tile.parentElement!==referenceBoard||tile===currentRenderFigure)return null;
+ const bounds=tile.getBoundingClientRect();
+ return {tile,after:x>bounds.left+bounds.width/2};
+}
+let comparisonDrag=null;
+let dropTile=null;
+function highlightComparisonTarget(target){
+ dropTile?.classList.remove('drop-before','drop-after');
+ dropTile=target?.tile??null;
+ dropTile?.classList.add(target.after?'drop-after':'drop-before');
+}
+currentRenderFigure.addEventListener('pointerdown',e=>{
+ if(e.button!==0||comparisonDrag)return;
+ comparisonDrag={id:e.pointerId,x:e.clientX,y:e.clientY,moved:false};
+ currentRenderFigure.setPointerCapture(e.pointerId);
+ e.stopPropagation();
+});
+currentRenderFigure.addEventListener('pointermove',e=>{
+ if(comparisonDrag?.id!==e.pointerId)return;
+ if(!comparisonDrag.moved&&Math.hypot(e.clientX-comparisonDrag.x,e.clientY-comparisonDrag.y)<=5)return;
+ comparisonDrag.moved=true;
+ currentRenderFigure.classList.add('dragging');
+ highlightComparisonTarget(comparisonTarget(e.clientX,e.clientY));
+});
+function stopComparisonDrag(e){
+ if(comparisonDrag?.id!==e.pointerId)return;
+ const target=e.type==='pointerup'&&comparisonDrag.moved?comparisonTarget(e.clientX,e.clientY):null;
+ comparisonDrag=null;
+ currentRenderFigure.classList.remove('dragging');
+ highlightComparisonTarget(null);
+ if(currentRenderFigure.hasPointerCapture(e.pointerId))currentRenderFigure.releasePointerCapture(e.pointerId);
+ if(target)referenceBoard.insertBefore(currentRenderFigure,target.after?target.tile.nextElementSibling:target.tile);
+}
+for(const event of ['pointerup','pointercancel','lostpointercapture'])currentRenderFigure.addEventListener(event,stopComparisonDrag);
 function showReferences(open,compare=false){if(open&&compare&&model){currentRenderFigure.hidden=false;referencePanel.classList.add('comparison-mode');showColours(false);showSettings(true);centerComparisonCamera();requestAnimationFrame(updateComparisonPreview);}else{referencePanel.classList.remove('comparison-mode');if(!compare)currentRenderFigure.hidden=true;}referencePanel.hidden=!open;$('showReferences').setAttribute('aria-expanded',String(open&&!compare));compareRender.setAttribute('aria-expanded',String(open&&compare));if(open&&document.body.classList.contains('compact-workbench')&&!compare)showColours(false);}
 $('showReferences').onclick=()=>showReferences(referencePanel.hidden);compareRender.onclick=()=>showReferences(referencePanel.hidden||currentRenderFigure.hidden,true);$('closeReferences').onclick=()=>showReferences(false);showReferences(false);
 $('quality').onchange=()=>{desiredSamples=Number($('quality').value);syncPreviewResolution();};
@@ -340,7 +372,6 @@ const lightingReset=resetButton('Сбросить всё освещение',()=
 function resetColours(rimsOnly=false){if(!asset)return;for(const r of asset.regions)if(!rimsOnly||(overrides[r.id]?.role||r.role)==='rim'){if(overrides[r.id])delete overrides[r.id].color;}renderParts();updateMaterials();}
 $('rimColor').closest('label').after(resetButton('Сбросить цвет всего контура',()=>resetColours(true)));
 $('parts').before(resetButton('Сбросить все цвета',()=>resetColours()),resetButton('Сбросить все изменения деталей',()=>{overrides={};renderParts();rebuild();}));
-const viewReset=resetButton('Сбросить ракурс и масштаб',()=>document.querySelector('[data-view="front"]').click());document.querySelector('.segmented').append(viewReset);
 const oldColourPanel=document.querySelector('.material-editor');const colourPanel=document.createElement('section');colourPanel.className='material-editor colour-panel';oldColourPanel.querySelector('summary').remove();colourPanel.append(...oldColourPanel.childNodes);oldColourPanel.replaceWith(colourPanel);colourPanel.querySelector('p').textContent='Цвета деталей значка';
 const colourHeader=document.createElement('div');colourHeader.className='colour-panel-header';colourHeader.innerHTML='<strong>Цвета</strong><button type="button" aria-label="Закрыть панель цветов">×</button>';colourPanel.prepend(colourHeader);document.querySelector('.viewports').append(colourPanel);
 const colourToggle=document.createElement('button');colourToggle.type='button';colourToggle.id='showColours';colourToggle.textContent='Цвета';colourToggle.setAttribute('aria-controls','colourPanel');colourPanel.id='colourPanel';
@@ -358,7 +389,6 @@ function refreshResetVisibility(){
  const values=Object.values(overrides),colourDirty=values.some(value=>value.color!==undefined),detailDirty=values.some(value=>value.role!==undefined||value.lift!==undefined);showReset(allColourReset,colourDirty);showReset(allDetailReset,detailDirty);
  const rimColourReset=colourPanel.querySelector('[aria-label="Сбросить цвет всего контура"]'),rimIds=new Set(asset?.regions.filter(region=>(overrides[region.id]?.role||region.role)==='rim').map(region=>String(region.id))||[]);showReset(rimColourReset,Object.entries(overrides).some(([id,value])=>rimIds.has(id)&&value.color!==undefined));
  const contourBase=normalizeContour(null),contourDirty=Object.keys(contourBase).some(key=>contour[key]!==contourBase[key]);showReset($('resetButton'),formKeys.concat(materialKeys,'fill','exposure').some(key=>settings[key]!==base[key])||lightDirty||contourDirty||colourDirty||detailDirty);
- const target=controls.target;showReset(viewReset,view!=='front'||Math.abs(camera.zoom-1)>.001||camera.position.distanceTo(new THREE.Vector3(0,0,7))>.001||target.distanceTo(new THREE.Vector3(0,0,.04))>.001);
 }
 
 
@@ -371,7 +401,7 @@ recipe.querySelector('h2').textContent='По умолчанию';
 recipe.querySelector('p').textContent='Сочные поверхности, светлый металлический контур и мягкие контактные тени. Эти настройки открываются по умолчанию и возвращаются кнопками сброса.';
 recipe.querySelector('button').textContent='Вернуть настройки по умолчанию';
 const recipeFold=document.createElement('details');recipeFold.className='recipe-fold';const recipeSummary=document.createElement('summary');recipeSummary.textContent='Шаблон · По умолчанию';recipeFold.append(recipeSummary,recipe);
-recipeFold.hidden=true;projectBar.append($('chooseTestSVG'),sourcePreview);document.querySelector('header .head-actions').before(projectBar);document.querySelector('header .tag').remove();document.querySelector('.manual-settings>.light-help').textContent='Настройте свет и материалы значка.';
+recipeFold.hidden=true;projectBar.append($('chooseTestSVG'));document.querySelector('header .head-actions').before(projectBar);document.querySelector('header .tag').remove();document.querySelector('.manual-settings>.light-help').textContent='Настройте свет и материалы значка.';
 settingsPanel.querySelector(':scope > .eyebrow').remove();settingsPanel.querySelector(':scope > .divider').remove();
 const settingsHeader=document.createElement('div');settingsHeader.className='colour-panel-header';settingsHeader.innerHTML='<strong>Настройки</strong><button type="button" aria-label="Закрыть настройки">×</button>';settingsPanel.prepend(settingsHeader);document.querySelector('.viewports').prepend(settingsPanel);
 const settingsToggle=document.createElement('button');settingsToggle.id='showSettings';settingsToggle.textContent='Настройки';settingsToggle.setAttribute('aria-controls','settingsPanel');document.querySelector('.stage-options').prepend(settingsToggle);
@@ -460,17 +490,27 @@ for(const p of settingsPanel.querySelectorAll('p'))p.hidden=true;
 const pointsLabel=$('showLights').closest('label');pointsLabel.classList.add('points-toggle');pointsLabel.lastChild.textContent=' Показывать точки';document.querySelector('.stage-options').prepend(pointsLabel);
 $('viewport').append(pointsLabel);
 const viewControls=document.querySelector('.segmented');viewControls.classList.add('view-toggle-overlay');$('viewport').append(viewControls);
-const frontView=document.querySelector('[data-view="front"]'),angleView=document.querySelector('[data-view="angle"]');frontView.textContent='Спереди';frontView.title='Показать значок прямо';angleView.textContent='Объём';angleView.title='Показать значок под углом';
+$('resetRotation').onclick=()=>{
+ const distance=camera.position.distanceTo(controls.target);
+ camera.position.copy(controls.target);
+ camera.position.z+=distance;
+ camera.up.set(0,1,0);
+ controls.update();
+};
 const zoomControls=document.createElement('div');zoomControls.className='zoom-controls';zoomControls.setAttribute('role','group');zoomControls.setAttribute('aria-label','Масштаб значка');
 const zoomOut=document.createElement('button'),zoomValue=document.createElement('button'),zoomIn=document.createElement('button');zoomOut.type=zoomValue.type=zoomIn.type='button';zoomOut.textContent='−';zoomIn.textContent='+';zoomOut.setAttribute('aria-label','Уменьшить значок');zoomIn.setAttribute('aria-label','Увеличить значок');zoomValue.setAttribute('aria-label','Сбросить масштаб');zoomValue.title='Сбросить масштаб до 100%';
 function setPreviewZoom(next){camera.zoom=Math.max(controls.minZoom,Math.min(controls.maxZoom,next));camera.updateProjectionMatrix();controls.update();syncPreviewZoom();if(physical())tracer?.updateCamera();updateLightMarkers();resetTrace();refreshResetVisibility();}
 function syncPreviewZoom(){zoomValue.textContent=Math.round(camera.zoom*100)+'%';zoomOut.disabled=camera.zoom<=controls.minZoom+.001;zoomIn.disabled=camera.zoom>=controls.maxZoom-.001;}
 zoomOut.onclick=()=>setPreviewZoom(camera.zoom/1.2);zoomIn.onclick=()=>setPreviewZoom(camera.zoom*1.2);zoomValue.onclick=()=>setPreviewZoom(1);controls.addEventListener('change',syncPreviewZoom);syncPreviewZoom();zoomControls.append(zoomOut,zoomValue,zoomIn);$('viewport').append(zoomControls);
 const fileMenu=document.createElement('details');fileMenu.className='file-menu app-menu';fileMenu.innerHTML='<summary>Файл</summary><div class="file-menu-items app-menu-items"></div>';const fileItems=fileMenu.lastElementChild;
-const templateMenu=document.createElement('details');templateMenu.className='template-menu app-menu';templateMenu.innerHTML='<summary>Шаблон</summary><div class="template-menu-items app-menu-items"></div>';const templateItems=templateMenu.lastElementChild,applyStudioTemplate=document.createElement('button');applyStudioTemplate.type='button';applyStudioTemplate.textContent='Применить «По умолчанию»';applyStudioTemplate.onclick=applyDefaultTemplate;
-$('saveSettings').textContent='Сохранить текущий шаблон';$('loadRecipe').textContent='Открыть шаблон из файла';templateItems.append(applyStudioTemplate,$('saveSettings'),$('loadRecipe'));fileItems.append($('importButton'),$('fileInput'),$('exportButton'),$('exportModel'));document.querySelector('header .project-bar').prepend(fileMenu,templateMenu);
+const templateMenu=document.createElement('details');templateMenu.className='template-menu file-submenu';templateMenu.innerHTML='<summary>Шаблон</summary><div class="template-menu-items"></div>';const templateItems=templateMenu.lastElementChild,applyStudioTemplate=document.createElement('button');applyStudioTemplate.type='button';applyStudioTemplate.textContent='Применить «По умолчанию»';applyStudioTemplate.onclick=applyDefaultTemplate;
+$('saveSettings').textContent='Сохранить текущий шаблон';$('loadRecipe').textContent='Открыть шаблон из файла';templateItems.append(applyStudioTemplate,$('saveSettings'),$('loadRecipe'));fileItems.append($('importButton'),$('fileInput'),$('exportButton'),$('exportModel'));document.querySelector('header .project-bar').prepend(fileMenu);fileItems.append(templateMenu,sourcePreview);
 applyStudioTemplate.setAttribute('aria-label','Применить шаблон «По умолчанию»');$('saveSettings').setAttribute('aria-label','Сохранить текущий шаблон');$('loadRecipe').setAttribute('aria-label','Открыть шаблон из файла');$('exportModel').setAttribute('aria-label','Скачать 3D-модель');
-const appMenus=[fileMenu,templateMenu];for(const menu of appMenus){menu.addEventListener('toggle',()=>{if(menu.open)for(const other of appMenus)if(other!==menu)other.open=false;});menu.lastElementChild.addEventListener('click',()=>menu.open=false);}document.addEventListener('pointerdown',e=>{for(const menu of appMenus)if(!menu.contains(e.target))menu.open=false;});document.addEventListener('keydown',e=>{if(e.key==='Escape')for(const menu of appMenus)menu.open=false;});
+fileItems.addEventListener('click',e=>{
+ if(e.target.closest('button,a')&&!e.target.closest('.help-dot'))fileMenu.open=false;
+});
+document.addEventListener('pointerdown',e=>{if(!fileMenu.contains(e.target))fileMenu.open=false;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fileMenu.open=false;});
 const undoButton=document.createElement('button'),redoButton=document.createElement('button');undoButton.textContent='↶';redoButton.textContent='↷';undoButton.title='Отменить · Ctrl / Cmd + Z';redoButton.title='Повторить · Ctrl / Cmd + Shift + Z';undoButton.setAttribute('aria-label','Отменить');redoButton.setAttribute('aria-label','Повторить');const historyButtons=document.createElement('div');historyButtons.className='history-buttons';historyButtons.append(undoButton,redoButton);document.querySelector('header .head-actions').before(historyButtons);
 const readState=()=>({settings:Object.fromEntries([...appearanceKeys,'fill','exposure'].map(k=>[k,settings[k]])),sources:structuredClone(sources),contour:structuredClone(contour),overrides:structuredClone(overrides),detailAssignments:structuredClone(asset?.detailAssignments||null)});
 async function applyState(next){const before=readState();const detailChanged=JSON.stringify(before.detailAssignments)!==JSON.stringify(next.detailAssignments);if(detailChanged&&asset?.editablePaints){asset=next.detailAssignments?compileDetailAssignments(asset,next.detailAssignments):{...prepareAsset({...asset,detailAssignments:undefined}),sourceSVG:asset.sourceSVG};historyAsset=asset;}cancelGeometryUpdate();++buildVersion;busy=false;Object.assign(settings,next.settings);sources=structuredClone(next.sources);contour=structuredClone(next.contour);overrides=structuredClone(next.overrides);if(!sources.some(s=>s.id===selectedLight))selectedLight=sources[0]?.id;saveAppearance();saveLighting();saveContour();displayValues();contourControls.update();renderLightPicker();renderParts();const geometry=detailChanged||['rimWidthGain','bevel','dome'].some(k=>before.settings[k]!==settings[k])||asset?.regions.some(r=>['role','lift'].some(k=>before.overrides[r.id]?.[k]!==overrides[r.id]?.[k]));if(geometry)await rebuild();else if(before.settings.height!==settings.height){updateDepth();updateMaterials();}else if(appearanceKeys.some(k=>before.settings[k]!==next.settings[k])||JSON.stringify(before.overrides)!==JSON.stringify(next.overrides)||before.contour.enabled!==contour.enabled){light();updateMaterials();}else if(JSON.stringify(before.sources)!==JSON.stringify(next.sources)||before.settings.fill!==next.settings.fill||before.settings.exposure!==next.settings.exposure){refreshLight();}else{contourEffects.invalidate();contourEffects.redraw(contour);}updateLightMarkers();}

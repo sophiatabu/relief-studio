@@ -178,3 +178,11 @@ header:has(>.panel-switcher){gap:10px}.panel-switcher{flex:none}.panel-switcher>
 .detail-editor header{position:static;display:flex;align-items:center;gap:12px;padding:0;flex-wrap:wrap}.detail-editor h2{margin:0 auto 0 0;font-size:22px}
 .detail-editor button,.detail-editor select{background:#30382b;color:inherit;border:1px solid #59654b;border-radius:8px;padding:9px;cursor:pointer}.detail-editor button:disabled{opacity:.4;cursor:default}
 .detail-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.detail-tools label{display:flex;gap:8px;align-items:center}.detail-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px;min-height:0;flex:1}.detail-canvas{display:grid;place-items:center;background:#5e5e5e;border-radius:10px;min-height:0}.detail-canvas svg{width:100%;height:100%;max-height:65vh}.detail-canvas path{cursor:pointer}.detail-list{overflow:auto;min-height:0}.detail-editor .detail-item{display:flex;align-items:center;gap:8px;width:100%;margin-bottom:6px;text-align:left}.detail-item span:nth-child(2){flex:1;overflow-wrap:anywhere}.detail-item small{font-size:11px}.detail-editor .selected{border-color:#d2f39c;background:#425032}.detail-swatch{width:16px;height:16px;border-radius:4px;flex-shrink:0}.detail-editor footer{font-size:13px;min-height:20px}@media(max-width:700px){.detail-layout{grid-template-columns:minmax(0,1fr) 190px}.detail-editor{padding:10px}}
+
+.project-bar .file-menu[open]>.app-menu-items{max-height:min(75vh,600px);overflow:auto}
+.file-menu .file-submenu,.project-bar .file-menu .source-preview{width:100%;margin:0;padding:0;align-self:stretch}
+.file-menu .file-submenu>summary,.file-menu .source-preview>summary.has-ui-icon{width:auto;height:auto;min-height:38px;padding:9px 11px;font-size:12px;justify-content:flex-start;gap:9px;cursor:pointer}
+.file-menu .template-menu-items{padding-left:10px}
+.reference-sidebar.comparison-mode .reference-board .drop-before{box-shadow:inset 3px 0 #d0ef9e}
+.reference-sidebar.comparison-mode .reference-board .drop-after{box-shadow:inset -3px 0 #d0ef9e}
+@media(max-width:1180px){header .panel-switcher>#compareRender.has-ui-icon{width:auto;padding:0 8px;font-size:11px;gap:5px}}

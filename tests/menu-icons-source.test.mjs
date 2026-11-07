@@ -2,12 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 
-test('template actions live in their own menu beside File',async()=>{
+test('template actions live inside the File menu',async()=>{
  const main=await readFile(new URL('../src/main.js',import.meta.url),'utf8');
- assert.match(main,/templateMenu\.className='template-menu app-menu'/);
+ assert.match(main,/templateMenu\.className='template-menu file-submenu'/);
  assert.match(main,/templateItems\.append\(applyStudioTemplate,\$\('saveSettings'\),\$\('loadRecipe'\)\)/);
  assert.match(main,/fileItems\.append\(\$\('importButton'\),\$\('fileInput'\),\$\('exportButton'\),\$\('exportModel'\)\)/);
- assert.match(main,/prepend\(fileMenu,templateMenu\)/);
+ assert.match(main,/fileItems\.append\(templateMenu,sourcePreview\)/);
 });
 
 test('menus fit their labels and primary actions receive restrained line icons',async()=>{
