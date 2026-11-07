@@ -82,6 +82,23 @@ function ensureTracer(){
   contourEffects.attach(tracer,()=>({model,settings:contour}),16);}
  return tracer;
 }
+// GPU render targets lose their contents when WebGL restores a context.
+// Recreate the tracer (including its atlas hash cache and environment tables)
+// and invalidate cached contour passes before accumulating a new preview.
+let contextUnavailable=false;
+renderer.domElement.addEventListener('webglcontextlost',event=>{
+ event.preventDefault();contextUnavailable=true;
+ $('exportButton').disabled=true;$('status').textContent='Графический контекст потерян. Ожидаем восстановления…';
+});
+renderer.domElement.addEventListener('webglcontextrestored',()=>{
+ contextUnavailable=false;
+ try{
+  contourEffects.invalidateGeometry();
+  tracer?.dispose();tracer=null;
+  if(model){scene.updateMatrixWorld(true);ensureTracer().setScene(scene,camera);resetTrace();}
+ }catch(e){renderFailed=true;error(e);}
+});
+
 let lightDrag=null;
 const markers=document.createElement('div');markers.className='light-markers';$('viewport').append(markers);
 const contourMarkers=createContourMarkers($('viewport'),camera,controls,()=>({model,settings:contour,visible:settings.showLights}), (kind,angle)=>{contour[kind+'Angle']=angle;saveContour();contourControls.update();contourMarkers.update();contourEffects.invalidate();contourEffects.redraw(contour);},beginPointerHistory,endPointerHistory);
@@ -376,7 +393,7 @@ $('fileInput').onchange=async e=>{const previousAsset=asset,previousKey=assetKey
 const transparentLabel=document.createElement('label');transparentLabel.style.cssText='font-size:10px;color:#a6ae9c;display:flex;align-items:center;gap:6px';transparentLabel.innerHTML='<input type="checkbox" id="transparent" checked> Без фона';document.querySelector('.bottom-bar').prepend(transparentLabel);$('transparent').onchange=()=>{if($('transparent').checked)scene.remove(ground);else scene.add(ground);scene.background=$('transparent').checked?null:new THREE.Color(0x20221f);if(physical())ensureTracer().setScene(scene,camera);resetTrace();};
 transparentLabel.hidden=true;
 const exportDialog=createExportDialog(()=>({scene,camera,model,contour:structuredClone(contour),exposure:settings.exposure,name:assetKey}),value=>{exporting=value;controls.enabled=!value;document.querySelector('main').inert=value;document.querySelector('header').inert=value;$('exportButton').disabled=value;$('exportButton').textContent=value?'Рендерим PNG…':'Скачать PNG';},download);
-$('exportButton').onclick=()=>{if(!busy&&model)exportDialog.open();};
+$('exportButton').onclick=()=>{if(!busy&&!contextUnavailable&&model)exportDialog.open();};
 const renderIsHealthy=createRenderHealthCheck();
 let renderFailed=false,healthChecked=false;
 let lastProgress=0;
@@ -394,6 +411,7 @@ function requestRender(){renderScheduler.requestRender();}
 function startAnimation(){if(animationRunning)return;requestRender();}
 function animate(t){
  animationRunning=false;
+ if(contextUnavailable)return;
  if(!model||busy||exporting||detailEditing||document.hidden||renderFailed)return;
  if(!tracer)return;
  const tiles=exporting||activePointers.size?2:1;if(tiles!==lastTileCount){tracer.tiles.set(tiles,tiles);lastTileCount=tiles;}

@@ -101,3 +101,9 @@ Read `docs/SVG_GRADIENTS.md` before changing gradient/material code. `svg-appear
 054/059 validation order/color and 087 stroked alpha masks are corrected without loosening contour validation. Node suite now has 92 tests. Browser paint regression is `tools/svg-paint-qa.html`; full audit artifacts are outside the repo in `../relief-gradient-audit-2026-09-22/`. Refresh review render/result files only; preserve `comments.json`.
 
 GitHub Pages currently also runs the repository legacy branch deployment. The custom Vite deploy waits by querying Actions for `pages build and deployment` on the same commit to finish, then publishes dist. Do not restore competing push-triggered deployments: the legacy job can overwrite dist with unbuilt source. When repository Pages settings are switched exclusively to GitHub Actions, remove the legacy-wait step.
+
+## Чёрное превью после восстановления WebGL
+
+На проекте achievement-055 потеря и восстановление WebGL-контекста воспроизводили чёрный значок при 128/128. GPU терял содержимое атласа материалов и контурных буферов, а их кеши продолжали считать данные загруженными. Повторный расчёт камеры не восстанавливал ресурсы. Историческое событие потери контекста в исходной вкладке не было записано.
+
+При потере контекста превью останавливается. После восстановления приложение пересоздаёт трассировщик и обновляет контурные буферы из текущей модели. На двух последовательных циклах восстановления цвета вернулись, настройки и модель сохранились. Количество текстур (35) и геометрий (12) оставалось стабильным. Проверены 95 тестов и production build.
